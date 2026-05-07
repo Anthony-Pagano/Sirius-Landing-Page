@@ -12,10 +12,22 @@ export const landingContent = {
     primaryCta: "Request Early Access",
     secondaryCta: "See The Workflow",
   },
-  problemQuestions: [
-    "Why can AI write the document, but not print it?",
-    "Why can it design the object, but not upload and run the 3D print?",
-    "Why can it access your tools, but not coordinate your environment?",
+  problemMap: [
+    {
+      kicker: "Documents",
+      question: "Why can AI write the document, but not print it?",
+      visual: "printer",
+    },
+    {
+      kicker: "Fabrication",
+      question: "Why can it design the object, but not upload and print it?",
+      visual: "fabrication",
+    },
+    {
+      kicker: "Environment",
+      question: "Why can it access your tools, but not coordinate your environment?",
+      visual: "environment",
+    },
   ],
   thesis: {
     title: "Sirius is a declarative execution layer for software and the physical world.",
