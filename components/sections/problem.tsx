@@ -1,252 +1,202 @@
 "use client";
 
 import { motion } from "motion/react";
-import { useState } from "react";
 
-import { ProblemVisual } from "@/components/sirius/problem-visuals";
 import { Container } from "@/components/ui/container";
 import { SectionLabel } from "@/components/ui/section-label";
 import { landingContent } from "@/content/landing";
 import { cn } from "@/lib/utils";
 
+type ProblemMapItem = (typeof landingContent.problemMap)[number];
+
+const generatedItems = ["File", "Model", "Request"];
+const missingMileItems = ["Choose", "Approve", "Check", "Confirm"];
+const completedItems = ["Printed", "Fabricated", "Coordinated"];
+
 export function ProblemSection() {
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);
-
   return (
-    <section id="problem" className="scroll-mt-24 overflow-hidden border-y border-[var(--color-border)] bg-[var(--color-bg-soft)] py-16 md:py-24 lg:py-28">
+    <section id="problem" className="scroll-mt-24 border-y border-[var(--color-border)] bg-[var(--color-bg-soft)] py-16 md:py-24 lg:py-28">
       <Container>
-        <SectionLabel number="01">Why this exists</SectionLabel>
-        <div className="mt-6 max-w-3xl">
-          <h2 className="font-display text-3xl font-light leading-tight text-[var(--color-text-primary)] md:text-5xl">
-            The problem is not intelligence. It is follow-through.
-          </h2>
-          <p className="mt-5 text-lg leading-8 text-[var(--color-text-muted)]">
-            Most assistants generate answers and leave the operational handoff to the user. Sirius is designed around the gap between suggestion and completed action.
-          </p>
-        </div>
-
-        <div className="relative mt-14 hidden lg:block">
-          <div className="absolute bottom-16 left-1/2 top-16 w-px -translate-x-1/2 bg-[linear-gradient(180deg,transparent,rgba(var(--color-accent-rgb),0.34),transparent)]" />
-          <motion.div
-            className="absolute bottom-16 left-1/2 top-16 w-px -translate-x-1/2 bg-[linear-gradient(180deg,transparent,rgba(var(--color-accent-rgb),0.72),transparent)]"
-            animate={{ opacity: [0.16, 0.5, 0.16] }}
-            transition={{ duration: 4.8, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
-          />
-
-          <div className="space-y-12">
-            {landingContent.problemMap.map((item, index) => {
-              const isActive = activeIndex === index;
-              const visualFirst = index !== 1;
-
-              return (
-                <ProblemMapRow
-                  key={item.question}
-                  active={isActive}
-                  index={index}
-                  onEnter={() => setActiveIndex(index)}
-                  onLeave={() => setActiveIndex(null)}
-                  visualFirst={visualFirst}
-                  item={item}
-                />
-              );
-            })}
+        <div className="grid gap-10 lg:grid-cols-[minmax(300px,0.62fr)_minmax(0,1.38fr)] lg:items-start lg:gap-12 xl:gap-16">
+          <div className="lg:sticky lg:top-28">
+            <SectionLabel number="01">Why this exists</SectionLabel>
+            <p className="font-mono mt-7 text-xs uppercase tracking-[0.24em] text-[var(--color-accent)]">The missing mile</p>
+            <h2 className="font-display mt-4 max-w-[560px] text-4xl leading-[1.02] font-light text-balance text-[var(--color-text-primary)] md:text-5xl xl:text-[3.35rem]">
+              Generated is not done.
+            </h2>
+            <p className="mt-6 max-w-xl text-lg leading-8 text-[var(--color-text-muted)]">
+              AI can create the artifact. Sirius exists for the handoff after that: approvals, devices, status, and completion.
+            </p>
+            <div className="mt-7 max-w-xl border-l border-[rgba(var(--color-accent-rgb),0.34)] pl-5">
+              <p className="text-base leading-7 text-[var(--color-text-secondary)]">
+                The value is not another generated answer. It is a visible path from intent to finished work.
+              </p>
+            </div>
+            <div className="mt-8 inline-flex rounded-full border border-[var(--color-border)] bg-[var(--color-surface-inset)] px-4 py-2">
+              <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--color-text-secondary)]">
+                Output -&gt; handoff -&gt; outcome
+              </p>
+            </div>
           </div>
-        </div>
 
-        <div className="relative mt-12 lg:hidden">
-          <div className="absolute bottom-10 left-4 top-6 w-px bg-[linear-gradient(180deg,rgba(var(--color-accent-rgb),0.08),rgba(var(--color-accent-rgb),0.42),rgba(var(--color-accent-rgb),0.08))]" />
-          <motion.div
-            className="absolute bottom-10 left-4 top-6 w-px bg-[linear-gradient(180deg,transparent,rgba(var(--color-accent-rgb),0.86),transparent)]"
-            animate={{ opacity: [0.12, 0.45, 0.12] }}
-            transition={{ duration: 4.8, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
-          />
-          <div className="space-y-8">
-            {landingContent.problemMap.map((item, index) => (
-              <ProblemMobileNode
-                key={item.question}
-                active={activeIndex === index}
-                index={index}
-                item={item}
-                onEnter={() => setActiveIndex(index)}
-                onLeave={() => setActiveIndex(null)}
-              />
-            ))}
-          </div>
+          <MissingMilePanel />
         </div>
+        <ExampleBand />
       </Container>
     </section>
   );
 }
 
-type ProblemMapItem = (typeof landingContent.problemMap)[number];
-
-type ProblemMapRowProps = {
-  active: boolean;
-  index: number;
-  item: ProblemMapItem;
-  onEnter: () => void;
-  onLeave: () => void;
-  visualFirst: boolean;
-};
-
-function ProblemMapRow({ active, index, item, onEnter, onLeave, visualFirst }: ProblemMapRowProps) {
+function MissingMilePanel() {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 28 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.4 }}
-      transition={{ duration: 0.72, delay: index * 0.12, ease: "easeOut" }}
-      className="relative grid min-h-[220px] grid-cols-[1fr_108px_1fr] items-center gap-8"
-      onMouseEnter={onEnter}
-      onMouseLeave={onLeave}
-      onFocus={onEnter}
-      onBlur={onLeave}
-    >
-        <ConnectorBranch active={active} side="left" />
-        <ConnectorBranch active={active} side="right" />
-      <SpineNode active={active} label={(index + 1).toString().padStart(2, "0")} />
-
-      <div className={cn("flex", visualFirst ? "justify-end" : "justify-start")}>
-        {visualFirst ? (
-          <ProblemVisual type={item.visual} active={active} />
-        ) : (
-          <ProblemGapCard item={item} active={active} />
-        )}
-      </div>
-
-      <div />
-
-      <div className={cn("flex", visualFirst ? "justify-start" : "justify-end")}>
-        {visualFirst ? (
-          <ProblemGapCard item={item} active={active} />
-        ) : (
-          <ProblemVisual type={item.visual} active={active} />
-        )}
-      </div>
-    </motion.div>
-  );
-}
-
-function ProblemMobileNode({
-  active,
-  index,
-  item,
-  onEnter,
-  onLeave,
-}: {
-  active: boolean;
-  index: number;
-  item: ProblemMapItem;
-  onEnter: () => void;
-  onLeave: () => void;
-}) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 24 }}
+      initial={{ opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.28 }}
-      transition={{ duration: 0.64, delay: index * 0.1, ease: "easeOut" }}
-      className="relative grid grid-cols-[34px_1fr] gap-5"
-      onMouseEnter={onEnter}
-      onMouseLeave={onLeave}
-      onFocus={onEnter}
-      onBlur={onLeave}
+      transition={{ duration: 0.58, ease: [0.22, 1, 0.36, 1] }}
+      className="overflow-hidden rounded-[var(--radius-panel)] border border-[var(--color-border)] bg-[linear-gradient(180deg,var(--color-surface-raised),var(--color-surface))]"
     >
-      <div className="relative pt-7">
-        <div
-          className={cn(
-            "absolute left-4 top-8 h-px w-10 bg-[rgba(var(--color-accent-rgb),0.28)] transition duration-500",
-            active && "bg-[rgba(var(--color-accent-rgb),0.82)] shadow-[0_0_16px_rgba(var(--color-accent-strong-rgb),0.58)]",
-          )}
-        />
-        <div
-          className={cn(
-            "relative z-10 grid h-8 w-8 place-items-center rounded-full border text-[10px] text-[var(--color-text-muted)] transition duration-500",
-            active
-              ? "border-[rgba(var(--color-accent-rgb),0.8)] bg-[rgba(var(--color-accent-rgb),0.14)] text-[var(--color-text-primary)] shadow-[0_0_24px_rgba(var(--color-accent-strong-rgb),0.32)]"
-              : "border-[rgba(var(--color-accent-rgb),0.24)] bg-[var(--color-surface-elevated)]",
-          )}
-        >
-          {(index + 1).toString().padStart(2, "0")}
-        </div>
+      <div className="border-b border-[var(--color-border)] p-5 md:p-6">
+        <p className="font-mono text-xs uppercase tracking-[0.22em] text-[var(--color-accent)]">From output to outcome</p>
+        <h3 className="font-display mt-3 max-w-2xl text-2xl leading-tight font-light text-[var(--color-text-primary)] md:text-[2rem]">
+          The product lives where assistants usually stop.
+        </h3>
       </div>
 
-      <div className="space-y-5">
-        <ProblemGapCard item={item} active={active} />
-        <ProblemVisual type={item.visual} active={active} />
+      <div className="grid gap-4 p-5 md:p-6 lg:grid-cols-3 lg:items-stretch">
+        <MileColumn label="Generated" items={generatedItems} />
+        <MileColumn label="Missing mile" items={missingMileItems} emphasis />
+        <MileColumn label="Completed" items={completedItems} resolved />
       </div>
     </motion.div>
   );
 }
 
-function ProblemGapCard({ item, active }: { item: ProblemMapItem; active: boolean }) {
+function MileColumn({
+  label,
+  items,
+  emphasis = false,
+  resolved = false,
+}: {
+  label: string;
+  items: string[];
+  emphasis?: boolean;
+  resolved?: boolean;
+}) {
   return (
-    <article
-      tabIndex={0}
+    <div
       className={cn(
-        "max-w-[440px] rounded-[var(--radius-panel)] border bg-[var(--color-surface-panel)] p-6 outline-none backdrop-blur-xl transition duration-500 focus-visible:ring-2 focus-visible:ring-[var(--color-focus)]",
-        active
-          ? "border-[rgba(var(--color-accent-rgb),0.52)] shadow-[0_0_54px_rgba(var(--color-accent-strong-rgb),0.16)]"
-          : "border-[var(--color-border)] shadow-[0_0_40px_var(--color-shadow-problem-card)]",
+        "rounded-[18px] border border-[var(--color-border)] bg-[var(--color-surface-inset)] p-4 md:p-5",
+        emphasis && "border-[rgba(var(--color-warm-rgb),0.24)] bg-[rgba(var(--color-warm-rgb),0.065)]",
+        resolved && "border-[rgba(var(--color-accent-rgb),0.24)]",
       )}
     >
-      <div>
-        <p className="font-mono text-xs uppercase tracking-[0.24em] text-[var(--color-accent)]">{item.kicker}</p>
-        <h3 className="mt-3 text-lg font-light leading-snug text-[var(--color-text-primary)] md:text-xl">{item.question}</h3>
+      <p
+        className={cn(
+          "font-mono text-[10px] uppercase tracking-[0.2em]",
+          emphasis ? "text-[var(--color-warning)]" : resolved ? "text-[var(--color-accent)]" : "text-[var(--color-text-faint)]",
+        )}
+      >
+        {label}
+      </p>
+      <div className="mt-5 flex flex-wrap gap-2 lg:grid">
+        {items.map((item) => (
+          <span
+            key={item}
+            className="rounded-full border border-[var(--color-border)] bg-[rgba(255,255,255,0.035)] px-3 py-1.5 text-sm text-[var(--color-text-secondary)]"
+          >
+            {item}
+          </span>
+        ))}
       </div>
-      <dl className="mt-6 grid gap-3">
-        <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-inset)] p-4">
-          <dt className="font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--color-text-faint)]">Current AI gap</dt>
-          <dd className="mt-2 text-sm leading-6 text-[var(--color-text-secondary)]">{item.gap}</dd>
+    </div>
+  );
+}
+
+function ExampleBand() {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.58, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
+      className="mt-8"
+    >
+      <div className="mb-4 flex flex-col justify-between gap-3 border-t border-[var(--color-border)] pt-5 md:flex-row md:items-end">
+        <div>
+          <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--color-accent)]">Missing mile examples</p>
+          <h3 className="font-display mt-2 text-2xl font-light leading-tight text-[var(--color-text-primary)] md:text-3xl">
+            The same pattern across software, devices, and environment.
+          </h3>
         </div>
-        <div className="rounded-2xl border border-[var(--color-accent)]/22 bg-[var(--color-accent-soft)] p-4">
-          <dt className="font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--color-accent)]">
-            Sirius follow-through
-          </dt>
-          <dd className="mt-2 text-sm leading-6 text-[var(--color-text-secondary)]">{item.followThrough}</dd>
-        </div>
-        <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-inset)] p-4">
-          <dt className="font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--color-text-faint)]">Surface affected</dt>
-          <dd className="mt-2 text-sm leading-6 text-[var(--color-text-secondary)]">{item.surface}</dd>
-        </div>
-      </dl>
+        <p className="max-w-md text-sm leading-6 text-[var(--color-text-muted)]">
+          Each starts as an AI output. Sirius carries the handoff until there is visible completion.
+        </p>
+      </div>
+      <div className="grid gap-4 lg:grid-cols-3">
+        {landingContent.problemMap.map((item, index) => (
+          <ExampleCard key={item.kicker} item={item} index={index} />
+        ))}
+      </div>
+    </motion.div>
+  );
+}
+
+function ExampleCard({ item, index }: { item: ProblemMapItem; index: number }) {
+  return (
+    <article className="rounded-[18px] border border-[var(--color-border)] bg-[var(--color-surface-inset)] p-4 transition-[border-color,box-shadow] duration-[220ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:border-[rgba(var(--color-accent-rgb),0.3)] hover:shadow-[0_0_18px_rgba(var(--color-accent-rgb),0.07)]">
+      <div className="flex items-center justify-between gap-3">
+        <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--color-accent)]">{item.kicker}</p>
+        <CompactMark index={index} visual={item.visual} />
+      </div>
+      <p className="mt-4 min-h-[72px] text-sm leading-6 text-[var(--color-text-secondary)]">{item.summary}</p>
+      <div className="mt-4 grid gap-2">
+        <ExampleStep label="AI" value={item.generated} />
+        <ExampleStep label="Mile" value={item.missing} emphasis />
+        <ExampleStep label="Done" value={item.completed} resolved />
+      </div>
     </article>
   );
 }
 
-function ConnectorBranch({ active, side }: { active: boolean; side: "left" | "right" }) {
+function ExampleStep({
+  label,
+  value,
+  emphasis = false,
+  resolved = false,
+}: {
+  label: string;
+  value: string;
+  emphasis?: boolean;
+  resolved?: boolean;
+}) {
   return (
-    <div
-      className={cn(
-        "absolute top-1/2 h-px w-[calc(50%_-_54px)] -translate-y-1/2 overflow-hidden transition duration-500",
-        side === "left" ? "left-0" : "right-0",
-        active
-          ? "bg-[linear-gradient(90deg,transparent,rgba(var(--color-accent-rgb),0.86),transparent)] shadow-[0_0_18px_rgba(var(--color-accent-strong-rgb),0.56)]"
-          : "bg-[linear-gradient(90deg,transparent,rgba(var(--color-accent-rgb),0.24),transparent)]",
-      )}
-    >
-      <motion.span
-        className="absolute inset-y-0 w-1/3 bg-[linear-gradient(90deg,transparent,rgba(var(--color-accent-rgb),0.7),transparent)]"
-        animate={{ x: side === "left" ? ["240%", "-40%"] : ["-40%", "240%"], opacity: active ? [0.28, 0.9, 0.28] : [0.08, 0.22, 0.08] }}
-        transition={{ duration: active ? 1.9 : 4.8, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
-      />
+    <div className="flex items-center justify-between gap-3 rounded-full border border-[var(--color-border)] bg-[rgba(255,255,255,0.025)] px-3 py-1.5">
+      <p
+        className={cn(
+          "font-mono text-[10px] uppercase tracking-[0.18em]",
+          emphasis ? "text-[var(--color-warning)]" : resolved ? "text-[var(--color-accent)]" : "text-[var(--color-text-faint)]",
+        )}
+      >
+        {label}
+      </p>
+      <p className="text-right text-sm text-[var(--color-text-secondary)]">{value}</p>
     </div>
   );
 }
 
-function SpineNode({ active, label }: { active: boolean; label: string }) {
+function CompactMark({ index, visual }: { index: number; visual: ProblemMapItem["visual"] }) {
+  const labels = {
+    printer: "doc",
+    fabrication: "cad",
+    environment: "ctx",
+  };
+
   return (
-    <div className="absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2">
-      <div
-        className={cn(
-          "grid h-12 w-12 place-items-center rounded-full border bg-[var(--color-surface-elevated)] text-[10px] text-[var(--color-text-muted)] transition duration-500",
-          active
-            ? "border-[rgba(var(--color-accent-rgb),0.8)] text-[var(--color-text-primary)] shadow-[0_0_34px_rgba(var(--color-accent-strong-rgb),0.38)]"
-            : "border-[rgba(var(--color-accent-rgb),0.26)]",
-        )}
-      >
-        {label}
-      </div>
-    </div>
+    <span className="inline-flex h-8 shrink-0 items-center gap-2 rounded-full border border-[var(--color-border)] bg-[var(--color-surface-inset)] px-3">
+      <span className="font-mono text-[10px] text-[var(--color-text-faint)]">{(index + 1).toString().padStart(2, "0")}</span>
+      <span className="h-1 w-1 rounded-full bg-[var(--color-accent)]" />
+      <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-[var(--color-text-secondary)]">{labels[visual]}</span>
+    </span>
   );
 }
