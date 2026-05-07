@@ -1,35 +1,55 @@
-import { Orb } from "@/components/sirius/orb";
-import { WaitlistForm } from "@/components/ui/waitlist-form";
+"use client";
+
+import { motion, useReducedMotion } from "motion/react";
+
 import { landingContent } from "@/content/landing";
+import { Orb } from "@/components/sirius/orb";
+import { SectionLabel } from "@/components/ui/section-label";
+import { WaitlistForm } from "@/components/ui/waitlist-form";
+
+const { cta } = landingContent;
 
 export function FinalCtaSection() {
+  const reducedMotion = useReducedMotion();
+
+  const fadeUp = (delay: number) =>
+    reducedMotion
+      ? {}
+      : {
+          initial: { opacity: 0, y: 18 },
+          whileInView: { opacity: 1, y: 0 },
+          viewport: { once: true, margin: "-15%" },
+          transition: { duration: 0.6, delay, ease: [0.25, 0.1, 0.25, 1] as [number, number, number, number] },
+        };
+
   return (
     <section
       id="cta"
-      className="relative isolate scroll-mt-24 overflow-hidden border-t border-[var(--color-border)] bg-[var(--color-bg-deep)] px-6 py-20 md:px-10 md:py-24 lg:min-h-screen lg:py-28"
+      className="relative isolate scroll-mt-24 border-t border-[var(--color-border)] bg-[var(--color-bg-primary)] px-6 py-24 md:px-10 md:py-32 lg:min-h-[80vh] lg:py-36"
     >
-      <div className="pointer-events-none absolute inset-0 -z-20 bg-[radial-gradient(ellipse_at_50%_60%,rgba(var(--color-accent-rgb),0.13),rgba(9,18,30,0.46)_34%,transparent_72%)]" />
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_center,rgba(var(--color-accent-rgb),0.1)_1px,transparent_1.5px)] bg-[size:48px_48px] opacity-35 [mask-image:linear-gradient(180deg,transparent,black_18%,black_82%,transparent)]" />
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_50%_36%,rgba(0,0,0,0.7)_0%,rgba(0,0,0,0.45)_32%,transparent_72%)]" />
 
-      <div className="mx-auto flex min-h-[calc(100svh-10rem)] max-w-[1500px] flex-col items-center justify-center text-center">
-        <div className="relative mb-6 grid h-[210px] place-items-center md:mb-8 md:h-[260px]">
-          <div className="pointer-events-none absolute h-[clamp(250px,28vw,420px)] w-[clamp(250px,28vw,420px)] rounded-full bg-[radial-gradient(circle,rgba(var(--color-accent-rgb),0.17),transparent_62%)] blur-xl" />
-          <Orb className="h-[clamp(180px,20vw,260px)] w-[clamp(180px,20vw,260px)]" />
+      <div className="mx-auto flex max-w-[840px] flex-col items-center text-center">
+        <div className="mb-12 md:mb-16">
+          <Orb className="!h-[clamp(220px,26vw,320px)] !w-[clamp(220px,26vw,320px)]" />
         </div>
 
-        <h2 className="font-display max-w-[1500px] text-[clamp(2.85rem,9.2vw,9.4rem)] leading-[0.96] font-light tracking-normal text-balance text-[var(--color-text-primary)]">
-          <span className="block md:inline">[ {landingContent.cta.title} ]</span>
-        </h2>
-        <p className="mt-7 max-w-3xl text-lg leading-8 text-[var(--color-text-secondary)] md:text-2xl">
-          {landingContent.cta.description}
-        </p>
+        <SectionLabel tone="cyan">{cta.sectionLabel}</SectionLabel>
 
-        <div className="mt-10 w-full max-w-2xl">
+        <motion.h2
+          {...fadeUp(0.1)}
+          className="font-display mt-5 text-balance font-normal text-[var(--color-text-primary)]"
+          style={{ fontSize: "clamp(3rem, 9vw, 7.5rem)", lineHeight: "0.9", letterSpacing: "-0.032em" }}
+        >
+          Meet{" "}
+          <em className="font-display-italic not-italic" style={{ color: "var(--color-warm)" }}>
+            Sirius.
+          </em>
+        </motion.h2>
+
+        <motion.div {...fadeUp(0.2)} className="mt-12 w-full max-w-[480px]">
           <WaitlistForm />
-        </div>
-        <p className="font-mono mt-9 text-xs uppercase tracking-[0.26em] text-[var(--color-text-faint)] md:text-sm">
-          [{landingContent.cta.note}]
-        </p>
+        </motion.div>
       </div>
     </section>
   );

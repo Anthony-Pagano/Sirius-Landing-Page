@@ -1,272 +1,234 @@
 "use client";
 
-import { motion } from "motion/react";
+import { motion, useReducedMotion, type Variants } from "motion/react";
 
+import { landingContent } from "@/content/landing";
 import { Orb } from "@/components/sirius/orb";
+import { useOrbAudio } from "@/components/sirius/orb-audio-context";
 import { ButtonLink } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
-import { SectionLabel } from "@/components/ui/section-label";
-import { landingContent } from "@/content/landing";
 
-const heroWorkflow = ["Speak", "Plan", "Approve", "Act"];
+function MicTrigger() {
+  const { state, requestPermission } = useOrbAudio();
+  const { micPrompt, micPrivacy } = landingContent.hero;
+
+  const showButton = state === "idle";
+  const showRequesting = state === "requesting";
+  const showListening = state === "granted";
+  // denied / unsupported / reduced-motion: hide button, still show privacy line
+
+  return (
+    <div className="mt-5 flex flex-col items-center gap-1.5">
+      {showListening && (
+        <span
+          className="font-mono text-[11px] tracking-wide"
+          style={{ color: "var(--color-success)" }}
+        >
+          Listening.
+        </span>
+      )}
+
+      {showRequesting && (
+        <span
+          className="text-[11px]"
+          style={{ color: "var(--color-text-muted)" }}
+        >
+          Requesting permission…
+        </span>
+      )}
+
+      {showButton && (
+        <button
+          type="button"
+          onClick={() => void requestPermission()}
+          className="rounded-sm text-[11px] text-[var(--color-text-muted)] underline-offset-2 decoration-[var(--color-text-faint)] transition-colors duration-200 hover:text-[var(--color-text-secondary)] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-bg)]"
+        >
+          {micPrompt}
+        </button>
+      )}
+
+      <p
+        className="max-w-[260px] text-center text-[11px] leading-snug"
+        style={{ color: "var(--color-text-muted)" }}
+      >
+        {micPrivacy}
+      </p>
+    </div>
+  );
+}
+
+const orbVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { duration: 0.9, ease: "easeOut" } },
+};
+
+const line1Variants: Variants = {
+  hidden: { clipPath: "inset(0 0 100% 0)" },
+  visible: {
+    clipPath: "inset(0 0 0% 0)",
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
+const line2Variants: Variants = {
+  hidden: { clipPath: "inset(0 0 100% 0)" },
+  visible: {
+    clipPath: "inset(0 0 0% 0)",
+    transition: { duration: 0.6, delay: 0.12, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
+const subheadVariants: Variants = {
+  hidden: { opacity: 0, y: 10 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, delay: 0.28, ease: "easeOut" },
+  },
+};
+
+const ctaVariants: Variants = {
+  hidden: { opacity: 0, y: 10 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, delay: 0.36, ease: "easeOut" },
+  },
+};
 
 export function HeroSection() {
+  const shouldReduceMotion = useReducedMotion();
+  const { description, primaryCta } = landingContent.hero;
+
+  // When reduced motion is preferred, skip animation by omitting initial/animate.
+  // The variants are still valid objects; the motion elements render in final state.
+  const motionState = shouldReduceMotion
+    ? { initial: undefined as undefined, animate: undefined as undefined }
+    : { initial: "hidden" as const, animate: "visible" as const };
+
   return (
-    <section id="hero" className="relative scroll-mt-24 overflow-hidden pt-12 pb-14 md:pt-16 md:pb-20 lg:min-h-[calc(100svh-64px)] lg:py-14">
-      <div className="pointer-events-none absolute left-1/2 top-0 h-[820px] w-[min(1240px,124vw)] -translate-x-1/2 bg-[radial-gradient(ellipse_at_50%_38%,rgba(var(--color-accent-strong-rgb),0.08),rgba(var(--color-warm-rgb),0.026)_36%,transparent_66%)]" />
-      <Container className="relative grid items-center gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:gap-10 xl:gap-12">
-        <div className="relative z-10 max-w-[560px]">
-          <SectionLabel number="00">Voice-first execution layer</SectionLabel>
-          <motion.h1
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
-            className="font-display mt-5 max-w-[560px] text-5xl leading-[0.96] font-light text-balance text-[var(--color-text-primary)] sm:text-6xl md:text-[4.75rem] xl:text-[4.9rem]"
-          >
-            {landingContent.hero.title}
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.12, ease: "easeOut" }}
-            className="mt-5 max-w-xl text-lg leading-8 text-[var(--color-text-secondary)] md:text-xl"
-          >
-            {landingContent.hero.description}
-          </motion.p>
-          <motion.div
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.16, ease: "easeOut" }}
-          >
-            <HeroPathStrip />
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.22, ease: "easeOut" }}
-            className="mt-8 flex flex-col gap-3 sm:flex-row"
-          >
-            <ButtonLink href="#cta">{landingContent.hero.primaryCta}</ButtonLink>
-            <ButtonLink href="#demo" variant="secondary">
-              {landingContent.hero.secondaryCta}
-            </ButtonLink>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.3, ease: "easeOut" }}
-            className="mt-7 grid gap-3 sm:grid-cols-3 lg:max-w-[620px]"
-          >
-            {landingContent.hero.proofPoints.map((point) => (
-              <div
-                key={point.label}
-                className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-3 text-sm leading-5 text-[var(--color-text-secondary)]"
-              >
-                <span className="mb-2 block h-1.5 w-1.5 rounded-full bg-[var(--color-accent)] shadow-[0_0_10px_var(--color-accent)]" />
-                <span className="block font-medium text-[var(--color-text-primary)]">{point.label}</span>
-                <span className="mt-1 block text-[13px] leading-5 text-[var(--color-text-muted)]">{point.detail}</span>
-              </div>
-            ))}
-          </motion.div>
-          <motion.p
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.34, ease: "easeOut" }}
-            className="font-mono mt-6 border-t border-[var(--color-border)] pt-4 text-xs uppercase tracking-[0.18em] text-[var(--color-text-faint)]"
-          >
-            {landingContent.hero.trustLine}
-          </motion.p>
+    <section
+      id="hero"
+      className="relative scroll-mt-24 overflow-hidden pt-16 pb-20 md:pt-20 md:pb-24 lg:min-h-[calc(100svh-56px)] lg:pt-24 lg:pb-20"
+    >
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-0 h-2/3"
+        style={{
+          background:
+            "radial-gradient(ellipse at 50% 30%, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.45) 32%, transparent 72%)",
+        }}
+      />
+
+      <Container className="relative">
+        <div className="grid items-center gap-10 md:grid-cols-[1fr_auto_1fr] md:gap-12 lg:gap-16">
+          <div className="order-2 md:order-1 md:text-right">
+            <p className="inline-flex items-center gap-3 text-[11px] font-medium uppercase tracking-[0.22em] text-[var(--color-text-muted)]">
+              <span aria-hidden="true" className="inline-block h-px w-8 bg-[var(--color-border-strong)]" />
+              <span>An assistant in private beta</span>
+            </p>
+            <p className="mt-4 font-display-italic text-[clamp(0.95rem,1.2vw,1.05rem)] leading-[1.4] text-[var(--color-text-muted)]">
+              vol. 01 · the orb
+            </p>
+          </div>
+
+          <div className="relative order-1 flex flex-col items-center md:order-2">
+            <motion.div
+              initial={motionState.initial}
+              animate={motionState.animate}
+              variants={orbVariants}
+              className="relative"
+              style={{ width: "clamp(240px, 26vw, 340px)", height: "clamp(240px, 26vw, 340px)" }}
+            >
+              <Orb className="!h-full !w-full" />
+            </motion.div>
+
+            <MicTrigger />
+          </div>
+
+          <div className="order-3 md:order-3 md:text-left">
+            <p className="inline-flex items-center gap-3 text-[11px] font-medium uppercase tracking-[0.22em] text-[var(--color-text-muted)]">
+              <span>private · local · yours</span>
+              <span aria-hidden="true" className="inline-block h-px w-8 bg-[var(--color-border-strong)]" />
+            </p>
+            <p className="mt-4 font-display-italic text-[clamp(0.95rem,1.2vw,1.05rem)] leading-[1.4] text-[var(--color-text-muted)]">
+              by sirius — for one
+            </p>
+          </div>
         </div>
-        <motion.div
-          initial={{ opacity: 0, scale: 0.92 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.9, delay: 0.18, ease: "easeOut" }}
-          className="relative w-full max-w-[720px] justify-self-end"
-        >
-          <HeroExecutionArtifact />
-        </motion.div>
+
+        <div className="mt-14 md:mt-20 text-center">
+          <h1 className="font-display text-balance font-normal text-[var(--color-text-primary)]" style={{ fontSize: "clamp(3.2rem, 11vw, 9.5rem)", lineHeight: "0.9", letterSpacing: "-0.035em" }}>
+            <motion.span
+              className="block"
+              initial={motionState.initial}
+              animate={motionState.animate}
+              variants={line1Variants}
+            >
+              An assistant.
+            </motion.span>
+            <motion.span
+              className="block"
+              initial={motionState.initial}
+              animate={motionState.animate}
+              variants={line2Variants}
+              style={{ color: "var(--color-warm)" }}
+            >
+              <em className="font-display-italic not-italic">In the proper sense.</em>
+            </motion.span>
+          </h1>
+
+          <motion.p
+            className="mx-auto mt-8 max-w-[560px] text-[clamp(1rem,1.4vw,1.18rem)] leading-[1.55] text-[var(--color-text-secondary)]"
+            initial={motionState.initial}
+            animate={motionState.animate}
+            variants={subheadVariants}
+          >
+            {description}
+          </motion.p>
+
+          <motion.div
+            className="mt-10 flex items-center justify-center gap-5"
+            initial={motionState.initial}
+            animate={motionState.animate}
+            variants={ctaVariants}
+          >
+            <ButtonLink href="#cta" variant="primary">
+              <span className="inline-flex items-center gap-2">
+                {primaryCta}
+                <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-0.5">↗</span>
+              </span>
+            </ButtonLink>
+            <a
+              href="#workflows"
+              className="text-[13px] text-[var(--color-text-secondary)] underline-offset-[6px] transition hover:text-[var(--color-text-primary)] hover:underline"
+              style={{ textDecorationColor: "var(--color-border-strong)" }}
+            >
+              read the thesis
+            </a>
+          </motion.div>
+        </div>
       </Container>
+
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5">
+        <span className="text-[11px] font-medium uppercase tracking-[0.2em] text-[var(--color-text-muted)]">
+          more below
+        </span>
+        <svg
+          width="14"
+          height="9"
+          viewBox="0 0 16 10"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+          className="text-[var(--color-text-faint)] motion-safe:animate-bounce"
+        >
+          <path d="M2 2 L8 8 L14 2" />
+        </svg>
+      </div>
     </section>
   );
-}
-
-function HeroPathStrip() {
-  return (
-    <div className="mt-7 max-w-xl rounded-full border border-[var(--color-border)] bg-[var(--color-surface-inset)] px-3 py-2">
-      <div className="grid grid-cols-4 items-center gap-1">
-        {heroWorkflow.map((step, index) => (
-          <div key={step} className="flex items-center gap-2">
-            <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full border border-[rgba(var(--color-accent-rgb),0.32)] bg-[var(--color-accent-soft)] font-mono text-[10px] text-[var(--color-accent)]">
-              {(index + 1).toString().padStart(2, "0")}
-            </span>
-            <span className="truncate font-mono text-[10px] uppercase tracking-[0.16em] text-[var(--color-text-secondary)]">{step}</span>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function HeroExecutionArtifact() {
-  const { command } = landingContent.hero;
-
-  return (
-    <div className="relative rounded-[24px] border border-[var(--color-border-strong)] bg-[var(--color-surface-panel)] p-3 shadow-[var(--shadow-panel)] backdrop-blur-xl md:p-4">
-      <div className="absolute -inset-px rounded-[28px] bg-[linear-gradient(135deg,rgba(var(--color-accent-rgb),0.22),transparent_34%,rgba(var(--color-warm-rgb),0.12)_78%,transparent)] opacity-60" />
-      <div className="relative overflow-hidden rounded-[20px] border border-[var(--color-border)] bg-[var(--color-surface-elevated)]">
-        <div className="flex items-center justify-between border-b border-[var(--color-border)] px-4 py-3">
-          <div className="flex items-center gap-2">
-            <span className="h-2.5 w-2.5 rounded-full bg-[var(--color-error)]/80" />
-            <span className="h-2.5 w-2.5 rounded-full bg-[var(--color-warning)]/80" />
-            <span className="h-2.5 w-2.5 rounded-full bg-[var(--color-success)]/80" />
-          </div>
-          <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--color-text-faint)]">
-            Operator preview · 14:32
-          </span>
-        </div>
-
-        <div className="border-b border-[var(--color-border)] px-4 py-3">
-          <div className="grid gap-2 sm:grid-cols-4">
-            {heroWorkflow.map((step, index) => (
-              <div key={step} className="rounded-full border border-[var(--color-border)] bg-[var(--color-surface-inset)] px-3 py-2">
-                <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-[var(--color-text-faint)]">
-                  {index === 0 ? "Voice" : index === 1 ? "Workflow" : index === 2 ? "Gate" : "Action"}
-                </p>
-                <p className="mt-1 text-xs text-[var(--color-text-primary)]">{step}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="grid gap-0 lg:grid-cols-[220px_1fr]">
-          <div className="border-b border-[var(--color-border)] p-4 lg:border-r lg:border-b-0">
-            <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-raised)] p-4">
-              <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-[var(--color-accent)]">
-                Voice request
-              </p>
-              <p className="mt-3 text-base leading-7 text-[var(--color-text-primary)]">{`"${command.prompt}"`}</p>
-            </div>
-            <div className="mt-4 grid grid-cols-2 gap-3">
-              <ArtifactMetric label="Status" value={command.status} />
-              <ArtifactMetric label="Route" value={command.route} />
-            </div>
-            <div className="mt-4 rounded-2xl border border-[var(--color-warning)]/24 bg-[var(--color-warm-soft)] p-4">
-              <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--color-warning)]">
-                Confirmation rule
-              </p>
-              <p className="mt-2 text-sm leading-5 text-[var(--color-text-muted)]">
-                External send, purchase, print, deploy, or device actuation requires human approval.
-              </p>
-            </div>
-          </div>
-          <div className="relative min-h-[350px] p-4 lg:min-h-[390px]">
-            <HeroOrbFrame />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function ArtifactMetric({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-inset)] p-3">
-      <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--color-text-faint)]">{label}</p>
-      <p className="mt-2 text-sm leading-5 text-[var(--color-text-secondary)]">{value}</p>
-    </div>
-  );
-}
-
-function HeroOrbFrame() {
-  const labels = landingContent.hero.ringLabels;
-
-  return (
-    <div className="relative grid min-h-[330px] w-full place-items-center overflow-visible sm:min-h-[390px] lg:min-h-[390px]">
-      <div className="absolute h-[clamp(300px,54vw,420px)] w-[clamp(300px,54vw,420px)] rounded-full border border-[var(--color-border)]" />
-      <div className="absolute h-[clamp(230px,42vw,320px)] w-[clamp(230px,42vw,320px)] rounded-full border border-dashed border-[var(--color-border-strong)]" />
-      <div className="absolute h-[clamp(170px,32vw,250px)] w-[clamp(170px,32vw,250px)] rounded-full border border-[var(--color-border)]" />
-      <div className="absolute h-[clamp(280px,48vw,390px)] w-[clamp(280px,48vw,390px)] rounded-full bg-[radial-gradient(circle,rgba(var(--color-accent-rgb),0.075),transparent_62%)] blur-sm" />
-
-      <div className="pointer-events-none absolute inset-0 hidden lg:block">
-        <LeaderLine side="top" />
-        <LeaderLine side="right" />
-        <LeaderLine side="bottom" />
-        <LeaderLine side="left" />
-      </div>
-
-      <div className="relative z-10">
-        <Orb />
-      </div>
-
-      <div className="pointer-events-none absolute inset-0 hidden lg:block">
-        <RingLabel label={labels[0].label} detail={labels[0].detail} position="top" />
-        <RingLabel label={labels[1].label} detail={labels[1].detail} position="right" />
-        <RingLabel label={labels[2].label} detail={labels[2].detail} position="bottom" />
-        <RingLabel label={labels[3].label} detail={labels[3].detail} position="left" />
-      </div>
-
-      <div className="absolute inset-x-0 bottom-0 grid grid-cols-2 gap-3 px-4 lg:hidden">
-        {labels.map((item) => (
-          <div
-            key={item.label}
-            className="flex items-center gap-2 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-2"
-          >
-            <span className="h-1.5 w-1.5 rounded-full bg-[var(--color-accent)]" />
-            <span className="text-[11px] uppercase tracking-[0.2em] text-[var(--color-text)]">{item.label}</span>
-            <span className="text-[11px] text-[var(--color-text-faint)]">{item.detail}</span>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function LeaderLine({ side }: { side: "top" | "right" | "bottom" | "left" }) {
-  const classes = {
-    top: "left-1/2 top-[58px] h-[74px] w-px -translate-x-1/2 bg-gradient-to-b from-transparent via-[rgba(var(--color-accent-rgb),0.18)] to-transparent",
-    right: "right-[50px] top-1/2 h-px w-[82px] -translate-y-1/2 bg-gradient-to-r from-transparent via-[rgba(var(--color-accent-rgb),0.18)] to-transparent",
-    bottom: "bottom-[58px] left-1/2 h-[74px] w-px -translate-x-1/2 bg-gradient-to-b from-transparent via-[rgba(var(--color-accent-rgb),0.18)] to-transparent",
-    left: "left-[50px] top-1/2 h-px w-[82px] -translate-y-1/2 bg-gradient-to-r from-transparent via-[rgba(var(--color-accent-rgb),0.18)] to-transparent",
-  };
-
-  return <span className={`absolute ${classes[side]}`} />;
-}
-
-function RingLabel({
-  label,
-  detail,
-  position,
-}: {
-  label: string;
-  detail: string;
-  position: "top" | "right" | "bottom" | "left";
-}) {
-  const positionClasses = {
-    top: "left-1/2 top-4 -translate-x-1/2 text-center",
-    right: "right-0 top-1/2 -translate-y-1/2 text-left",
-    bottom: "bottom-4 left-1/2 -translate-x-1/2 text-center",
-    left: "left-0 top-1/2 -translate-y-1/2 text-right",
-  };
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: position === "top" ? -8 : 0 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.7, delay: 0.45, ease: "easeOut" }}
-      className={`absolute max-w-[120px] ${positionClasses[position]}`}
-    >
-      <div className="inline-flex items-center gap-2">
-        {(position === "right" || position === "bottom") && <NodeDot />}
-        <div>
-          <div className="text-[11px] uppercase tracking-[0.22em] text-[var(--color-text-primary)]">{label}</div>
-          <div className="mt-1 text-[11px] text-[var(--color-text-faint)]">{detail}</div>
-        </div>
-        {(position === "left" || position === "top") && <NodeDot />}
-      </div>
-    </motion.div>
-  );
-}
-
-function NodeDot() {
-  return <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-accent)] shadow-[0_0_8px_rgba(var(--color-accent-rgb),0.4)]" />;
 }

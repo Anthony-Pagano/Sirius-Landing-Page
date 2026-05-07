@@ -4,6 +4,8 @@ import { useReducedMotion } from "motion/react";
 import { useEffect, useRef } from "react";
 
 import { cn } from "@/lib/utils";
+import { useOrbAudio } from "./orb-audio-context";
+import type { OrbAudioSignal } from "./orb-audio-context";
 
 type SiriusOrbOptions = {
   freq: number;
@@ -18,11 +20,22 @@ type SiriusOrbOptions = {
   mouseEnabled: boolean;
   mouseTarget: HTMLElement | null;
   seed: number;
+  audioRef: React.MutableRefObject<OrbAudioSignal> | null;
 };
 
-export function Orb({ className }: { className?: string }) {
+export function Orb({
+  className,
+  staticRender = false,
+  glowless = false,
+}: {
+  className?: string;
+  staticRender?: boolean;
+  glowless?: boolean;
+}) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const shouldReduceMotion = useReducedMotion();
+  const { signalRef } = useOrbAudio();
+  const frozen = staticRender || !!shouldReduceMotion;
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -31,29 +44,29 @@ export function Orb({ className }: { className?: string }) {
     }
 
     const orb = new SiriusOrbRenderer(canvas, {
-      mouseEnabled: !shouldReduceMotion,
-      flowSpeed: shouldReduceMotion ? 0 : 1,
-      yawSpeed: shouldReduceMotion ? 0 : 0.13,
-      breatheAmp: shouldReduceMotion ? 0 : 0.012,
+      mouseEnabled: !frozen,
+      flowSpeed: frozen ? 0 : 1,
+      yawSpeed: frozen ? 0 : 0.13,
+      breatheAmp: frozen ? 0 : 0.012,
+      audioRef: frozen ? null : signalRef,
     });
 
-    if (shouldReduceMotion) {
+    if (frozen) {
       orb.stop();
       orb.renderStatic();
     }
 
     return () => orb.destroy();
-  }, [shouldReduceMotion]);
+  }, [frozen, signalRef]);
 
   return (
     <div
       className={cn(
-        "relative h-[clamp(280px,70vw,360px)] w-[clamp(280px,70vw,360px)] drop-shadow-[0_0_36px_var(--color-orb-glow)]",
+        "relative h-[clamp(280px,70vw,360px)] w-[clamp(280px,70vw,360px)]",
         className,
       )}
       aria-hidden="true"
     >
-      <div className="pointer-events-none absolute inset-[-28%] rounded-full bg-[radial-gradient(circle_at_50%_50%,rgba(var(--color-accent-rgb),0.1)_0%,rgba(var(--color-accent-rgb),0.04)_30%,transparent_62%)] blur-[8px]" />
       <canvas ref={canvasRef} width={320} height={320} className="absolute inset-0 z-10 block h-full w-full blur-[0.45px]" />
     </div>
   );
@@ -106,6 +119,7 @@ class SiriusOrbRenderer {
       mouseEnabled: true,
       mouseTarget: null,
       seed: 1337,
+      audioRef: null,
       ...options,
     };
 
@@ -244,7 +258,17 @@ class SiriusOrbRenderer {
     const ty = tt * 0.04;
     const tz = tt * 0.07;
     const wt = tt * 0.045;
-    const breathe = 1 + Math.sin(tt * 0.55) * opts.breatheAmp;
+    const baseBreathe = 1 + Math.sin(tt * 0.55) * opts.breatheAmp;
+
+    // Audio-reactive modulation — falls back to neutral values when inactive.
+    const audio = opts.audioRef?.current;
+    const audioActive = !!audio?.active;
+    const audioAmp = audioActive ? audio!.amplitude : 0;
+    const audioCent = audioActive ? audio!.centroid : 0.5;
+
+    const breathe = baseBreathe * (1 + audioAmp * 0.18);
+    const wispGain = opts.wispGain * (1 + audioAmp * 0.35);
+
     const stirX = -this.mouseLocalSmoothX * 0.55 + this.mouseVelX * 1.6;
     const stirY = -this.mouseLocalSmoothY * 0.55 + this.mouseVelY * 1.6;
     const data = this.img.data;
@@ -299,7 +323,7 @@ class SiriusOrbRenderer {
         }
 
         const plasma = wisp * shell;
-        const intensity = (plasma * opts.wispGain + rim) * breathe;
+        const intensity = (plasma * wispGain + rim) * breathe;
         const k = Math.min(1.2, intensity);
         let red: number;
         let green: number;
@@ -321,6 +345,12 @@ class SiriusOrbRenderer {
           green = 212 + t * 30;
           blue = 250 + t * 5;
         }
+
+        // Audio centroid colour bias: warm (treble) pulls toward cream, cool (bass) toward cyan.
+        const warm = audioCent; // 0 = cool/bass, 1 = warm/treble
+        red   = red   * (1 + warm * 0.25);
+        green = green * (1 + warm * 0.10);
+        blue  = blue  * (1 - warm * 0.20);
 
         const alpha = aa * Math.min(1, intensity * 1.05);
         data[dataIndex] = Math.min(255, red) | 0;

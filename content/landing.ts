@@ -1,212 +1,149 @@
+// Landing copy — see sirius-landing-page-spec-v1.md
 export const landingContent = {
-  nav: [
-    { label: "Problem", href: "#problem" },
-    { label: "System", href: "#thesis" },
-    { label: "Demo", href: "#demo" },
-    { label: "Use Cases", href: "#use-cases" },
-    { label: "Voice", href: "#why-voice" },
-  ],
+  meta: {
+    wordmark: "Sirius",
+    availability: "Private beta",
+    tagline: "An assistant. In the proper sense.",
+  },
   hero: {
-    title: "Speak outcomes. Sirius executes.",
+    eyebrow: "Sirius",
+    title: "An assistant. In the proper sense.",
     description:
-      "Sirius turns a spoken command into a visible workflow: planning the steps, running tools, pausing for approval, and confirming when the work is done.",
-    primaryCta: "Request Early Access",
-    secondaryCta: "Inspect The Demo",
-    trustLine: "Private beta · approval-gated execution · software and device actions",
-    proofPoints: [
-      { label: "Plans the work", detail: "steps stay visible before anything runs" },
-      { label: "Pauses for risk", detail: "external actions require approval" },
-      { label: "Confirms completion", detail: "status survives beyond the answer" },
-    ],
-    trustScaffold: [
-      { label: "Private beta", detail: "limited early access" },
-      { label: "Human approval gates", detail: "external actions require review" },
-      { label: "Visible execution log", detail: "every step stays inspectable" },
-      { label: "Software + device actions", detail: "apps, feeds, printers, home devices" },
-      { label: "Reusable workflows", detail: "patterns can run again" },
-    ],
-    command: {
-      prompt: "Run the release workflow and print the signed checklist when CI passes.",
-      status: "Plan ready · 5 actions",
-      route: "voice -> plan -> approval -> action",
-    },
-    ringLabels: [
-      { label: "Speak", detail: "voice input" },
-      { label: "Plan", detail: "workflow" },
-      { label: "Act", detail: "device action" },
-      { label: "Watch", detail: "automation" },
+      "It chats, it remembers, and it has the decency to notice when you've done the same thing three times — and offer to never do it again. Voice or keyboard.",
+    primaryCta: "Request access",
+    micPrompt: "Talk to it",
+    micPrivacy: "Your voice stays in your browser. We're not listening.",
+    headlineAlternates: [
+      "The assistant the others were pretending to be.",
+      "Quietly competent.",
     ],
   },
-  problemMap: [
-    {
-      kicker: "Documents",
-      summary: "A draft is only useful when it reaches the right destination and the output is confirmed.",
-      generated: "File",
-      missing: "Approve + route",
-      completed: "Confirmed output",
-      visual: "printer",
-    },
-    {
-      kicker: "Fabrication",
-      summary: "A model still needs device readiness, material checks, and an operator gate before it becomes physical.",
-      generated: "Model",
-      missing: "Check + gate",
-      completed: "Device job",
-      visual: "fabrication",
-    },
-    {
-      kicker: "Environment",
-      summary: "A request becomes valuable when calendars, messages, feeds, and devices move together.",
-      generated: "Request",
-      missing: "Coordinate surfaces",
-      completed: "Visible routine",
-      visual: "environment",
-    },
-  ],
-  thesis: {
-    title: "A declarative execution layer for software and the physical world.",
-    description:
-      "Users describe outcomes in plain language. Sirius decomposes the work, chooses the right surfaces, requests confirmation when risk appears, and exposes progress instead of hiding it behind a chat transcript.",
+  workflows: {
+    sectionLabel: "Workflows",
+    title: "The work you already do, made callable.",
+    body: [
+      "You already have workflows. Cold outreach to a particular type of person, the way you put together a weekly client update, the steps you take when a deal moves to contract, your routine for assembling the investor pipeline review. They live in your head. You re-explain them to yourself (or to ChatGPT) every time you do them, and you reload the context from scratch each round.",
+      "Sirius watches you do them, and offers to extract them.",
+    ],
+    pulledQuote:
+      "Three times this week you've opened a meeting blind — CRM scramble, email dig, what-did-I-promise. Shall I take this on? Fifteen minutes before each one, you'd find a brief in your calendar — last contact, open threads, the bit you said you'd do.",
+    closing:
+      "Once extracted, a workflow is callable. You name the target — \"do another one for X\" — and Sirius runs the pipeline you'd already built in your head, without you having to reload any of it. It pauses to ask when it needs a judgement call, runs hands-off when it doesn't.\n\nThe point isn't that Sirius lets you build automations. It's that Sirius notices you're already running the same procedure by hand, and quietly takes the typing out of it.",
   },
-  pillars: [
-    {
-      kicker: "01",
-      title: "Workflows",
-      description:
-        "On-demand outcome jobs you trigger by speaking. Sirius plans the steps, runs the tools, and shows progress.",
-    },
-    {
-      kicker: "02",
-      title: "Automations",
-      description:
-        "Always-on conditions that watch for changes and follow through when something needs to happen.",
-    },
-    {
-      kicker: "03",
-      title: "Feeds",
-      description:
-        "Curated information streams Sirius can summarize, monitor, and connect back into workflows.",
-    },
-  ],
-  systemDiagram: {
-    sequence: [
-      { title: "Capture", detail: "voice request with context" },
-      { title: "Decompose", detail: "steps, tools, approvals" },
-      { title: "Execute", detail: "apps, feeds, devices" },
-      { title: "Confirm", detail: "status, handoff, reuse" },
+  itNotices: {
+    sectionLabel: "It notices",
+    title: "Proactive, in a way that doesn't talk over you.",
+    body: [
+      "Sirius doesn't open with \"good morning.\" It's not that kind of assistant. But if it sees you sending the same flavour of email three times in a week, it'll offer to lift it into a workflow. Mention a project you're trying to ship, and it may quietly suggest a way to take a slice off your plate.",
     ],
-    branches: ["Voice request", "Workflow plan", "Tool execution", "Human-visible status"],
-    endpoints: ["Apps", "Feeds", "Printers", "Home devices"],
-    memoryTitle: "Execution stays visible, reusable, and interruptible.",
-    memoryDescription:
-      "Sirius keeps enough context to coordinate across surfaces without hiding the work. You can see what is running, reuse the pattern, or step in before it acts.",
-    contexts: ["work", "home", "devices", "feeds", "research", "people"],
+    noticedQuote:
+      "Three times this week you've sent the same flavour of email. Want me to make it a workflow?",
   },
-  demo: {
-    title: "See every voice request become a supervised workflow.",
-    description:
-      "Sirius shows what was asked, which tools are running, where approval is needed, and what evidence is already complete.",
-    points: [
-      "Request captured",
-      "Plan generated",
-      "Tools running",
-      "Approval waiting",
-      "Evidence recorded",
-    ],
-    summary: [
-      { label: "ETA", value: "4 min" },
-      { label: "Gate", value: "Deploy approval" },
-      { label: "Surfaces", value: "Repo · CI · Slack" },
-    ],
-    executionLog: [
-      "Checked branch and release diff",
-      "Security review completed",
-      "CI is running on 18 jobs",
-      "Reviewer notification queued after green build",
+  fourWays: {
+    sectionLabel: "The four surfaces",
+    leadIn:
+      "Voice and chat tell Sirius what to run. Schedules tell it when. Feeds show what came back. Four surfaces, one assistant.",
+    items: [
+      { id: "voice",     title: "Voice",     body: "Talk to it like a colleague who never goes to lunch." },
+      { id: "chat",      title: "Chat",      body: "One conversation. Everything you've ever told it. No new tabs." },
+      { id: "feeds",     title: "Feeds",     body: "Pick what you want Sirius to watch. NVDA news, papers on diffusion, your team's PRs. Sirius curates the updates, in the context of what you're working on. You read them at your pace." },
+      { id: "schedules", title: "Schedules", body: "Fire your workflows on a clock, or when something happens." },
     ],
   },
-  workflowSteps: [
-    { title: "Pull diff and verify branch", detail: "Release diff checked against main.", state: "done", stateLabel: "Done" },
-    { title: "Run security review", detail: "No critical findings returned.", state: "done", stateLabel: "Done" },
-    { title: "Wait on CI · build and tests", detail: "18 jobs running; reviewer ping queued.", state: "active", stateLabel: "In progress" },
-    { title: "Request deploy approval", detail: "External deploy is locked until the operator approves.", state: "blocked", stateLabel: "Needs approval" },
-    { title: "Tag and deploy", detail: "Queued after approval and green build.", state: "next", stateLabel: "Up next" },
-  ],
-  useCases: [
-    {
-      kicker: "Software delivery",
-      title: "Run a release workflow and notify me when CI is green.",
-      description:
-        "Coordinate code review, security checks, CI status, and reviewer comms from one voice request.",
-      trigger: "Voice release request",
-      output: "Verified release path",
-      friction: "No manual status polling",
-    },
-    {
-      kicker: "Document handling",
-      title: "Print the document Sirius just created.",
-      description:
-        "Move from draft generation to actual output without forcing the user to switch context and finish the job manually.",
-      trigger: "Generated document",
-      output: "Confirmed print job",
-      friction: "No app-to-printer handoff",
-    },
-    {
-      kicker: "Physical fabrication",
-      title: "Upload this model and start the 3D print.",
-      description:
-        "Bridge design generation and hardware execution so the system can take work all the way to material output.",
-      trigger: "Finished model",
-      output: "Ready-to-run device job",
-      friction: "No repeated slicer setup",
-    },
-    {
-      kicker: "Ambient coordination",
-      title: "Prep my evening routine before I get home.",
-      description:
-        "Combine messages, context, schedules, and smart-home actions into a single composable instruction.",
-      trigger: "Arrival context",
-      output: "Coordinated routine",
-      friction: "No fragmented app switching",
-    },
-  ],
-  useCasesHeading: "One request can cross the surfaces where work actually finishes.",
-  whyVoice: {
-    title: "Voice removes friction where declarative systems usually slow down.",
-    lead:
-      "Voice is not decoration here. It is the fastest way to declare intent while the execution layer carries the operational burden.",
-    points: [
+  threeIdeas: {
+    sectionLabel: "Three good ideas",
+    title: "Three good ideas. One app.",
+    items: [
+      { name: "Claude",   gives: "the conversational depth" },
+      { name: "OpenClaw", gives: "the autonomous execution" },
+      { name: "n8n",      gives: "the recurring, plumbed-together automations" },
+    ],
+    body:
+      "Arranged so a single assistant — the same one — does all three. The chat knows what your automations did this morning. The automations know what you talked about yesterday. Nothing falls between systems, because there is only one system.",
+  },
+  localData: {
+    sectionLabel: "Local-first",
+    title: "Your data stays on your machine.",
+    body:
+      "Memories, conversations, files — all local. The workflows that need to run while you're asleep (outreach, briefings, anything recurring) run on Sirius's cloud, with only the data they need to do their job. Prefer fully local? You can have that. The trade is that automations stop when your laptop does.",
+    footnote: "Private beta",
+  },
+  inPractice: {
+    sectionLabel: "In practice",
+    title: "Four short demonstrations.",
+    vignettes: [
       {
-        title: "Faster capture",
-        description:
-          "When the bottleneck is describing the desired outcome, speaking is often the highest-throughput interface.",
-        context: "hands-busy work",
+        id: "outreach",
+        title: "Cold outreach, at scale, without the smell of automation.",
+        voiceTrigger: "Sirius, hit my STEP-track list this Tuesday.",
+        body: "Tell Sirius who you want to talk to — \"founders of pre-seed dev-tools companies in Melbourne.\" It finds them, drafts emails in your voice, sends them, and when someone replies it pings you with a one-line summary and the suggested next move. The automation runs every Tuesday; you see the pipeline, never the spreadsheet.",
+        sampleOutput: [
+          "Hi Mira — saw your work on Coda's mobile editor. Coming from dev-tools myself, I'd love to compare notes on what shipped vs. what stayed in the spec.",
+        ],
       },
       {
-        title: "Ambient by default",
-        description:
-          "Voice works while the user is walking, building, cooking, commuting, or doing other work with their hands occupied.",
-        context: "home and field contexts",
+        id: "design",
+        title: "Client feedback that triages itself.",
+        voiceTrigger: "Sirius, what came in from the client?",
+        body: "A client email lands with eight nitpicks. Sirius parses each, tags them — figma-edit, copy-change, question, scope-creep, out-of-scope — makes the trivial Figma edits via plugin, drafts replies for the rest, then presents the bundle: four done, two need your call, one is scope creep. Want me to send?",
+        sampleOutput: [
+          "Logo darker — figma-edit, done.",
+          "Brand fonts site-wide — figma-edit, done.",
+          "Headline reads too formal — copy-change, drafted.",
+          "Add testimonials section — scope-creep, flagged.",
+          "Make it look like Stripe — out-of-scope, declined.",
+        ],
+        sampleOutputSummary: "4 done · 2 drafted · 2 flagged. Want me to send?",
       },
       {
-        title: "Natural orchestration",
-        description:
-          "A voice-first interface fits a system whose value comes from composition and follow-through rather than manual navigation.",
-        context: "multi-step workflows",
+        id: "research",
+        title: "A research desk, for one.",
+        voiceTrigger: "Sirius, what's worth knowing this morning?",
+        body: "Sirius keeps a feed on the companies you're tracking — earnings, filings, analyst notes, the occasional odd signal on Twitter. Two paragraphs of what's changed since yesterday before your first coffee. Ask \"what's the bear case on X\" and it already knows what you've read.",
+        sampleOutput: [
+          "NVDA: two analyst upgrades since Friday.",
+          "Anthropic: Sonnet 4.7 shipped, 1M-token context.",
+          "n8n 1.78: OpenAI-compatible LLM nodes.",
+        ],
+      },
+      {
+        id: "standup",
+        title: "Your standup, already written.",
+        voiceTrigger: "Sirius, what's standup looking like?",
+        body: "Every Monday, Sirius pulls last week's commits, the Linear tickets you closed, and the threads from #eng-team. By 9 a draft is waiting in #standup — what you shipped, what's next, what's blocking. You skim, fix the one line that's wrong, post.",
+        sampleOutput: [
+          "Shipped: Aurora migration, search-index flag, N+1 fix.",
+          "Next: deploy-script consolidation, auth refactor.",
+          "Blocking: Brennan to review LIN-901.",
+        ],
+      },
+    ],
+  },
+  faq: {
+    sectionLabel: "Questions",
+    title: "What people ask first.",
+    items: [
+      {
+        q: "Where does my data live?",
+        a: "Memories, conversations, and files stay on your machine. Only the workflows you ask Sirius to run on a schedule — outreach, briefings, automations — touch its cloud, and only with the data they need.",
+      },
+      {
+        q: "What models does it use?",
+        a: "Whichever ones do the job — currently Claude for the heavy reasoning, smaller models for the routine. Sirius picks; you don't have to.",
+      },
+      {
+        q: "How is this different from a chat agent?",
+        a: "An agent answers when asked. Sirius watches, remembers, and offers — and runs the things you've asked it to run, on the schedule you've asked. The chat is a thin slice of it.",
+      },
+      {
+        q: "When can I expect access?",
+        a: "Private beta is rolling out in small waves. Most invitations land within a couple of weeks of joining the list.",
       },
     ],
   },
   cta: {
+    sectionLabel: "Availability",
     title: "Meet Sirius.",
-    description:
-      "Speak the outcome once. Sirius turns it into visible, approval-gated follow-through across software, feeds, and devices.",
-    buttonLabel: "Request Early Access",
-    note: "Currently in private beta · limited early access",
-    helper: "Tell us where to send your invite. No spam, no public launch list.",
-    trust: [
-      "Human review before external actions",
-      "Approval-gated device and deploy steps",
-      "Private beta list only",
-    ],
+    primaryCta: "Request access",
   },
 } as const;
