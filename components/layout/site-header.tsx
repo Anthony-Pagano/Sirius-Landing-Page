@@ -10,11 +10,11 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-[var(--color-border)] bg-[rgba(5,7,11,0.72)] backdrop-blur-xl">
-      <Container className="flex items-center justify-between py-4">
+    <header className="sticky top-0 z-50 border-b border-[var(--color-border)] bg-[rgba(5,7,11,0.78)] backdrop-blur-xl">
+      <Container className="flex h-16 items-center justify-between">
         <Link
           href="/"
-          className="font-display flex items-center gap-4 text-xs font-medium uppercase tracking-[0.38em] text-white/86 outline-none transition focus-visible:text-white focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-4 focus-visible:ring-offset-[var(--color-bg)]"
+          className="font-display flex items-center gap-3 text-xs font-medium uppercase tracking-[0.32em] text-white/86 outline-none transition focus-visible:text-white focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-4 focus-visible:ring-offset-[var(--color-bg)]"
           onClick={() => setOpen(false)}
         >
           <span className="grid h-7 w-7 place-items-center rounded-full border border-[var(--color-border-strong)] bg-white/[0.035]">
@@ -23,7 +23,7 @@ export function SiteHeader() {
           Sirius
         </Link>
         <div className="flex items-center gap-5">
-          <nav className="hidden items-center gap-7 text-[11px] uppercase tracking-[0.22em] text-white/56 lg:flex">
+          <nav className="hidden items-center gap-6 text-[11px] uppercase tracking-[0.22em] text-white/56 lg:flex xl:gap-7">
             {landingContent.nav.map((item) => (
               <a
                 key={item.label}

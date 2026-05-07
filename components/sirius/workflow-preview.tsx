@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 
 export function WorkflowPreview() {
   return (
-    <div className="rounded-[calc(var(--radius-panel)+4px)] border border-[var(--color-border)] bg-[rgba(4,8,14,0.82)] p-4 shadow-[var(--shadow-panel)] backdrop-blur-xl md:p-5">
+    <div className="min-w-0 w-full rounded-[calc(var(--radius-panel)+4px)] border border-[var(--color-border)] bg-[rgba(4,8,14,0.82)] p-4 shadow-[var(--shadow-panel)] backdrop-blur-xl md:p-5">
       <div className="rounded-[var(--radius-panel)] border border-[var(--color-border)] bg-[#070b12]">
         <div className="flex items-center justify-between border-b border-[var(--color-border)] px-4 py-3">
           <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-[var(--color-text-faint)]">

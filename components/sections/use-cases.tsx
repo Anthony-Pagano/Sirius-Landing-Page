@@ -4,19 +4,19 @@ import { landingContent } from "@/content/landing";
 
 export function UseCasesSection() {
   return (
-    <section id="use-cases" className="py-20 md:py-28">
+    <section id="use-cases" className="scroll-mt-24 py-16 md:py-24 lg:py-28">
       <Container>
         <SectionLabel number="04">Outcome-driven use cases</SectionLabel>
         <div className="mt-6 max-w-3xl">
           <h2 className="font-display text-3xl font-light leading-tight text-white md:text-5xl">
-            The page should prove Sirius can complete work, not just talk about categories.
+            {landingContent.useCasesHeading}
           </h2>
         </div>
         <div className="mt-10 grid gap-5 md:grid-cols-2">
           {landingContent.useCases.map((item) => (
             <article
               key={item.title}
-              className="group rounded-[var(--radius-panel)] border border-[var(--color-border)] bg-[linear-gradient(180deg,rgba(255,255,255,0.035),rgba(255,255,255,0.012))] p-6 transition duration-300 hover:-translate-y-1 hover:border-[var(--color-accent)]/35"
+              className="group grid h-full content-start rounded-[var(--radius-panel)] border border-[var(--color-border)] bg-[linear-gradient(180deg,rgba(255,255,255,0.035),rgba(255,255,255,0.012))] p-6 transition duration-300 hover:-translate-y-1 hover:border-[var(--color-accent)]/35"
             >
               <p className="font-mono text-xs uppercase tracking-[0.22em] text-[var(--color-accent)]">{item.kicker}</p>
               <h3 className="font-display mt-4 text-2xl font-light leading-snug text-white">{item.title}</h3>

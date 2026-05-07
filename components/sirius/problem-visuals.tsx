@@ -9,7 +9,7 @@ export function ProblemVisual({ type, active = false }: ProblemVisualProps) {
   return (
     <div
       className={cn(
-        "relative grid aspect-[1.35] w-full max-w-[360px] place-items-center overflow-hidden rounded-[var(--radius-panel)] border bg-[rgba(6,14,34,0.48)] transition duration-500",
+        "relative grid aspect-[1.35] w-full max-w-[340px] place-items-center overflow-hidden rounded-[var(--radius-panel)] border bg-[rgba(6,14,34,0.48)] transition duration-500",
         active
           ? "border-[rgba(155,214,229,0.5)] shadow-[0_0_50px_rgba(101,215,242,0.16)]"
           : "border-[var(--color-border)] shadow-[0_0_34px_rgba(8,20,58,0.24)]",

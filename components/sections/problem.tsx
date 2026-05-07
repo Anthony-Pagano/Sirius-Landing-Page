@@ -13,7 +13,7 @@ export function ProblemSection() {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   return (
-    <section id="problem" className="overflow-hidden border-y border-[var(--color-border)] bg-[rgba(8,11,17,0.64)] py-20 md:py-28">
+    <section id="problem" className="scroll-mt-24 overflow-hidden border-y border-[var(--color-border)] bg-[rgba(8,11,17,0.64)] py-16 md:py-24 lg:py-28">
       <Container>
         <SectionLabel number="01">Why this exists</SectionLabel>
         <div className="mt-6 max-w-3xl">
@@ -33,7 +33,7 @@ export function ProblemSection() {
             transition={{ duration: 4.8, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
           />
 
-          <div className="space-y-16">
+          <div className="space-y-12">
             {landingContent.problemMap.map((item, index) => {
               const isActive = activeIndex === index;
               const visualFirst = index !== 1;
@@ -60,7 +60,7 @@ export function ProblemSection() {
             animate={{ opacity: [0.12, 0.45, 0.12] }}
             transition={{ duration: 4.8, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
           />
-          <div className="space-y-10">
+          <div className="space-y-8">
             {landingContent.problemMap.map((item, index) => (
               <ProblemMobileNode
                 key={item.question}
@@ -96,7 +96,7 @@ function ProblemMapRow({ active, index, item, onEnter, onLeave, visualFirst }: P
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.4 }}
       transition={{ duration: 0.72, delay: index * 0.12, ease: "easeOut" }}
-      className="relative grid min-h-[250px] grid-cols-[1fr_108px_1fr] items-center gap-8"
+      className="relative grid min-h-[220px] grid-cols-[1fr_108px_1fr] items-center gap-8"
       onMouseEnter={onEnter}
       onMouseLeave={onLeave}
       onFocus={onEnter}
@@ -184,7 +184,7 @@ function ProblemGapCard({ item, active }: { item: ProblemMapItem; active: boolea
     <article
       tabIndex={0}
       className={cn(
-        "max-w-[460px] rounded-[var(--radius-panel)] border bg-[rgba(7,12,20,0.78)] p-6 outline-none backdrop-blur-xl transition duration-500 focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]",
+        "max-w-[440px] rounded-[var(--radius-panel)] border bg-[rgba(7,12,20,0.78)] p-6 outline-none backdrop-blur-xl transition duration-500 focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]",
         active
           ? "border-[rgba(155,214,229,0.52)] shadow-[0_0_54px_rgba(101,215,242,0.16)]"
           : "border-[var(--color-border)] shadow-[0_0_40px_rgba(5,12,30,0.22)]",

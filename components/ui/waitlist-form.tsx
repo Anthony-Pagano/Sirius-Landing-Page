@@ -22,7 +22,7 @@ export function WaitlistForm() {
 
   const message =
     state === "success"
-      ? "You're on the early access list."
+      ? "Preview request validated. Connect the beta intake endpoint before collecting real invites."
       : state === "error"
         ? "Enter a valid email address to request access."
         : "Private beta · limited early access";
@@ -54,11 +54,11 @@ export function WaitlistForm() {
           disabled={state === "loading" || state === "success"}
           className="inline-flex h-14 items-center justify-center rounded-full bg-[var(--color-button)] px-7 text-sm font-medium uppercase tracking-[0.18em] text-[#06080d] outline-none transition hover:-translate-y-0.5 hover:bg-white focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-bg)] disabled:cursor-not-allowed disabled:opacity-70"
         >
-          {state === "loading" ? "Sending" : state === "success" ? "Requested" : "Request Access"}
+          {state === "loading" ? "Sending" : state === "success" ? "Requested" : "Request Early Access"}
         </button>
       </div>
       <p id="waitlist-helper" className="mt-3 text-sm leading-6 text-[var(--color-text-muted)]">
-        Tell us where to send your invite. This prototype uses client-side validation only; connect a backend before treating submissions as real.
+        Tell us where to send your invite. No spam, no public launch list. This preview validates locally.
       </p>
       <p
         id="waitlist-status"

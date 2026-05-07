@@ -7,7 +7,7 @@ export const landingContent = {
     { label: "Voice", href: "#why-voice" },
   ],
   hero: {
-    title: "Speak the outcome. Watch the system execute.",
+    title: "Speak outcomes. Sirius executes.",
     description:
       "Sirius turns a spoken request into a visible execution plan across apps, feeds, automations, and connected devices, with the human loop kept in view.",
     primaryCta: "Request Early Access",
@@ -18,8 +18,15 @@ export const landingContent = {
       "Software and device follow-through",
       "Reusable workflow patterns",
     ],
+    trustScaffold: [
+      { label: "Private beta", detail: "limited early access" },
+      { label: "Human approval gates", detail: "external actions require review" },
+      { label: "Visible execution log", detail: "every step stays inspectable" },
+      { label: "Software + device actions", detail: "apps, feeds, printers, home devices" },
+      { label: "Reusable workflows", detail: "patterns can run again" },
+    ],
     command: {
-      prompt: "Prep the release, watch CI, and print the signed checklist when it passes.",
+      prompt: "Run the release workflow and print the signed checklist when CI passes.",
       status: "Planning 5 actions",
       route: "voice -> workflow -> tools -> device",
     },
@@ -163,6 +170,7 @@ export const landingContent = {
       friction: "No fragmented app switching",
     },
   ],
+  useCasesHeading: "One request can cross the surfaces where work actually finishes.",
   whyVoice: {
     title: "Voice removes friction where declarative systems usually slow down.",
     lead:
@@ -192,8 +200,13 @@ export const landingContent = {
     title: "Built for AI-native early adopters who want systems that act, not just respond.",
     description:
       "Join the private beta for a voice-first system that turns requests into workflows, device actions, and coordinated follow-through.",
-    buttonLabel: "Request Access",
+    buttonLabel: "Request Early Access",
     note: "Private beta · limited early access",
     helper: "Tell us where to send your invite. No spam, no public launch list.",
+    trust: [
+      "Human review before external actions",
+      "Approval-gated device and deploy steps",
+      "Private beta list only",
+    ],
   },
 } as const;

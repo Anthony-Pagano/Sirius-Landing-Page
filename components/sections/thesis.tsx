@@ -4,7 +4,7 @@ import { landingContent } from "@/content/landing";
 
 export function ThesisSection() {
   return (
-    <section id="thesis" className="py-20 md:py-32">
+    <section id="thesis" className="scroll-mt-24 py-16 md:py-24 lg:py-28">
       <Container>
         <SectionLabel number="02">The system</SectionLabel>
         <div className="mt-6 max-w-4xl">
@@ -18,11 +18,11 @@ export function ThesisSection() {
 
         <SystemDiagram />
 
-        <div className="mt-8 grid gap-4 lg:grid-cols-3">
+        <div className="mt-8 grid gap-4 md:grid-cols-3">
           {landingContent.pillars.map((pillar, index) => (
             <article
               key={pillar.title}
-              className="rounded-[var(--radius-card)] border border-[var(--color-border)] bg-white/[0.025] p-5"
+              className="grid h-full content-start rounded-[var(--radius-card)] border border-[var(--color-border)] bg-white/[0.025] p-5"
             >
               <PrimitiveDiagram index={index} />
               <div className="font-mono mt-5 text-xs uppercase tracking-[0.2em] text-[var(--color-accent)]">
@@ -44,7 +44,7 @@ function SystemDiagram() {
   const { sequence, endpoints } = landingContent.systemDiagram;
 
   return (
-    <div className="mt-12 overflow-hidden rounded-[var(--radius-panel)] border border-[var(--color-border)] bg-[linear-gradient(180deg,rgba(255,255,255,0.045),rgba(255,255,255,0.014))] p-5 shadow-[var(--shadow-panel)] md:p-7">
+    <div className="mt-10 overflow-hidden rounded-[var(--radius-panel)] border border-[var(--color-border)] bg-[linear-gradient(180deg,rgba(255,255,255,0.045),rgba(255,255,255,0.014))] p-5 shadow-[var(--shadow-panel)] md:mt-12 md:p-7">
       <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
         <div>
           <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-[var(--color-accent)]">Execution chain</p>
@@ -104,7 +104,7 @@ function MemoryBand() {
   const { memoryTitle, memoryDescription, contexts } = landingContent.systemDiagram;
 
   return (
-    <div className="mt-10 grid gap-8 rounded-[var(--radius-panel)] border border-[var(--color-border)] bg-[linear-gradient(180deg,rgba(255,255,255,0.035),transparent)] p-6 md:grid-cols-[0.9fr_1.1fr] md:p-9">
+    <div className="mt-8 grid gap-6 rounded-[var(--radius-panel)] border border-[var(--color-border)] bg-[linear-gradient(180deg,rgba(255,255,255,0.035),transparent)] p-6 md:mt-10 md:grid-cols-[0.9fr_1.1fr] md:p-9">
       <div>
         <div className="font-mono text-xs uppercase tracking-[0.2em] text-[var(--color-accent)]">Context · the difference</div>
         <h3 className="font-display mt-4 text-3xl leading-tight font-light text-white">{memoryTitle}</h3>
