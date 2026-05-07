@@ -1,50 +1,36 @@
-import { Container } from "@/components/ui/container";
-import { SectionLabel } from "@/components/ui/section-label";
+import { Orb } from "@/components/sirius/orb";
 import { WaitlistForm } from "@/components/ui/waitlist-form";
 import { landingContent } from "@/content/landing";
 
 export function FinalCtaSection() {
   return (
-    <section id="cta" className="relative scroll-mt-24 overflow-hidden py-16 md:py-24 lg:py-32">
-      <div className="pointer-events-none absolute left-1/2 top-1/2 h-[900px] w-[900px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(var(--color-accent-rgb),0.12),transparent_58%)]" />
-      <Container>
-        <div className="relative mx-auto grid max-w-5xl gap-8 rounded-[calc(var(--radius-panel)+4px)] border border-[var(--color-border-strong)] bg-[var(--color-surface-panel)] p-6 shadow-[var(--shadow-panel)] backdrop-blur-xl md:grid-cols-[0.9fr_1.1fr] md:p-8">
-          <div className="flex flex-col justify-between gap-8">
-            <div>
-              <SectionLabel number="06">Request early access</SectionLabel>
-              <h2 className="font-display mt-6 text-3xl leading-tight font-light text-[var(--color-text-primary)] md:text-5xl">
-                {landingContent.cta.title}
-              </h2>
-              <p className="mt-5 text-lg leading-8 text-[var(--color-text-muted)]">{landingContent.cta.description}</p>
-            </div>
-            <div className="rounded-[var(--radius-card)] border border-[var(--color-border)] bg-[var(--color-surface-inset)] p-5">
-              <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-[var(--color-accent)]">
-                Beta access includes
-              </p>
-              <ul className="mt-4 grid gap-3 text-sm leading-6 text-[var(--color-text-muted)]">
-                {landingContent.cta.trust.map((item) => (
-                  <li key={item} className="flex gap-3">
-                    <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-accent)]" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-          <div className="rounded-[var(--radius-panel)] border border-[var(--color-border)] bg-[var(--color-surface-elevated)] p-5 md:p-6">
-            <div className="mb-6 flex items-center justify-between border-b border-[var(--color-border)] pb-4">
-              <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-[var(--color-text-faint)]">Private beta form</p>
-              <span className="rounded-full border border-[var(--color-border)] px-3 py-1 font-mono text-[10px] uppercase tracking-[0.16em] text-[var(--color-text-faint)]">
-                Private beta
-              </span>
-            </div>
-            <WaitlistForm />
-            <p className="mt-6 text-xs uppercase tracking-[0.18em] text-[var(--color-text-faint)]">
-              {landingContent.cta.note}
-            </p>
-          </div>
+    <section
+      id="cta"
+      className="relative isolate scroll-mt-24 overflow-hidden border-t border-[var(--color-border)] bg-[var(--color-bg-deep)] px-6 py-20 md:px-10 md:py-24 lg:min-h-screen lg:py-28"
+    >
+      <div className="pointer-events-none absolute inset-0 -z-20 bg-[radial-gradient(ellipse_at_50%_60%,rgba(var(--color-accent-rgb),0.13),rgba(9,18,30,0.46)_34%,transparent_72%)]" />
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_center,rgba(var(--color-accent-rgb),0.1)_1px,transparent_1.5px)] bg-[size:48px_48px] opacity-35 [mask-image:linear-gradient(180deg,transparent,black_18%,black_82%,transparent)]" />
+
+      <div className="mx-auto flex min-h-[calc(100svh-10rem)] max-w-[1500px] flex-col items-center justify-center text-center">
+        <div className="relative mb-6 grid h-[210px] place-items-center md:mb-8 md:h-[260px]">
+          <div className="pointer-events-none absolute h-[clamp(250px,28vw,420px)] w-[clamp(250px,28vw,420px)] rounded-full bg-[radial-gradient(circle,rgba(var(--color-accent-rgb),0.17),transparent_62%)] blur-xl" />
+          <Orb className="h-[clamp(180px,20vw,260px)] w-[clamp(180px,20vw,260px)]" />
         </div>
-      </Container>
+
+        <h2 className="font-display max-w-[1500px] text-[clamp(2.85rem,9.2vw,9.4rem)] leading-[0.96] font-light tracking-normal text-balance text-[var(--color-text-primary)]">
+          <span className="block md:inline">[ {landingContent.cta.title} ]</span>
+        </h2>
+        <p className="mt-7 max-w-3xl text-lg leading-8 text-[var(--color-text-secondary)] md:text-2xl">
+          {landingContent.cta.description}
+        </p>
+
+        <div className="mt-10 w-full max-w-2xl">
+          <WaitlistForm />
+        </div>
+        <p className="font-mono mt-9 text-xs uppercase tracking-[0.26em] text-[var(--color-text-faint)] md:text-sm">
+          [{landingContent.cta.note}]
+        </p>
+      </div>
     </section>
   );
 }

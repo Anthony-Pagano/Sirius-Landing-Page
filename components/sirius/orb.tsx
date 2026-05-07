@@ -3,6 +3,8 @@
 import { useReducedMotion } from "motion/react";
 import { useEffect, useRef } from "react";
 
+import { cn } from "@/lib/utils";
+
 type SiriusOrbOptions = {
   freq: number;
   threshold: number;
@@ -18,7 +20,7 @@ type SiriusOrbOptions = {
   seed: number;
 };
 
-export function Orb() {
+export function Orb({ className }: { className?: string }) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const shouldReduceMotion = useReducedMotion();
 
@@ -45,7 +47,10 @@ export function Orb() {
 
   return (
     <div
-      className="relative h-[clamp(280px,70vw,360px)] w-[clamp(280px,70vw,360px)] drop-shadow-[0_0_36px_var(--color-orb-glow)]"
+      className={cn(
+        "relative h-[clamp(280px,70vw,360px)] w-[clamp(280px,70vw,360px)] drop-shadow-[0_0_36px_var(--color-orb-glow)]",
+        className,
+      )}
       aria-hidden="true"
     >
       <div className="pointer-events-none absolute inset-[-28%] rounded-full bg-[radial-gradient(circle_at_50%_50%,rgba(var(--color-accent-rgb),0.1)_0%,rgba(var(--color-accent-rgb),0.04)_30%,transparent_62%)] blur-[8px]" />

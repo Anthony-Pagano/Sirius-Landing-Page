@@ -197,11 +197,11 @@ export const landingContent = {
     ],
   },
   cta: {
-    title: "Built for AI-native early adopters who want systems that act, not just respond.",
+    title: "Meet Sirius.",
     description:
-      "Join the private beta for a voice-first system that turns requests into workflows, device actions, and coordinated follow-through.",
+      "Speak the outcome once. Sirius turns it into visible, approval-gated follow-through across software, feeds, and devices.",
     buttonLabel: "Request Early Access",
-    note: "Private beta · limited early access",
+    note: "Currently in private beta · limited early access",
     helper: "Tell us where to send your invite. No spam, no public launch list.",
     trust: [
       "Human review before external actions",

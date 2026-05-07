@@ -29,10 +29,10 @@ export function WaitlistForm() {
 
   return (
     <form className="w-full" onSubmit={submit} noValidate>
-      <label htmlFor="waitlist-email" className="block text-sm text-[var(--color-text-secondary)]">
+      <label htmlFor="waitlist-email" className="sr-only">
         Email address
       </label>
-      <div className="mt-3 flex w-full flex-col gap-3 sm:flex-row">
+      <div className="mx-auto flex w-full max-w-xl flex-col items-center gap-3 sm:flex-row sm:rounded-full sm:border sm:border-[var(--color-border-strong)] sm:bg-[var(--color-surface-inset)] sm:p-1.5">
         <input
           id="waitlist-email"
           type="email"
@@ -46,24 +46,24 @@ export function WaitlistForm() {
           placeholder="you@example.com"
           aria-describedby="waitlist-helper waitlist-status"
           aria-invalid={state === "error"}
-          className="h-14 min-w-0 flex-1 rounded-full border border-[var(--color-border-strong)] bg-[var(--color-input-bg)] px-6 text-[var(--color-text-primary)] outline-none transition placeholder:text-[var(--color-text-placeholder)] hover:border-[rgba(var(--color-accent-rgb),0.32)] focus:border-[var(--color-focus)] focus:ring-2 focus:ring-[var(--color-focus)]"
+          className="h-14 min-w-0 flex-1 rounded-full border border-[var(--color-border-strong)] bg-[var(--color-input-bg)] px-6 text-center text-[var(--color-text-primary)] outline-none transition placeholder:text-[var(--color-text-placeholder)] hover:border-[rgba(var(--color-accent-rgb),0.32)] focus:border-[var(--color-focus)] focus:ring-2 focus:ring-[var(--color-focus)] sm:border-0 sm:bg-transparent sm:text-left sm:focus:ring-0"
         />
         <button
           type="submit"
           aria-busy={state === "loading"}
           disabled={state === "loading" || state === "success"}
-          className="inline-flex h-14 items-center justify-center rounded-full bg-[var(--color-primary)] px-7 text-sm font-medium uppercase tracking-[0.18em] text-[var(--color-text-inverse)] outline-none transition hover:-translate-y-0.5 hover:bg-[var(--color-primary-hover)] active:bg-[var(--color-primary-active)] focus-visible:ring-2 focus-visible:ring-[var(--color-focus)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-bg)] disabled:cursor-not-allowed disabled:bg-[var(--color-disabled-bg)] disabled:text-[var(--color-text-disabled)] disabled:opacity-70"
+          className="inline-flex h-14 w-full items-center justify-center rounded-full bg-[var(--color-accent-strong)] px-8 text-base font-medium text-[var(--color-text-inverse)] shadow-[0_18px_60px_rgba(var(--color-accent-strong-rgb),0.22)] outline-none transition hover:-translate-y-0.5 hover:bg-[var(--color-link-hover)] active:bg-[var(--color-accent)] focus-visible:ring-2 focus-visible:ring-[var(--color-focus)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-bg)] disabled:cursor-not-allowed disabled:bg-[var(--color-disabled-bg)] disabled:text-[var(--color-text-disabled)] disabled:opacity-70 sm:w-auto"
         >
-          {state === "loading" ? "Sending" : state === "success" ? "Requested" : "Request Early Access"}
+          {state === "loading" ? "Sending" : state === "success" ? "Requested" : "Request access ->"}
         </button>
       </div>
-      <p id="waitlist-helper" className="mt-3 text-sm leading-6 text-[var(--color-text-secondary)]">
+      <p id="waitlist-helper" className="sr-only">
         Tell us where to send your invite. No spam, no public launch list. This preview validates locally.
       </p>
       <p
         id="waitlist-status"
         aria-live="polite"
-        className={state === "error" ? "mt-2 text-sm text-[var(--color-error)]" : "mt-2 text-sm text-[var(--color-text-muted)]"}
+        className={state === "error" ? "mt-3 text-sm text-[var(--color-error)]" : "mt-3 text-sm text-[var(--color-text-muted)]"}
       >
         {message}
       </p>
