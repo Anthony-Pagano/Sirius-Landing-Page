@@ -14,10 +14,10 @@ export function ButtonLink({ children, href, variant = "primary" }: ButtonLinkPr
     <Link
       href={href}
       className={cn(
-        "inline-flex h-14 min-w-44 items-center justify-center rounded-full px-7 text-sm font-medium uppercase tracking-[0.18em] transition duration-300 outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-bg)]",
+        "inline-flex h-14 min-w-44 items-center justify-center rounded-full px-7 text-sm font-medium uppercase tracking-[0.18em] transition duration-300 outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-bg)]",
         variant === "primary"
-          ? "bg-[var(--color-button)] !text-[#06080d] shadow-[0_14px_36px_rgba(239,231,210,0.12)] hover:-translate-y-0.5 hover:bg-white"
-          : "border border-[var(--color-border-strong)] bg-white/[0.025] text-[var(--color-text)] hover:-translate-y-0.5 hover:border-[var(--color-accent)]/45 hover:bg-white/[0.06]",
+          ? "bg-[var(--color-primary)] !text-[var(--color-text-inverse)] shadow-[var(--shadow-primary)] hover:-translate-y-0.5 hover:bg-[var(--color-primary-hover)] active:bg-[var(--color-primary-active)]"
+          : "border border-[var(--color-border-strong)] bg-[var(--color-secondary)] text-[var(--color-text-primary)] hover:-translate-y-0.5 hover:border-[rgba(var(--color-accent-rgb),0.45)] hover:bg-[var(--color-secondary-hover)]",
       )}
     >
       {children}

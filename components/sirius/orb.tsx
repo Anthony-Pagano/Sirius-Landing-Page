@@ -45,10 +45,10 @@ export function Orb() {
 
   return (
     <div
-      className="relative h-[clamp(280px,70vw,360px)] w-[clamp(280px,70vw,360px)] drop-shadow-[0_0_36px_rgba(60,170,255,0.16)]"
+      className="relative h-[clamp(280px,70vw,360px)] w-[clamp(280px,70vw,360px)] drop-shadow-[0_0_36px_var(--color-orb-glow)]"
       aria-hidden="true"
     >
-      <div className="pointer-events-none absolute inset-[-28%] rounded-full bg-[radial-gradient(circle_at_50%_50%,rgba(60,170,255,0.1)_0%,rgba(60,170,255,0.04)_30%,rgba(60,170,255,0)_62%)] blur-[8px]" />
+      <div className="pointer-events-none absolute inset-[-28%] rounded-full bg-[radial-gradient(circle_at_50%_50%,rgba(var(--color-accent-rgb),0.1)_0%,rgba(var(--color-accent-rgb),0.04)_30%,transparent_62%)] blur-[8px]" />
       <canvas ref={canvasRef} width={320} height={320} className="absolute inset-0 z-10 block h-full w-full blur-[0.45px]" />
     </div>
   );

@@ -2,36 +2,74 @@
 @import "tailwindcss";
 
 :root {
-  --color-bg: #05070b;
+  --color-bg-primary: #05070b;
+  --color-bg-secondary: #080b11;
+  --color-bg-muted: #0b1018;
+  --color-bg-deep: #030407;
   --color-bg-soft: rgba(9, 13, 20, 0.84);
-  --color-panel: rgba(235, 241, 232, 0.045);
-  --color-panel-strong: rgba(235, 241, 232, 0.075);
-  --color-panel-solid: #0b1018;
+  --color-surface: rgba(235, 241, 232, 0.045);
+  --color-surface-raised: rgba(235, 241, 232, 0.065);
+  --color-surface-panel: rgba(7, 11, 18, 0.86);
+  --color-surface-elevated: #070b12;
+  --color-surface-inset: rgba(0, 0, 0, 0.2);
+  --color-input-bg: rgba(255, 255, 255, 0.055);
+  --color-secondary: rgba(255, 255, 255, 0.045);
+  --color-secondary-hover: rgba(255, 255, 255, 0.075);
   --color-border: rgba(221, 229, 220, 0.1);
   --color-border-strong: rgba(221, 229, 220, 0.18);
-  --color-text: #f4f0e7;
-  --color-text-muted: rgba(226, 225, 213, 0.72);
-  --color-text-faint: rgba(187, 190, 180, 0.5);
+  --color-text-primary: #f4f0e7;
+  --color-text-secondary: rgba(226, 225, 213, 0.72);
+  --color-text-muted: rgba(187, 190, 180, 0.54);
+  --color-text-disabled: rgba(187, 190, 180, 0.38);
+  --color-text-placeholder: rgba(226, 225, 213, 0.48);
+  --color-text-inverse: #05070b;
+  --color-link: #9bd6e5;
+  --color-link-hover: #c8eef6;
+  --color-primary: #efe7d2;
+  --color-primary-hover: #fff6df;
+  --color-primary-active: #d8ceb7;
   --color-accent: #9bd6e5;
   --color-accent-strong: #65d7f2;
-  --color-accent-soft: rgba(101, 215, 242, 0.12);
+  --color-accent-rgb: 155, 214, 229;
+  --color-accent-strong-rgb: 101, 215, 242;
   --color-warm: #d9b978;
-  --color-warm-soft: rgba(217, 185, 120, 0.12);
+  --color-warm-rgb: 217, 185, 120;
   --color-success: #a7dbb2;
   --color-warning: #f0c879;
   --color-error: #f0a3a3;
   --color-info: #9bd6e5;
-  --color-button: #efe7d2;
-  --shadow-orb: 0 0 46px rgba(101, 215, 242, 0.11);
+  --color-success-soft: rgba(167, 219, 178, 0.1);
+  --color-warning-soft: rgba(240, 200, 121, 0.1);
+  --color-error-soft: rgba(240, 163, 163, 0.1);
+  --color-info-soft: rgba(155, 214, 229, 0.1);
+  --color-disabled-bg: rgba(255, 255, 255, 0.035);
+  --color-disabled-border: rgba(221, 229, 220, 0.08);
+  --color-focus: #9bd6e5;
+  --color-orb-glow: rgba(155, 214, 229, 0.16);
+  --color-orb-glow-soft: rgba(155, 214, 229, 0.1);
+  --color-shadow-problem-card: rgba(5, 12, 30, 0.22);
+  --color-shadow-problem-visual: rgba(8, 20, 58, 0.24);
+  --color-selection: rgba(159, 200, 216, 0.22);
+  --color-bg: var(--color-bg-primary);
+  --color-panel: var(--color-surface);
+  --color-panel-strong: var(--color-surface-raised);
+  --color-panel-solid: var(--color-bg-muted);
+  --color-button: var(--color-primary);
+  --color-text: var(--color-text-primary);
+  --color-text-faint: var(--color-text-muted);
+  --color-accent-soft: rgba(var(--color-accent-strong-rgb), 0.12);
+  --color-warm-soft: rgba(var(--color-warm-rgb), 0.12);
+  --shadow-orb: 0 0 46px rgba(var(--color-accent-strong-rgb), 0.11);
+  --shadow-primary: 0 14px 36px rgba(239, 231, 210, 0.12);
   --shadow-panel: 0 24px 90px rgba(0, 0, 0, 0.34);
   --radius-panel: 22px;
   --radius-card: 18px;
   --max-width: 1200px;
-  --ink: #e8e5da;
-  --ink-2: #f4f0e7;
-  --dim: #7e8379;
-  --cyan: #9bd6e5;
-  --green: #a7dbb2;
+  --ink: var(--color-text-secondary);
+  --ink-2: var(--color-text-primary);
+  --dim: var(--color-text-muted);
+  --cyan: var(--color-accent);
+  --green: var(--color-success);
   --font-display: "Sora", "IBM Plex Sans", system-ui, sans-serif;
   --font-body: "IBM Plex Sans", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
@@ -49,10 +87,10 @@ body {
   margin: 0;
   min-height: 100vh;
   background:
-    radial-gradient(circle at 18% 12%, rgba(101, 215, 242, 0.08), transparent 26%),
-    radial-gradient(circle at 78% 4%, rgba(217, 185, 120, 0.06), transparent 24%),
-    radial-gradient(circle at 50% 46%, rgba(101, 215, 242, 0.045), transparent 42%),
-    linear-gradient(180deg, #080b11 0%, #05070b 48%, #030407 100%);
+    radial-gradient(circle at 18% 12%, rgba(var(--color-accent-strong-rgb), 0.08), transparent 26%),
+    radial-gradient(circle at 78% 4%, rgba(var(--color-warm-rgb), 0.06), transparent 24%),
+    radial-gradient(circle at 50% 46%, rgba(var(--color-accent-strong-rgb), 0.045), transparent 42%),
+    linear-gradient(180deg, var(--color-bg-secondary) 0%, var(--color-bg-primary) 48%, var(--color-bg-deep) 100%);
   color: var(--color-text);
   font-family: var(--font-body);
   font-weight: 400;
@@ -66,8 +104,8 @@ body::before {
   pointer-events: none;
   background-image:
     url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.5  0 0 0 0 0.55  0 0 0 0 0.65  0 0 0 0 0.08 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"),
-    linear-gradient(rgba(255, 255, 255, 0.022) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
+    linear-gradient(var(--color-border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-border) 1px, transparent 1px);
   background-size: 160px 160px, 100% 3px, 3px 100%;
   opacity: 0.3;
   mix-blend-mode: overlay;
@@ -80,7 +118,7 @@ body::after {
   inset: 0;
   pointer-events: none;
   background:
-    linear-gradient(90deg, transparent 0, rgba(255, 255, 255, 0.045) 50%, transparent 100%) 50% 0 / min(1200px, calc(100vw - 48px)) 100% no-repeat;
+    linear-gradient(90deg, transparent 0, rgba(var(--color-accent-rgb), 0.045) 50%, transparent 100%) 50% 0 / min(1200px, calc(100vw - 48px)) 100% no-repeat;
   opacity: 0.22;
   mask-image: linear-gradient(180deg, black, transparent 72%);
 }
@@ -98,7 +136,7 @@ select {
 }
 
 ::selection {
-  background: rgba(159, 200, 216, 0.22);
+  background: var(--color-selection);
 }
 
 @theme inline {
@@ -114,7 +152,7 @@ select {
 }
 
 .surface-line {
-  background: linear-gradient(90deg, transparent, rgba(155, 214, 229, 0.38), transparent);
+  background: linear-gradient(90deg, transparent, rgba(var(--color-accent-rgb), 0.38), transparent);
 }
 
 .focus-ring {
@@ -124,7 +162,7 @@ select {
 .focus-ring:focus-visible {
   box-shadow:
     0 0 0 2px var(--color-bg),
-    0 0 0 4px var(--color-accent);
+    0 0 0 4px var(--color-focus);
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -29,7 +29,7 @@ export function WaitlistForm() {
 
   return (
     <form className="w-full" onSubmit={submit} noValidate>
-      <label htmlFor="waitlist-email" className="block text-sm text-white/78">
+      <label htmlFor="waitlist-email" className="block text-sm text-[var(--color-text-secondary)]">
         Email address
       </label>
       <div className="mt-3 flex w-full flex-col gap-3 sm:flex-row">
@@ -46,24 +46,24 @@ export function WaitlistForm() {
           placeholder="you@example.com"
           aria-describedby="waitlist-helper waitlist-status"
           aria-invalid={state === "error"}
-          className="h-14 min-w-0 flex-1 rounded-full border border-[var(--color-border-strong)] bg-white/[0.055] px-6 text-white outline-none transition placeholder:text-white/38 hover:border-white/24 focus:border-[var(--color-accent)] focus:ring-2 focus:ring-[var(--color-accent)]/35"
+          className="h-14 min-w-0 flex-1 rounded-full border border-[var(--color-border-strong)] bg-[var(--color-input-bg)] px-6 text-[var(--color-text-primary)] outline-none transition placeholder:text-[var(--color-text-placeholder)] hover:border-[rgba(var(--color-accent-rgb),0.32)] focus:border-[var(--color-focus)] focus:ring-2 focus:ring-[var(--color-focus)]"
         />
         <button
           type="submit"
           aria-busy={state === "loading"}
           disabled={state === "loading" || state === "success"}
-          className="inline-flex h-14 items-center justify-center rounded-full bg-[var(--color-button)] px-7 text-sm font-medium uppercase tracking-[0.18em] text-[#06080d] outline-none transition hover:-translate-y-0.5 hover:bg-white focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-bg)] disabled:cursor-not-allowed disabled:opacity-70"
+          className="inline-flex h-14 items-center justify-center rounded-full bg-[var(--color-primary)] px-7 text-sm font-medium uppercase tracking-[0.18em] text-[var(--color-text-inverse)] outline-none transition hover:-translate-y-0.5 hover:bg-[var(--color-primary-hover)] active:bg-[var(--color-primary-active)] focus-visible:ring-2 focus-visible:ring-[var(--color-focus)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-bg)] disabled:cursor-not-allowed disabled:bg-[var(--color-disabled-bg)] disabled:text-[var(--color-text-disabled)] disabled:opacity-70"
         >
           {state === "loading" ? "Sending" : state === "success" ? "Requested" : "Request Early Access"}
         </button>
       </div>
-      <p id="waitlist-helper" className="mt-3 text-sm leading-6 text-[var(--color-text-muted)]">
+      <p id="waitlist-helper" className="mt-3 text-sm leading-6 text-[var(--color-text-secondary)]">
         Tell us where to send your invite. No spam, no public launch list. This preview validates locally.
       </p>
       <p
         id="waitlist-status"
         aria-live="polite"
-        className={state === "error" ? "mt-2 text-sm text-red-200" : "mt-2 text-sm text-[var(--color-text-faint)]"}
+        className={state === "error" ? "mt-2 text-sm text-[var(--color-error)]" : "mt-2 text-sm text-[var(--color-text-muted)]"}
       >
         {message}
       </p>

@@ -13,11 +13,11 @@ export function ProblemSection() {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   return (
-    <section id="problem" className="scroll-mt-24 overflow-hidden border-y border-[var(--color-border)] bg-[rgba(8,11,17,0.64)] py-16 md:py-24 lg:py-28">
+    <section id="problem" className="scroll-mt-24 overflow-hidden border-y border-[var(--color-border)] bg-[var(--color-bg-soft)] py-16 md:py-24 lg:py-28">
       <Container>
         <SectionLabel number="01">Why this exists</SectionLabel>
         <div className="mt-6 max-w-3xl">
-          <h2 className="font-display text-3xl font-light leading-tight text-white md:text-5xl">
+          <h2 className="font-display text-3xl font-light leading-tight text-[var(--color-text-primary)] md:text-5xl">
             The problem is not intelligence. It is follow-through.
           </h2>
           <p className="mt-5 text-lg leading-8 text-[var(--color-text-muted)]">
@@ -26,9 +26,9 @@ export function ProblemSection() {
         </div>
 
         <div className="relative mt-14 hidden lg:block">
-          <div className="absolute bottom-16 left-1/2 top-16 w-px -translate-x-1/2 bg-[linear-gradient(180deg,transparent,rgba(155,214,229,0.34),transparent)]" />
+          <div className="absolute bottom-16 left-1/2 top-16 w-px -translate-x-1/2 bg-[linear-gradient(180deg,transparent,rgba(var(--color-accent-rgb),0.34),transparent)]" />
           <motion.div
-            className="absolute bottom-16 left-1/2 top-16 w-px -translate-x-1/2 bg-[linear-gradient(180deg,transparent,rgba(155,214,229,0.72),transparent)]"
+            className="absolute bottom-16 left-1/2 top-16 w-px -translate-x-1/2 bg-[linear-gradient(180deg,transparent,rgba(var(--color-accent-rgb),0.72),transparent)]"
             animate={{ opacity: [0.16, 0.5, 0.16] }}
             transition={{ duration: 4.8, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
           />
@@ -54,9 +54,9 @@ export function ProblemSection() {
         </div>
 
         <div className="relative mt-12 lg:hidden">
-          <div className="absolute bottom-10 left-4 top-6 w-px bg-[linear-gradient(180deg,rgba(155,214,229,0.08),rgba(155,214,229,0.42),rgba(155,214,229,0.08))]" />
+          <div className="absolute bottom-10 left-4 top-6 w-px bg-[linear-gradient(180deg,rgba(var(--color-accent-rgb),0.08),rgba(var(--color-accent-rgb),0.42),rgba(var(--color-accent-rgb),0.08))]" />
           <motion.div
-            className="absolute bottom-10 left-4 top-6 w-px bg-[linear-gradient(180deg,transparent,rgba(155,214,229,0.86),transparent)]"
+            className="absolute bottom-10 left-4 top-6 w-px bg-[linear-gradient(180deg,transparent,rgba(var(--color-accent-rgb),0.86),transparent)]"
             animate={{ opacity: [0.12, 0.45, 0.12] }}
             transition={{ duration: 4.8, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
           />
@@ -155,16 +155,16 @@ function ProblemMobileNode({
       <div className="relative pt-7">
         <div
           className={cn(
-            "absolute left-4 top-8 h-px w-10 bg-[rgba(155,214,229,0.28)] transition duration-500",
-            active && "bg-[rgba(155,214,229,0.82)] shadow-[0_0_16px_rgba(101,215,242,0.58)]",
+            "absolute left-4 top-8 h-px w-10 bg-[rgba(var(--color-accent-rgb),0.28)] transition duration-500",
+            active && "bg-[rgba(var(--color-accent-rgb),0.82)] shadow-[0_0_16px_rgba(var(--color-accent-strong-rgb),0.58)]",
           )}
         />
         <div
           className={cn(
-            "relative z-10 grid h-8 w-8 place-items-center rounded-full border text-[10px] text-white/46 transition duration-500",
+            "relative z-10 grid h-8 w-8 place-items-center rounded-full border text-[10px] text-[var(--color-text-muted)] transition duration-500",
             active
-              ? "border-[rgba(155,214,229,0.8)] bg-[rgba(155,214,229,0.14)] text-white shadow-[0_0_24px_rgba(101,215,242,0.32)]"
-              : "border-[rgba(155,214,229,0.24)] bg-[rgba(5,12,30,0.85)]",
+              ? "border-[rgba(var(--color-accent-rgb),0.8)] bg-[rgba(var(--color-accent-rgb),0.14)] text-[var(--color-text-primary)] shadow-[0_0_24px_rgba(var(--color-accent-strong-rgb),0.32)]"
+              : "border-[rgba(var(--color-accent-rgb),0.24)] bg-[var(--color-surface-elevated)]",
           )}
         >
           {(index + 1).toString().padStart(2, "0")}
@@ -184,30 +184,30 @@ function ProblemGapCard({ item, active }: { item: ProblemMapItem; active: boolea
     <article
       tabIndex={0}
       className={cn(
-        "max-w-[440px] rounded-[var(--radius-panel)] border bg-[rgba(7,12,20,0.78)] p-6 outline-none backdrop-blur-xl transition duration-500 focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]",
+        "max-w-[440px] rounded-[var(--radius-panel)] border bg-[var(--color-surface-panel)] p-6 outline-none backdrop-blur-xl transition duration-500 focus-visible:ring-2 focus-visible:ring-[var(--color-focus)]",
         active
-          ? "border-[rgba(155,214,229,0.52)] shadow-[0_0_54px_rgba(101,215,242,0.16)]"
-          : "border-[var(--color-border)] shadow-[0_0_40px_rgba(5,12,30,0.22)]",
+          ? "border-[rgba(var(--color-accent-rgb),0.52)] shadow-[0_0_54px_rgba(var(--color-accent-strong-rgb),0.16)]"
+          : "border-[var(--color-border)] shadow-[0_0_40px_var(--color-shadow-problem-card)]",
       )}
     >
       <div>
-        <p className="font-mono text-xs uppercase tracking-[0.24em] text-[var(--cyan)]">{item.kicker}</p>
-        <h3 className="mt-3 text-lg font-light leading-snug text-white md:text-xl">{item.question}</h3>
+        <p className="font-mono text-xs uppercase tracking-[0.24em] text-[var(--color-accent)]">{item.kicker}</p>
+        <h3 className="mt-3 text-lg font-light leading-snug text-[var(--color-text-primary)] md:text-xl">{item.question}</h3>
       </div>
       <dl className="mt-6 grid gap-3">
-        <div className="rounded-2xl border border-[var(--color-border)] bg-black/18 p-4">
+        <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-inset)] p-4">
           <dt className="font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--color-text-faint)]">Current AI gap</dt>
-          <dd className="mt-2 text-sm leading-6 text-white/78">{item.gap}</dd>
+          <dd className="mt-2 text-sm leading-6 text-[var(--color-text-secondary)]">{item.gap}</dd>
         </div>
         <div className="rounded-2xl border border-[var(--color-accent)]/22 bg-[var(--color-accent-soft)] p-4">
           <dt className="font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--color-accent)]">
             Sirius follow-through
           </dt>
-          <dd className="mt-2 text-sm leading-6 text-white/82">{item.followThrough}</dd>
+          <dd className="mt-2 text-sm leading-6 text-[var(--color-text-secondary)]">{item.followThrough}</dd>
         </div>
-        <div className="rounded-2xl border border-[var(--color-border)] bg-black/18 p-4">
+        <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-inset)] p-4">
           <dt className="font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--color-text-faint)]">Surface affected</dt>
-          <dd className="mt-2 text-sm leading-6 text-white/78">{item.surface}</dd>
+          <dd className="mt-2 text-sm leading-6 text-[var(--color-text-secondary)]">{item.surface}</dd>
         </div>
       </dl>
     </article>
@@ -221,12 +221,12 @@ function ConnectorBranch({ active, side }: { active: boolean; side: "left" | "ri
         "absolute top-1/2 h-px w-[calc(50%_-_54px)] -translate-y-1/2 overflow-hidden transition duration-500",
         side === "left" ? "left-0" : "right-0",
         active
-          ? "bg-[linear-gradient(90deg,transparent,rgba(155,214,229,0.86),transparent)] shadow-[0_0_18px_rgba(101,215,242,0.56)]"
-          : "bg-[linear-gradient(90deg,transparent,rgba(155,214,229,0.24),transparent)]",
+          ? "bg-[linear-gradient(90deg,transparent,rgba(var(--color-accent-rgb),0.86),transparent)] shadow-[0_0_18px_rgba(var(--color-accent-strong-rgb),0.56)]"
+          : "bg-[linear-gradient(90deg,transparent,rgba(var(--color-accent-rgb),0.24),transparent)]",
       )}
     >
       <motion.span
-        className="absolute inset-y-0 w-1/3 bg-[linear-gradient(90deg,transparent,rgba(241,244,250,0.7),transparent)]"
+        className="absolute inset-y-0 w-1/3 bg-[linear-gradient(90deg,transparent,rgba(var(--color-accent-rgb),0.7),transparent)]"
         animate={{ x: side === "left" ? ["240%", "-40%"] : ["-40%", "240%"], opacity: active ? [0.28, 0.9, 0.28] : [0.08, 0.22, 0.08] }}
         transition={{ duration: active ? 1.9 : 4.8, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
       />
@@ -239,10 +239,10 @@ function SpineNode({ active, label }: { active: boolean; label: string }) {
     <div className="absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2">
       <div
         className={cn(
-          "grid h-12 w-12 place-items-center rounded-full border bg-[rgba(5,12,30,0.9)] text-[10px] text-white/48 transition duration-500",
+          "grid h-12 w-12 place-items-center rounded-full border bg-[var(--color-surface-elevated)] text-[10px] text-[var(--color-text-muted)] transition duration-500",
           active
-            ? "border-[rgba(155,214,229,0.8)] text-white shadow-[0_0_34px_rgba(101,215,242,0.38)]"
-            : "border-[rgba(155,214,229,0.26)]",
+            ? "border-[rgba(var(--color-accent-rgb),0.8)] text-[var(--color-text-primary)] shadow-[0_0_34px_rgba(var(--color-accent-strong-rgb),0.38)]"
+            : "border-[rgba(var(--color-accent-rgb),0.26)]",
         )}
       >
         {label}
