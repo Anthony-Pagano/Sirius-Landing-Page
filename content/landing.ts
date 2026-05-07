@@ -9,14 +9,14 @@ export const landingContent = {
   hero: {
     title: "Speak outcomes. Sirius executes.",
     description:
-      "Sirius turns a spoken request into a visible execution plan across apps, feeds, automations, and connected devices, with the human loop kept in view.",
+      "Sirius turns a spoken command into a visible workflow: planning the steps, running tools, pausing for approval, and confirming when the work is done.",
     primaryCta: "Request Early Access",
     secondaryCta: "Inspect The Demo",
-    trustLine: "Private beta · voice-first workflows · software to hardware actions",
+    trustLine: "Private beta · approval-gated execution · software and device actions",
     proofPoints: [
-      "Human-visible execution",
-      "Software and device follow-through",
-      "Reusable workflow patterns",
+      { label: "Plans the work", detail: "steps stay visible before anything runs" },
+      { label: "Pauses for risk", detail: "external actions require approval" },
+      { label: "Confirms completion", detail: "status survives beyond the answer" },
     ],
     trustScaffold: [
       { label: "Private beta", detail: "limited early access" },
@@ -27,8 +27,8 @@ export const landingContent = {
     ],
     command: {
       prompt: "Run the release workflow and print the signed checklist when CI passes.",
-      status: "Planning 5 actions",
-      route: "voice -> workflow -> tools -> device",
+      status: "Plan ready · 5 actions",
+      route: "voice -> plan -> approval -> action",
     },
     ringLabels: [
       { label: "Speak", detail: "voice input" },

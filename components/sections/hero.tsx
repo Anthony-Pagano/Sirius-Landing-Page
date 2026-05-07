@@ -8,6 +8,8 @@ import { Container } from "@/components/ui/container";
 import { SectionLabel } from "@/components/ui/section-label";
 import { landingContent } from "@/content/landing";
 
+const heroWorkflow = ["Speak", "Plan", "Approve", "Act"];
+
 export function HeroSection() {
   return (
     <section id="hero" className="relative scroll-mt-24 overflow-hidden pt-12 pb-14 md:pt-16 md:pb-20 lg:min-h-[calc(100svh-64px)] lg:py-14">
@@ -27,14 +29,21 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.12, ease: "easeOut" }}
-            className="mt-5 max-w-xl text-lg leading-8 text-[var(--color-text-muted)] md:text-xl"
+            className="mt-5 max-w-xl text-lg leading-8 text-[var(--color-text-secondary)] md:text-xl"
           >
             {landingContent.hero.description}
           </motion.p>
           <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.16, ease: "easeOut" }}
+          >
+            <HeroPathStrip />
+          </motion.div>
+          <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.18, ease: "easeOut" }}
+            transition={{ duration: 0.7, delay: 0.22, ease: "easeOut" }}
             className="mt-8 flex flex-col gap-3 sm:flex-row"
           >
             <ButtonLink href="#cta">{landingContent.hero.primaryCta}</ButtonLink>
@@ -45,16 +54,17 @@ export function HeroSection() {
           <motion.div
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.26, ease: "easeOut" }}
+            transition={{ duration: 0.7, delay: 0.3, ease: "easeOut" }}
             className="mt-7 grid gap-3 sm:grid-cols-3 lg:max-w-[620px]"
           >
             {landingContent.hero.proofPoints.map((point) => (
               <div
-                key={point}
+                key={point.label}
                 className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-3 text-sm leading-5 text-[var(--color-text-secondary)]"
               >
                 <span className="mb-2 block h-1.5 w-1.5 rounded-full bg-[var(--color-accent)] shadow-[0_0_10px_var(--color-accent)]" />
-                {point}
+                <span className="block font-medium text-[var(--color-text-primary)]">{point.label}</span>
+                <span className="mt-1 block text-[13px] leading-5 text-[var(--color-text-muted)]">{point.detail}</span>
               </div>
             ))}
           </motion.div>
@@ -80,6 +90,23 @@ export function HeroSection() {
   );
 }
 
+function HeroPathStrip() {
+  return (
+    <div className="mt-7 max-w-xl rounded-full border border-[var(--color-border)] bg-[var(--color-surface-inset)] px-3 py-2">
+      <div className="grid grid-cols-4 items-center gap-1">
+        {heroWorkflow.map((step, index) => (
+          <div key={step} className="flex items-center gap-2">
+            <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full border border-[rgba(var(--color-accent-rgb),0.32)] bg-[var(--color-accent-soft)] font-mono text-[10px] text-[var(--color-accent)]">
+              {(index + 1).toString().padStart(2, "0")}
+            </span>
+            <span className="truncate font-mono text-[10px] uppercase tracking-[0.16em] text-[var(--color-text-secondary)]">{step}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function HeroExecutionArtifact() {
   const { command } = landingContent.hero;
 
@@ -96,6 +123,19 @@ function HeroExecutionArtifact() {
           <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--color-text-faint)]">
             Operator preview · 14:32
           </span>
+        </div>
+
+        <div className="border-b border-[var(--color-border)] px-4 py-3">
+          <div className="grid gap-2 sm:grid-cols-4">
+            {heroWorkflow.map((step, index) => (
+              <div key={step} className="rounded-full border border-[var(--color-border)] bg-[var(--color-surface-inset)] px-3 py-2">
+                <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-[var(--color-text-faint)]">
+                  {index === 0 ? "Voice" : index === 1 ? "Workflow" : index === 2 ? "Gate" : "Action"}
+                </p>
+                <p className="mt-1 text-xs text-[var(--color-text-primary)]">{step}</p>
+              </div>
+            ))}
+          </div>
         </div>
 
         <div className="grid gap-0 lg:grid-cols-[220px_1fr]">
