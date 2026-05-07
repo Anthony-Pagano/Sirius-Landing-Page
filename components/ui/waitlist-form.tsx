@@ -11,7 +11,7 @@ export function WaitlistForm() {
   const submit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (!email.trim() || !email.includes("@")) {
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
       setState("error");
       return;
     }
@@ -39,25 +39,26 @@ export function WaitlistForm() {
           value={email}
           onChange={(event) => {
             setEmail(event.target.value);
-            if (state === "error") {
+            if (state === "error" || state === "success") {
               setState("idle");
             }
           }}
           placeholder="you@example.com"
           aria-describedby="waitlist-helper waitlist-status"
           aria-invalid={state === "error"}
-          className="h-14 min-w-0 flex-1 rounded-full border border-white/14 bg-white/7 px-6 text-white outline-none transition placeholder:text-white/38 hover:border-white/24 focus:border-[var(--color-accent)] focus:ring-2 focus:ring-[var(--color-accent)]/35"
+          className="h-14 min-w-0 flex-1 rounded-full border border-[var(--color-border-strong)] bg-white/[0.055] px-6 text-white outline-none transition placeholder:text-white/38 hover:border-white/24 focus:border-[var(--color-accent)] focus:ring-2 focus:ring-[var(--color-accent)]/35"
         />
         <button
           type="submit"
+          aria-busy={state === "loading"}
           disabled={state === "loading" || state === "success"}
-          className="inline-flex h-14 items-center justify-center rounded-full bg-[var(--color-accent)] px-7 text-sm font-medium uppercase tracking-[0.2em] text-slate-950 outline-none transition hover:brightness-110 focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-bg)] disabled:cursor-not-allowed disabled:opacity-70"
+          className="inline-flex h-14 items-center justify-center rounded-full bg-[var(--color-button)] px-7 text-sm font-medium uppercase tracking-[0.18em] text-[#06080d] outline-none transition hover:-translate-y-0.5 hover:bg-white focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-bg)] disabled:cursor-not-allowed disabled:opacity-70"
         >
           {state === "loading" ? "Sending" : state === "success" ? "Requested" : "Request Access"}
         </button>
       </div>
       <p id="waitlist-helper" className="mt-3 text-sm leading-6 text-[var(--color-text-muted)]">
-        Tell us where to send your invite. No spam, no public launch list.
+        Tell us where to send your invite. This prototype uses client-side validation only; connect a backend before treating submissions as real.
       </p>
       <p
         id="waitlist-status"

@@ -4,67 +4,101 @@ export const landingContent = {
     { label: "System", href: "#thesis" },
     { label: "Demo", href: "#demo" },
     { label: "Use Cases", href: "#use-cases" },
+    { label: "Voice", href: "#why-voice" },
   ],
   hero: {
-    title: "Speak an outcome. Sirius handles the scaffolding.",
+    title: "Speak the outcome. Watch the system execute.",
     description:
-      "A voice-first system for turning intent into workflows, automations, information feeds, and real-world actions across your tools and home.",
+      "Sirius turns a spoken request into a visible execution plan across apps, feeds, automations, and connected devices, with the human loop kept in view.",
     primaryCta: "Request Early Access",
-    secondaryCta: "See The Workflow",
-    trustLine: "Private beta · voice-first workflows · software to hardware",
-    chips: [
-      { kind: "Workflow", title: "Ship release" },
-      { kind: "Device", title: "Print document" },
-      { kind: "Fabrication", title: "Start 3D print" },
-      { kind: "Automation", title: "Prep evening" },
+    secondaryCta: "Inspect The Demo",
+    trustLine: "Private beta · voice-first workflows · software to hardware actions",
+    proofPoints: [
+      "Human-visible execution",
+      "Software and device follow-through",
+      "Reusable workflow patterns",
+    ],
+    command: {
+      prompt: "Prep the release, watch CI, and print the signed checklist when it passes.",
+      status: "Planning 5 actions",
+      route: "voice -> workflow -> tools -> device",
+    },
+    ringLabels: [
+      { label: "Speak", detail: "voice input" },
+      { label: "Plan", detail: "workflow" },
+      { label: "Act", detail: "device action" },
+      { label: "Watch", detail: "automation" },
     ],
   },
   problemMap: [
     {
       kicker: "Documents",
       question: "Why can AI write the document, but not print it?",
+      gap: "Generation stops at a file.",
+      followThrough: "Sirius connects the final artifact to printer selection, confirmation, and completion status.",
+      surface: "Docs -> print queue",
       visual: "printer",
     },
     {
       kicker: "Fabrication",
       question: "Why can it design the object, but not upload and print it?",
+      gap: "The user still bridges design software and hardware.",
+      followThrough: "Sirius turns the model into a checked job with device readiness and operator handoff.",
+      surface: "CAD -> fabrication",
       visual: "fabrication",
     },
     {
       kicker: "Environment",
       question: "Why can it access your tools, but not coordinate your environment?",
+      gap: "Assistants answer, then wait for manual orchestration.",
+      followThrough: "Sirius composes routines across schedules, messages, feeds, and connected rooms.",
+      surface: "Context -> environment",
       visual: "environment",
     },
   ],
   thesis: {
-    title: "Sirius is a declarative execution layer for software and the physical world.",
+    title: "A declarative execution layer for software and the physical world.",
     description:
-      "Users describe outcomes in plain language. Sirius composes the right tools, workflows, automations, and device actions behind the scenes, then keeps the human loop visible.",
+      "Users describe outcomes in plain language. Sirius decomposes the work, chooses the right surfaces, requests confirmation when risk appears, and exposes progress instead of hiding it behind a chat transcript.",
   },
   pillars: [
     {
-      kicker: "Describe outcomes",
-      title: "Intent first",
+      kicker: "01",
+      title: "Workflows",
       description:
-        "Start from what should happen, not which app, integration, or device menu you need to touch.",
+        "On-demand outcome jobs you trigger by speaking. Sirius plans the steps, runs the tools, and shows progress.",
     },
     {
-      kicker: "Compose capabilities",
-      title: "Reusable systems",
+      kicker: "02",
+      title: "Automations",
       description:
-        "Turn repeated actions into durable workflows that can mix agents, hosted automations, feeds, and personal tools.",
+        "Always-on conditions that watch for changes and follow through when something needs to happen.",
     },
     {
-      kicker: "Act everywhere",
-      title: "Software to hardware",
+      kicker: "03",
+      title: "Feeds",
       description:
-        "Extend beyond tabs and chat windows into printers, lights, speakers, and other connected surfaces.",
+        "Curated information streams Sirius can summarize, monitor, and connect back into workflows.",
     },
   ],
+  systemDiagram: {
+    sequence: [
+      { title: "Capture", detail: "voice request with context" },
+      { title: "Decompose", detail: "steps, tools, approvals" },
+      { title: "Execute", detail: "apps, feeds, devices" },
+      { title: "Confirm", detail: "status, handoff, reuse" },
+    ],
+    branches: ["Voice request", "Workflow plan", "Tool execution", "Human-visible status"],
+    endpoints: ["Apps", "Feeds", "Printers", "Home devices"],
+    memoryTitle: "Execution stays visible, reusable, and interruptible.",
+    memoryDescription:
+      "Sirius keeps enough context to coordinate across surfaces without hiding the work. You can see what is running, reuse the pattern, or step in before it acts.",
+    contexts: ["work", "home", "devices", "feeds", "research", "people"],
+  },
   demo: {
     title: "A calm operator surface for tracking what Sirius is actually doing.",
     description:
-      "The interface should make the system feel legible. Visitors need to see request capture, decomposition, tool execution, and status updates without reading a wall of copy.",
+      "The interface makes voice execution legible: request capture, decomposition, tool calls, completion evidence, and human handoff are visible in one place.",
     points: [
       "Intent capture",
       "Workflow decomposition",
@@ -72,12 +106,23 @@ export const landingContent = {
       "Progress visibility",
       "Human handoff",
     ],
+    summary: [
+      { label: "ETA", value: "4 min" },
+      { label: "Risk", value: "Approval gated" },
+      { label: "Surfaces", value: "5 connected" },
+    ],
+    executionLog: [
+      "Checked branch and release diff",
+      "Security review completed",
+      "CI is running on 18 jobs",
+      "Reviewer notification queued after green build",
+    ],
   },
   workflowSteps: [
     { title: "Pull diff and verify branch", state: "done", stateLabel: "Done" },
     { title: "Run security review", state: "done", stateLabel: "Done" },
     { title: "Wait on CI · build and tests", state: "active", stateLabel: "In progress" },
-    { title: "Notify reviewers", state: "next", stateLabel: "Up next" },
+    { title: "Request deploy approval", state: "blocked", stateLabel: "Needs approval" },
     { title: "Tag and deploy", state: "next", stateLabel: "Up next" },
   ],
   useCases: [
@@ -86,43 +131,60 @@ export const landingContent = {
       title: "Run a release workflow and notify me when CI is green.",
       description:
         "Coordinate code review, security checks, CI status, and reviewer comms from one voice request.",
+      trigger: "Voice release request",
+      output: "Verified release path",
+      friction: "No manual status polling",
     },
     {
       kicker: "Document handling",
       title: "Print the document Sirius just created.",
       description:
         "Move from draft generation to actual output without forcing the user to switch context and finish the job manually.",
+      trigger: "Generated document",
+      output: "Confirmed print job",
+      friction: "No app-to-printer handoff",
     },
     {
       kicker: "Physical fabrication",
       title: "Upload this model and start the 3D print.",
       description:
         "Bridge design generation and hardware execution so the system can take work all the way to material output.",
+      trigger: "Finished model",
+      output: "Ready-to-run device job",
+      friction: "No repeated slicer setup",
     },
     {
       kicker: "Ambient coordination",
       title: "Prep my evening routine before I get home.",
       description:
         "Combine messages, context, schedules, and smart-home actions into a single composable instruction.",
+      trigger: "Arrival context",
+      output: "Coordinated routine",
+      friction: "No fragmented app switching",
     },
   ],
   whyVoice: {
     title: "Voice removes friction where declarative systems usually slow down.",
+    lead:
+      "Voice is not decoration here. It is the fastest way to declare intent while the execution layer carries the operational burden.",
     points: [
       {
         title: "Faster capture",
         description:
           "When the bottleneck is describing the desired outcome, speaking is often the highest-throughput interface.",
+        context: "hands-busy work",
       },
       {
         title: "Ambient by default",
         description:
           "Voice works while the user is walking, building, cooking, commuting, or doing other work with their hands occupied.",
+        context: "home and field contexts",
       },
       {
         title: "Natural orchestration",
         description:
           "A voice-first interface fits a system whose value comes from composition and follow-through rather than manual navigation.",
+        context: "multi-step workflows",
       },
     ],
   },

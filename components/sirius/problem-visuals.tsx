@@ -11,15 +11,15 @@ export function ProblemVisual({ type, active = false }: ProblemVisualProps) {
       className={cn(
         "relative grid aspect-[1.35] w-full max-w-[360px] place-items-center overflow-hidden rounded-[var(--radius-panel)] border bg-[rgba(6,14,34,0.48)] transition duration-500",
         active
-          ? "border-[rgba(78,224,255,0.5)] shadow-[0_0_50px_rgba(78,224,255,0.18)]"
-          : "border-[rgba(112,144,255,0.16)] shadow-[0_0_34px_rgba(8,20,58,0.24)]",
+          ? "border-[rgba(155,214,229,0.5)] shadow-[0_0_50px_rgba(101,215,242,0.16)]"
+          : "border-[var(--color-border)] shadow-[0_0_34px_rgba(8,20,58,0.24)]",
       )}
     >
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_48%,rgba(78,224,255,0.12),transparent_58%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_48%,rgba(155,214,229,0.12),transparent_58%)]" />
       <div
         className={cn(
-          "absolute inset-x-10 top-1/2 h-px bg-[linear-gradient(90deg,transparent,rgba(78,224,255,0.36),transparent)] transition duration-500",
-          active && "bg-[linear-gradient(90deg,transparent,rgba(78,224,255,0.8),transparent)]",
+          "absolute inset-x-10 top-1/2 h-px bg-[linear-gradient(90deg,transparent,rgba(155,214,229,0.36),transparent)] transition duration-500",
+          active && "bg-[linear-gradient(90deg,transparent,rgba(155,214,229,0.8),transparent)]",
         )}
       />
       {type === "printer" && <PrinterSilhouette active={active} />}
@@ -47,7 +47,7 @@ function PrinterSilhouette({ active }: { active: boolean }) {
         strokeWidth="1.5"
         strokeLinecap="round"
       />
-      <circle cx="226" cy="104" r="6" fill={active ? "rgba(78,224,255,0.95)" : "rgba(78,224,255,0.5)"} />
+      <circle cx="226" cy="104" r="6" fill={active ? "rgba(155,214,229,0.95)" : "rgba(155,214,229,0.5)"} />
       <path
         d="M99 64C100 83 114 90 134 91H166C186 90 200 83 201 64"
         stroke="rgba(95,227,154,0.38)"
@@ -82,7 +82,7 @@ function FabricationSilhouette({ active }: { active: boolean }) {
         strokeWidth="1.3"
         strokeLinecap="round"
       />
-      <circle cx="150" cy="132" r={active ? "4.5" : "3.5"} fill="rgba(78,224,255,0.82)" />
+      <circle cx="150" cy="132" r={active ? "4.5" : "3.5"} fill="rgba(155,214,229,0.82)" />
     </svg>
   );
 }
@@ -116,8 +116,8 @@ function EnvironmentSilhouette({ active }: { active: boolean }) {
 function DeviceNode({ cx, cy, active }: { cx: number; cy: number; active: boolean }) {
   return (
     <>
-      <circle cx={cx} cy={cy} r="12" fill="rgba(78,224,255,0.08)" stroke="rgba(78,224,255,0.36)" />
-      <circle cx={cx} cy={cy} r={active ? "4.5" : "3.5"} fill="rgba(78,224,255,0.82)" />
+      <circle cx={cx} cy={cy} r="12" fill="rgba(155,214,229,0.08)" stroke="rgba(155,214,229,0.36)" />
+      <circle cx={cx} cy={cy} r={active ? "4.5" : "3.5"} fill="rgba(155,214,229,0.82)" />
     </>
   );
 }
@@ -127,8 +127,8 @@ function VisualDefs() {
     <defs>
       <linearGradient id="cyanStroke" x1="36" y1="26" x2="260" y2="194" gradientUnits="userSpaceOnUse">
         <stop stopColor="#F1F4FA" stopOpacity="0.72" />
-        <stop offset="0.45" stopColor="#4EE0FF" stopOpacity="0.92" />
-        <stop offset="1" stopColor="#5FE39A" stopOpacity="0.46" />
+        <stop offset="0.45" stopColor="#65D7F2" stopOpacity="0.92" />
+        <stop offset="1" stopColor="#A7DBB2" stopOpacity="0.46" />
       </linearGradient>
     </defs>
   );

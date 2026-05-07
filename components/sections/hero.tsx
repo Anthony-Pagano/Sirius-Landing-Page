@@ -10,16 +10,16 @@ import { landingContent } from "@/content/landing";
 
 export function HeroSection() {
   return (
-    <section id="hero" className="relative overflow-hidden py-16 md:min-h-[680px] md:py-24">
-      <div className="pointer-events-none absolute left-1/2 top-0 h-[760px] w-[min(1200px,120vw)] -translate-x-1/2 bg-[radial-gradient(ellipse_at_50%_38%,rgba(124,197,255,0.15),rgba(124,197,255,0.04)_34%,transparent_64%)]" />
-      <Container className="relative grid items-center gap-12 lg:grid-cols-[1.02fr_0.98fr] lg:gap-16">
+    <section id="hero" className="relative overflow-hidden py-16 md:min-h-[720px] md:py-24">
+      <div className="pointer-events-none absolute left-1/2 top-0 h-[820px] w-[min(1240px,124vw)] -translate-x-1/2 bg-[radial-gradient(ellipse_at_50%_38%,rgba(101,215,242,0.08),rgba(217,185,120,0.026)_36%,transparent_66%)]" />
+      <Container className="relative grid items-center gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:gap-14">
         <div className="relative z-10">
-          <SectionLabel number="00">Voice-first execution</SectionLabel>
+          <SectionLabel number="00">Voice-first execution layer</SectionLabel>
           <motion.h1
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: "easeOut" }}
-            className="mt-6 max-w-4xl text-5xl leading-[0.98] font-light text-balance text-white sm:text-6xl md:text-7xl xl:text-8xl"
+            className="font-display mt-6 max-w-4xl text-5xl leading-[0.96] font-light text-balance text-white sm:text-6xl md:text-7xl xl:text-[5.7rem]"
           >
             {landingContent.hero.title}
           </motion.h1>
@@ -31,6 +31,22 @@ export function HeroSection() {
           >
             {landingContent.hero.description}
           </motion.p>
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.18, ease: "easeOut" }}
+            className="mt-7 grid gap-3 sm:grid-cols-3"
+          >
+            {landingContent.hero.proofPoints.map((point) => (
+              <div
+                key={point}
+                className="rounded-2xl border border-[var(--color-border)] bg-white/[0.025] px-4 py-3 text-sm leading-5 text-white/74"
+              >
+                <span className="mb-2 block h-1.5 w-1.5 rounded-full bg-[var(--color-accent)] shadow-[0_0_10px_var(--color-accent)]" />
+                {point}
+              </div>
+            ))}
+          </motion.div>
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
@@ -46,7 +62,7 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.34, ease: "easeOut" }}
-            className="mt-8 border-t border-white/10 pt-5 text-xs uppercase tracking-[0.22em] text-[var(--color-text-faint)]"
+            className="font-mono mt-8 border-t border-[var(--color-border)] pt-5 text-xs uppercase tracking-[0.18em] text-[var(--color-text-faint)]"
           >
             {landingContent.hero.trustLine}
           </motion.p>
@@ -55,46 +71,162 @@ export function HeroSection() {
           initial={{ opacity: 0, scale: 0.92 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.9, delay: 0.18, ease: "easeOut" }}
-          className="relative flex items-center justify-center"
+          className="relative"
         >
-          <HeroOrbFrame />
+          <HeroExecutionArtifact />
         </motion.div>
       </Container>
     </section>
   );
 }
 
-function HeroOrbFrame() {
+function HeroExecutionArtifact() {
+  const { command } = landingContent.hero;
+
   return (
-    <div className="relative grid min-h-[460px] w-full place-items-center overflow-visible sm:min-h-[560px]">
-      <div className="absolute h-[clamp(320px,78vw,540px)] w-[clamp(320px,78vw,540px)] rounded-full border border-white/10" />
-      <div className="absolute h-[clamp(240px,56vw,390px)] w-[clamp(240px,56vw,390px)] rounded-full border border-dashed border-white/18" />
-      <div className="absolute h-[clamp(320px,76vw,560px)] w-[clamp(320px,76vw,560px)] rounded-full bg-[radial-gradient(circle,rgba(124,197,255,0.13),transparent_62%)] blur-sm" />
+    <div className="relative rounded-[28px] border border-[var(--color-border-strong)] bg-[rgba(6,10,17,0.76)] p-4 shadow-[var(--shadow-panel)] backdrop-blur-xl md:p-5">
+      <div className="absolute -inset-px rounded-[28px] bg-[linear-gradient(135deg,rgba(155,214,229,0.22),transparent_34%,rgba(217,185,120,0.12)_78%,transparent)] opacity-60" />
+      <div className="relative overflow-hidden rounded-[22px] border border-[var(--color-border)] bg-[#070b12]">
+        <div className="flex items-center justify-between border-b border-[var(--color-border)] px-4 py-3">
+          <div className="flex items-center gap-2">
+            <span className="h-2.5 w-2.5 rounded-full bg-[var(--color-error)]/80" />
+            <span className="h-2.5 w-2.5 rounded-full bg-[var(--color-warning)]/80" />
+            <span className="h-2.5 w-2.5 rounded-full bg-[var(--color-success)]/80" />
+          </div>
+          <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--color-text-faint)]">
+            Operator preview · 14:32
+          </span>
+        </div>
+
+        <div className="grid gap-0 lg:grid-cols-[0.95fr_1.05fr]">
+          <div className="border-b border-[var(--color-border)] p-5 lg:border-r lg:border-b-0">
+            <div className="rounded-2xl border border-[var(--color-border)] bg-white/[0.035] p-4">
+              <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-[var(--color-accent)]">
+                Voice request
+              </p>
+              <p className="mt-3 text-lg leading-7 text-white/90">{`"${command.prompt}"`}</p>
+            </div>
+            <div className="mt-4 grid grid-cols-2 gap-3">
+              <ArtifactMetric label="Status" value={command.status} />
+              <ArtifactMetric label="Route" value={command.route} />
+            </div>
+            <div className="mt-4 rounded-2xl border border-[var(--color-warning)]/24 bg-[var(--color-warm-soft)] p-4">
+              <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--color-warning)]">
+                Confirmation rule
+              </p>
+              <p className="mt-2 text-sm leading-6 text-[var(--color-text-muted)]">
+                External send, purchase, print, deploy, or device actuation requires human approval.
+              </p>
+            </div>
+          </div>
+          <div className="relative min-h-[460px] p-4">
+            <HeroOrbFrame />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ArtifactMetric({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="rounded-2xl border border-[var(--color-border)] bg-black/20 p-3">
+      <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--color-text-faint)]">{label}</p>
+      <p className="mt-2 text-sm leading-5 text-white/82">{value}</p>
+    </div>
+  );
+}
+
+function HeroOrbFrame() {
+  const labels = landingContent.hero.ringLabels;
+
+  return (
+    <div className="relative grid min-h-[430px] w-full place-items-center overflow-visible sm:min-h-[500px]">
+      <div className="absolute h-[clamp(330px,76vw,540px)] w-[clamp(330px,76vw,540px)] rounded-full border border-white/10" />
+      <div className="absolute h-[clamp(250px,56vw,380px)] w-[clamp(250px,56vw,380px)] rounded-full border border-dashed border-white/15" />
+      <div className="absolute h-[clamp(190px,44vw,300px)] w-[clamp(190px,44vw,300px)] rounded-full border border-white/[0.07]" />
+      <div className="absolute h-[clamp(300px,68vw,500px)] w-[clamp(300px,68vw,500px)] rounded-full bg-[radial-gradient(circle,rgba(159,200,216,0.075),transparent_62%)] blur-sm" />
+
+      <div className="pointer-events-none absolute inset-0 hidden lg:block">
+        <LeaderLine side="top" />
+        <LeaderLine side="right" />
+        <LeaderLine side="bottom" />
+        <LeaderLine side="left" />
+      </div>
+
       <div className="relative z-10">
         <Orb />
       </div>
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 grid grid-cols-1 gap-3 px-2 sm:grid-cols-2 lg:block">
-        {landingContent.hero.chips.map((chip, index) => (
-          <motion.div
-            key={`${chip.kind}-${chip.title}`}
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, delay: 0.42 + index * 0.08, ease: "easeOut" }}
-            className={[
-              "relative flex items-center gap-3 rounded-[10px] border border-[rgba(124,197,255,0.22)] bg-[rgba(6,9,18,0.82)] px-3 py-2 shadow-[0_0_24px_rgba(10,30,70,0.24)] backdrop-blur-md lg:absolute",
-              index === 0 ? "lg:-left-2 lg:top-8" : "",
-              index === 1 ? "lg:-right-2 lg:top-[32%]" : "",
-              index === 2 ? "lg:left-8 lg:bottom-10" : "",
-              index === 3 ? "lg:right-8 lg:bottom-24" : "",
-            ].join(" ")}
+
+      <div className="pointer-events-none absolute inset-0 hidden lg:block">
+        <RingLabel label={labels[0].label} detail={labels[0].detail} position="top" />
+        <RingLabel label={labels[1].label} detail={labels[1].detail} position="right" />
+        <RingLabel label={labels[2].label} detail={labels[2].detail} position="bottom" />
+        <RingLabel label={labels[3].label} detail={labels[3].detail} position="left" />
+      </div>
+
+      <div className="absolute inset-x-0 bottom-0 grid grid-cols-2 gap-3 px-4 lg:hidden">
+        {labels.map((item) => (
+          <div
+            key={item.label}
+            className="flex items-center gap-2 rounded-lg border border-white/10 bg-white/[0.025] px-3 py-2"
           >
-            <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-accent)] shadow-[0_0_10px_var(--color-accent)]" />
-            <span className="text-[11px] uppercase tracking-[0.2em] text-[var(--color-accent)]">{chip.kind}</span>
-            <span className="h-3 w-px bg-white/16" />
-            <span className="whitespace-nowrap text-xs text-[var(--color-text-muted)]">{chip.title}</span>
-          </motion.div>
+            <span className="h-1.5 w-1.5 rounded-full bg-[var(--color-accent)]" />
+            <span className="text-[11px] uppercase tracking-[0.2em] text-[var(--color-text)]">{item.label}</span>
+            <span className="text-[11px] text-[var(--color-text-faint)]">{item.detail}</span>
+          </div>
         ))}
       </div>
     </div>
   );
+}
+
+function LeaderLine({ side }: { side: "top" | "right" | "bottom" | "left" }) {
+  const classes = {
+    top: "left-1/2 top-[58px] h-[74px] w-px -translate-x-1/2 bg-gradient-to-b from-transparent via-white/18 to-transparent",
+    right: "right-[50px] top-1/2 h-px w-[82px] -translate-y-1/2 bg-gradient-to-r from-transparent via-white/18 to-transparent",
+    bottom: "bottom-[58px] left-1/2 h-[74px] w-px -translate-x-1/2 bg-gradient-to-b from-transparent via-white/18 to-transparent",
+    left: "left-[50px] top-1/2 h-px w-[82px] -translate-y-1/2 bg-gradient-to-r from-transparent via-white/18 to-transparent",
+  };
+
+  return <span className={`absolute ${classes[side]}`} />;
+}
+
+function RingLabel({
+  label,
+  detail,
+  position,
+}: {
+  label: string;
+  detail: string;
+  position: "top" | "right" | "bottom" | "left";
+}) {
+  const positionClasses = {
+    top: "left-1/2 top-4 -translate-x-1/2 text-center",
+    right: "right-0 top-1/2 -translate-y-1/2 text-left",
+    bottom: "bottom-4 left-1/2 -translate-x-1/2 text-center",
+    left: "left-0 top-1/2 -translate-y-1/2 text-right",
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: position === "top" ? -8 : 0 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.7, delay: 0.45, ease: "easeOut" }}
+      className={`absolute max-w-[120px] ${positionClasses[position]}`}
+    >
+      <div className="inline-flex items-center gap-2">
+        {(position === "right" || position === "bottom") && <NodeDot />}
+        <div>
+          <div className="text-[11px] uppercase tracking-[0.22em] text-[var(--color-text)]">{label}</div>
+          <div className="mt-1 text-[11px] text-[var(--color-text-faint)]">{detail}</div>
+        </div>
+        {(position === "left" || position === "top") && <NodeDot />}
+      </div>
+    </motion.div>
+  );
+}
+
+function NodeDot() {
+  return <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-accent)] shadow-[0_0_8px_rgba(159,200,216,0.4)]" />;
 }
