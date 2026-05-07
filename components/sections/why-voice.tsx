@@ -4,11 +4,11 @@ import { landingContent } from "@/content/landing";
 
 export function WhyVoiceSection() {
   return (
-    <section id="why-voice" className="py-20 md:py-24">
+    <section id="why-voice" className="py-20 md:py-28">
       <Container className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr]">
         <div>
-          <SectionLabel>Why voice</SectionLabel>
-          <h2 className="mt-6 text-3xl font-light tracking-[-0.03em] text-white md:text-5xl">
+          <SectionLabel number="05">Why voice</SectionLabel>
+          <h2 className="mt-6 text-3xl leading-tight font-light text-white md:text-5xl">
             {landingContent.whyVoice.title}
           </h2>
         </div>

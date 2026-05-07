@@ -11,6 +11,13 @@ export const landingContent = {
       "A voice-first system for turning intent into workflows, automations, information feeds, and real-world actions across your tools and home.",
     primaryCta: "Request Early Access",
     secondaryCta: "See The Workflow",
+    trustLine: "Private beta · voice-first workflows · software to hardware",
+    chips: [
+      { kind: "Workflow", title: "Ship release" },
+      { kind: "Device", title: "Print document" },
+      { kind: "Fabrication", title: "Start 3D print" },
+      { kind: "Automation", title: "Prep evening" },
+    ],
   },
   problemMap: [
     {
@@ -122,7 +129,9 @@ export const landingContent = {
   cta: {
     title: "Built for AI-native early adopters who want systems that act, not just respond.",
     description:
-      "Use this scaffold to turn the prototype into a clear early-access story, then iterate from a real waitlist and live product demos.",
+      "Join the private beta for a voice-first system that turns requests into workflows, device actions, and coordinated follow-through.",
     buttonLabel: "Request Access",
+    note: "Private beta · limited early access",
+    helper: "Tell us where to send your invite. No spam, no public launch list.",
   },
 } as const;

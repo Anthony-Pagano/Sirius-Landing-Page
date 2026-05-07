@@ -1,35 +1,28 @@
 import { Container } from "@/components/ui/container";
+import { SectionLabel } from "@/components/ui/section-label";
+import { WaitlistForm } from "@/components/ui/waitlist-form";
 import { landingContent } from "@/content/landing";
 
 export function FinalCtaSection() {
   return (
-    <section id="cta" className="py-20 md:py-28">
+    <section id="cta" className="relative overflow-hidden py-20 md:py-32">
+      <div className="pointer-events-none absolute left-1/2 top-1/2 h-[900px] w-[900px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(124,197,255,0.14),transparent_58%)]" />
       <Container>
-        <div className="rounded-[calc(var(--radius-panel)+4px)] border border-[var(--color-border-strong)] bg-[var(--color-panel-strong)] px-8 py-10 shadow-[0_0_80px_rgba(7,24,74,0.35)] md:px-12 md:py-14">
-          <p className="text-xs uppercase tracking-[0.3em] text-[var(--color-accent)]">Request early access</p>
-          <div className="mt-6 flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between">
-            <div className="max-w-2xl">
-              <h2 className="text-3xl font-light tracking-[-0.03em] text-white md:text-5xl">
-                {landingContent.cta.title}
-              </h2>
-              <p className="mt-5 text-lg leading-8 text-[var(--color-text-muted)]">
-                {landingContent.cta.description}
-              </p>
-            </div>
-            <form className="flex w-full max-w-xl flex-col gap-3 sm:flex-row">
-              <input
-                type="email"
-                placeholder="Email address"
-                className="h-14 flex-1 rounded-full border border-white/12 bg-white/6 px-6 text-white outline-none transition placeholder:text-white/34 focus:border-[var(--color-accent)]"
-              />
-              <button
-                type="submit"
-                className="inline-flex h-14 items-center justify-center rounded-full bg-[var(--color-accent)] px-7 text-sm font-medium uppercase tracking-[0.2em] text-slate-950 transition hover:brightness-110"
-              >
-                {landingContent.cta.buttonLabel}
-              </button>
-            </form>
+        <div className="relative mx-auto max-w-4xl rounded-[calc(var(--radius-panel)+4px)] border border-[var(--color-border-strong)] bg-[rgba(5,12,30,0.82)] px-6 py-10 text-center shadow-[0_0_90px_rgba(7,24,74,0.42)] backdrop-blur-xl md:px-12 md:py-14">
+          <div className="mx-auto mb-8 h-24 w-24 rounded-full border border-[rgba(124,197,255,0.28)] bg-[radial-gradient(circle,rgba(78,224,255,0.2),rgba(6,9,18,0.9)_68%)] shadow-[0_0_46px_rgba(78,224,255,0.22)]" />
+          <SectionLabel number="06">Request early access</SectionLabel>
+          <div className="mx-auto mt-6 max-w-2xl">
+            <h2 className="text-3xl leading-tight font-light text-white md:text-5xl">
+              {landingContent.cta.title}
+            </h2>
+            <p className="mt-5 text-lg leading-8 text-[var(--color-text-muted)]">{landingContent.cta.description}</p>
           </div>
+          <div className="mx-auto mt-9 max-w-2xl text-left">
+            <WaitlistForm />
+          </div>
+          <p className="mt-6 text-xs uppercase tracking-[0.22em] text-[var(--color-text-faint)]">
+            {landingContent.cta.note}
+          </p>
         </div>
       </Container>
     </section>

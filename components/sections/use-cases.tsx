@@ -4,14 +4,14 @@ import { landingContent } from "@/content/landing";
 
 export function UseCasesSection() {
   return (
-    <section id="use-cases" className="py-20 md:py-24">
+    <section id="use-cases" className="py-20 md:py-28">
       <Container>
-        <SectionLabel>Outcome-driven use cases</SectionLabel>
+        <SectionLabel number="04">Outcome-driven use cases</SectionLabel>
         <div className="mt-8 grid gap-6 md:grid-cols-2">
           {landingContent.useCases.map((item) => (
             <article
               key={item.title}
-              className="rounded-[var(--radius-panel)] border border-[var(--color-border)] bg-[var(--color-panel)] p-7"
+              className="rounded-[var(--radius-panel)] border border-[var(--color-border)] bg-[linear-gradient(180deg,rgba(255,255,255,0.035),rgba(255,255,255,0.012))] p-7 transition duration-300 hover:border-[rgba(103,215,255,0.32)]"
             >
               <p className="text-xs uppercase tracking-[0.3em] text-[var(--color-accent)]">{item.kicker}</p>
               <h3 className="mt-4 text-2xl font-light text-white">{item.title}</h3>

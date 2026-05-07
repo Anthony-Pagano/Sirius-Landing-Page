@@ -13,9 +13,9 @@ export function ProblemSection() {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   return (
-    <section id="problem" className="overflow-hidden py-20 md:py-28">
+    <section id="problem" className="overflow-hidden border-y border-white/8 bg-[rgba(10,12,20,0.42)] py-20 md:py-28">
       <Container>
-        <SectionLabel>Why this exists</SectionLabel>
+        <SectionLabel number="01">Why this exists</SectionLabel>
         <div className="mt-6 max-w-3xl">
           <h2 className="text-3xl font-light leading-tight text-white md:text-5xl">
             The problem is not intelligence. It is follow-through.

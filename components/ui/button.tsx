@@ -14,10 +14,10 @@ export function ButtonLink({ children, href, variant = "primary" }: ButtonLinkPr
     <Link
       href={href}
       className={cn(
-        "inline-flex h-14 items-center justify-center rounded-full px-7 text-sm uppercase tracking-[0.22em] transition",
+        "inline-flex h-14 items-center justify-center rounded-full px-7 text-sm uppercase tracking-[0.22em] transition outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-bg)]",
         variant === "primary"
-          ? "bg-[var(--color-accent)] text-slate-950 hover:brightness-110"
-          : "border border-[var(--color-border-strong)] bg-white/4 text-white hover:bg-white/8",
+          ? "bg-[var(--color-accent)] text-slate-950 shadow-[0_0_34px_rgba(103,215,255,0.26)] hover:brightness-110"
+          : "border border-[var(--color-border-strong)] bg-white/4 text-white hover:border-[var(--color-accent)] hover:bg-white/8",
       )}
     >
       {children}
