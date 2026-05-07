@@ -103,20 +103,20 @@ export const landingContent = {
     contexts: ["work", "home", "devices", "feeds", "research", "people"],
   },
   demo: {
-    title: "A calm operator surface for tracking what Sirius is actually doing.",
+    title: "See every voice request become a supervised workflow.",
     description:
-      "The interface makes voice execution legible: request capture, decomposition, tool calls, completion evidence, and human handoff are visible in one place.",
+      "Sirius shows what was asked, which tools are running, where approval is needed, and what evidence is already complete.",
     points: [
-      "Intent capture",
-      "Workflow decomposition",
-      "Tool invocation",
-      "Progress visibility",
-      "Human handoff",
+      "Request captured",
+      "Plan generated",
+      "Tools running",
+      "Approval waiting",
+      "Evidence recorded",
     ],
     summary: [
       { label: "ETA", value: "4 min" },
-      { label: "Risk", value: "Approval gated" },
-      { label: "Surfaces", value: "5 connected" },
+      { label: "Gate", value: "Deploy approval" },
+      { label: "Surfaces", value: "Repo · CI · Slack" },
     ],
     executionLog: [
       "Checked branch and release diff",
@@ -126,11 +126,11 @@ export const landingContent = {
     ],
   },
   workflowSteps: [
-    { title: "Pull diff and verify branch", state: "done", stateLabel: "Done" },
-    { title: "Run security review", state: "done", stateLabel: "Done" },
-    { title: "Wait on CI · build and tests", state: "active", stateLabel: "In progress" },
-    { title: "Request deploy approval", state: "blocked", stateLabel: "Needs approval" },
-    { title: "Tag and deploy", state: "next", stateLabel: "Up next" },
+    { title: "Pull diff and verify branch", detail: "Release diff checked against main.", state: "done", stateLabel: "Done" },
+    { title: "Run security review", detail: "No critical findings returned.", state: "done", stateLabel: "Done" },
+    { title: "Wait on CI · build and tests", detail: "18 jobs running; reviewer ping queued.", state: "active", stateLabel: "In progress" },
+    { title: "Request deploy approval", detail: "External deploy is locked until the operator approves.", state: "blocked", stateLabel: "Needs approval" },
+    { title: "Tag and deploy", detail: "Queued after approval and green build.", state: "next", stateLabel: "Up next" },
   ],
   useCases: [
     {
