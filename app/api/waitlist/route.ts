@@ -21,13 +21,13 @@ type NameStageBody = {
   name: unknown;
 };
 
-type Body = EmailStageBody | NameStageBody | { stage?: unknown };
+type Body = EmailStageBody | NameStageBody;
 
 function ok() {
   return NextResponse.json({ ok: true });
 }
 
-function bad(reason: "invalid" | "server", status: number) {
+function bad(reason: "invalid" | "server", status: 400 | 502) {
   return NextResponse.json({ ok: false, error: reason }, { status });
 }
 
@@ -39,14 +39,6 @@ function normalizeEmail(raw: string): string {
   return raw.trim().toLowerCase();
 }
 
-function isEmailStage(b: Body): b is EmailStageBody {
-  return b.stage === "email";
-}
-
-function isNameStage(b: Body): b is NameStageBody {
-  return b.stage === "name";
-}
-
 export async function POST(request: NextRequest) {
   let body: Body;
   try {
@@ -55,7 +47,7 @@ export async function POST(request: NextRequest) {
     return bad("invalid", 400);
   }
 
-  if (isEmailStage(body)) {
+  if (body.stage === "email") {
     const { email, company, elapsedMs } = body;
 
     if (isString(company) && company.length > 0) return ok();
@@ -77,7 +69,7 @@ export async function POST(request: NextRequest) {
     }
   }
 
-  if (isNameStage(body)) {
+  if (body.stage === "name") {
     const { email, name } = body;
 
     if (!isString(email) || !isString(name)) return bad("invalid", 400);
