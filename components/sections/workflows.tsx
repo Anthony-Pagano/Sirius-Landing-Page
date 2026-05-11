@@ -3,10 +3,7 @@ import { Container } from "@/components/ui/container";
 import { SectionLabel } from "@/components/ui/section-label";
 
 export function WorkflowsSection() {
-  const { sectionLabel, pulledQuote } = landingContent.workflows;
-
-  const trimmedBody0 =
-    "You already have workflows. They live in your head — you re-explain them every time you do them, and reload the context from scratch each round.";
+  const { sectionLabel, intro, coda, notes } = landingContent.workflows;
 
   return (
     <section id="workflows" className="relative scroll-mt-24 py-24 md:py-36">
@@ -24,44 +21,19 @@ export function WorkflowsSection() {
             </h2>
 
             <p className="mt-8 max-w-[52ch] text-[17px] leading-[1.7] text-[var(--color-text-secondary)]">
-              {trimmedBody0}
+              {intro}
             </p>
 
-            <p className="mt-10 inline-flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.2em] text-[var(--color-text-muted)]">
-              <span aria-hidden="true" className="block h-px w-6 bg-[var(--color-border-strong)]" />
-              For instance
+            <p className="mt-6 max-w-[52ch] text-[17px] leading-[1.7] text-[var(--color-text-secondary)]">
+              {coda}
             </p>
           </div>
 
-          {/* Right: Sirius's captured moment */}
-          <div className="relative md:pt-14">
-            <div className="relative border-l-2 border-[rgba(var(--color-warm-rgb),0.55)] pl-6 md:pl-8">
-              <div className="flex items-center gap-2.5">
-                <span className="relative inline-flex h-1.5 w-1.5 shrink-0">
-                  <span
-                    aria-hidden="true"
-                    className="absolute inset-0 animate-ping rounded-full opacity-60"
-                    style={{ background: "var(--color-accent)" }}
-                  />
-                  <span
-                    className="relative inline-flex h-full w-full rounded-full"
-                    style={{
-                      background: "var(--color-accent)",
-                      boxShadow: "0 0 10px rgba(var(--color-accent-rgb), 0.65)",
-                    }}
-                  />
-                </span>
-                <p className="font-mono text-[10.5px] uppercase tracking-[0.24em] text-[var(--color-text-faint)]">
-                  Sirius
-                  <span className="mx-2 opacity-50">·</span>
-                  Noticed a pattern
-                  <span className="mx-2 opacity-50">·</span>
-                  2m ago
-                </p>
-              </div>
-
-              <blockquote className="mt-6 max-w-[30ch] font-display-italic text-[clamp(1.45rem,2.5vw,1.95rem)] leading-[1.4] text-[var(--color-text-primary)]">
-                &ldquo;{pulledQuote}&rdquo;
+          {/* Right: Sirius's captured moments — two stacked notes */}
+          <div className="relative flex flex-col gap-20 md:pt-14">
+            <figure className="relative border-l-2 border-[rgba(var(--color-warm-rgb),0.55)] pl-6 md:pl-8">
+              <blockquote className="max-w-[30ch] font-display-italic text-[clamp(1.45rem,2.5vw,1.95rem)] leading-[1.4] text-[var(--color-text-primary)]">
+                &ldquo;{notes[0]}&rdquo;
               </blockquote>
 
               <div className="mt-7 flex items-center gap-6">
@@ -82,7 +54,13 @@ export function WorkflowsSection() {
                   Not now
                 </button>
               </div>
-            </div>
+            </figure>
+
+            <figure className="relative border-l-2 border-[rgba(var(--color-warm-rgb),0.55)] pl-6 md:pl-8">
+              <blockquote className="max-w-[30ch] font-display-italic text-[clamp(1.45rem,2.5vw,1.95rem)] leading-[1.4] text-[var(--color-text-primary)]">
+                &ldquo;{notes[1]}&rdquo;
+              </blockquote>
+            </figure>
           </div>
         </div>
       </Container>

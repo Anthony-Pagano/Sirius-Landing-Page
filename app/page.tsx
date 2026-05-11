@@ -5,16 +5,16 @@ import { FinalCtaSection } from "@/components/sections/final-cta";
 import { FourWaysSection } from "@/components/sections/four-ways";
 import { HeroSection } from "@/components/sections/hero";
 import { InPracticeSection } from "@/components/sections/in-practice";
-import { ItNoticesSection } from "@/components/sections/it-notices";
 import { LocalDataSection } from "@/components/sections/local-data";
 import { ThreeIdeasSection } from "@/components/sections/three-ideas";
+import { WhatsNextSection } from "@/components/sections/whats-next";
 import { WorkflowsSection } from "@/components/sections/workflows";
 import { ProgressRail } from "@/components/ui/progress-rail";
 import { SectionDivider } from "@/components/ui/section-divider";
 
 export default function HomePage() {
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[var(--color-bg)] text-[var(--color-text)]">
+    <main className="relative min-h-screen overflow-x-clip bg-[var(--color-bg)] text-[var(--color-text)]">
       <SiteHeader />
       <ProgressRail />
       <HeroSection />
@@ -25,11 +25,10 @@ export default function HomePage() {
       <ThreeIdeasSection />
       <InPracticeSection />
       <SectionDivider />
-      <ItNoticesSection />
-      <SectionDivider />
       <LocalDataSection />
       <FaqSection />
       <FinalCtaSection />
+      <WhatsNextSection />
       <SiteFooter />
     </main>
   );

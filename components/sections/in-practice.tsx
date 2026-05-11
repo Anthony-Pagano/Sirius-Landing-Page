@@ -1,79 +1,299 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+
 import { landingContent } from "@/content/landing";
 import { Container } from "@/components/ui/container";
 import { SectionLabel } from "@/components/ui/section-label";
 
-type VignetteMeta = { kind: string; time: string; seq: string };
+type AccentTone = { hex: string; rgb: string };
 
-const metaMap: Record<string, VignetteMeta> = {
-  design:   { kind: "DESIGN",      time: "ad-hoc",      seq: "01" },
-  outreach: { kind: "SALES",       time: "continuous",  seq: "02" },
-  standup:  { kind: "ENGINEERING", time: "mon · 09:00", seq: "03" },
-  research: { kind: "RESEARCH",    time: "daily · am",  seq: "04" },
+const ACCENTS: Record<string, AccentTone> = {
+  design:      { hex: "#6cd8ff", rgb: "108, 216, 255" },
+  engineering: { hex: "#9adcb0", rgb: "154, 220, 176" },
+  meeting:     { hex: "#d9b978", rgb: "217, 185, 120" },
+  research:    { hex: "#8a9cff", rgb: "138, 156, 255" },
 };
 
-const compactBody: Record<string, string> = {
-  design:   "A client email lands with eight nitpicks. Sirius parses, tags each, makes the trivial Figma edits, drafts replies, and surfaces the call: four done, two need yours, one is scope creep.",
-  outreach: `Tell Sirius who you want to talk to — "founders of pre-seed dev-tools companies in Melbourne." It finds them, drafts in your voice, sends, and pings you when someone replies.`,
-  standup:  "Every Monday, Sirius pulls last week's commits, the closed Linear tickets, and the #eng-team threads. By 9 a draft is in #standup. You skim, fix the line that's wrong, post.",
-  research: "Sirius keeps a feed on the companies you're tracking. Two paragraphs of what's changed since yesterday before your first coffee.",
+// Surface chain — composition, not chrome.
+const CHAINS: Record<string, string[]> = {
+  design:      ["CHAT", "WORKFLOW"],
+  engineering: ["SCHEDULE", "WORKFLOW"],
+  meeting:     ["SCHEDULE", "CHAT"],
+  research:    ["FEED"],
 };
 
-const outcomeLines: Record<string, string> = {
-  standup:  "Twenty seconds, not twenty minutes.",
-  outreach: "You see the pipeline, never the spreadsheet.",
-  design:   "You read the bundle, not the inbox.",
-  research: "It already knows what you've read.",
+// Sirius's moves — what it does, not what it produces. Honest about operations,
+// silent on output specifics.
+const VERBS: Record<string, string[]> = {
+  design:      ["SCAN", "CATEGORISE", "DRAFT", "FLAG"],
+  engineering: ["PULL", "MERGE", "SUMMARISE", "POST"],
+  meeting:     ["WATCH", "GATHER", "BRIEF", "LAND"],
+  research:    ["SUBSCRIBE", "FILTER", "COMPARE", "DIGEST"],
 };
 
+const HEADLINE_SPLITS: Record<string, { lead: string; tail: string }> = {
+  design:      { lead: "Client feedback that ",  tail: "triages itself." },
+  engineering: { lead: "Your standup, ",         tail: "already written." },
+  meeting:     { lead: "Your next meeting, ",    tail: "already briefed." },
+  research:    { lead: "A research desk, ",      tail: "for one." },
+};
 
-function VoiceWave({ size }: { size: "md" | "sm" }) {
-  const heights = [0.4, 0.75, 0.55, 0.9, 0.45];
-  const delays = [0, 120, 240, 60, 180];
-  const wrapperHeight = size === "md" ? "h-4" : "h-3";
+// Match the site's body font (Geist) — tracking + caps carry the "technical
+// readout" tone without the visual jolt of true monospace.
+const MONO_STACK = `"Geist", "Inter", ui-sans-serif, system-ui, sans-serif`;
+
+// ─── Voice glyph ─────────────────────────────────────────────────────────────
+
+function VoiceWaveform({ accent, revealed }: { accent: AccentTone; revealed: boolean }) {
+  const bars = [0.35, 0.7, 0.5, 0.95, 0.6, 0.38];
   return (
     <span
       aria-hidden="true"
-      className={`inline-flex items-center gap-[2px] shrink-0 ${wrapperHeight}`}
+      data-revealed={revealed ? "true" : "false"}
+      className="ip-voice inline-flex h-[18px] shrink-0 items-end gap-[3px]"
+      style={{ ["--ip-wave-color" as string]: accent.hex }}
     >
-      {heights.map((h, i) => (
+      {bars.map((h, i) => (
         <span
           key={i}
-          className="wave-bar"
-          style={{ height: `${Math.round(h * 100)}%`, animationDelay: `${delays[i]}ms` }}
+          className="ip-voice-bar block w-[2px] rounded-full"
+          style={{
+            ["--ip-wave-h" as string]: `${Math.round(h * 100)}%`,
+            ["--ip-wave-delay" as string]: `${i * 60}ms`,
+          }}
         />
       ))}
     </span>
   );
 }
 
-function VoiceTrigger({ text, size = "md" }: { text: string; size?: "md" | "sm" }) {
+// ─── Typographic primitives ──────────────────────────────────────────────────
+
+function ChainHeader({ chain, accent, i = 0 }: { chain: string[]; accent: AccentTone; i?: number }) {
   return (
-    <p
-      className={
-        size === "md"
-          ? "mt-3 flex items-center gap-3 text-[14.5px] italic leading-[1.5] text-[var(--color-text-secondary)]"
-          : "mt-3 flex items-center gap-2.5 text-[12.5px] italic leading-[1.45] text-[var(--color-text-secondary)]"
-      }
+    <div
+      className="ip-type-line"
+      style={{
+        ["--ip-stagger-i" as string]: i,
+        fontFamily: MONO_STACK,
+        fontSize: 11.5,
+        letterSpacing: "0.24em",
+      }}
     >
-      <VoiceWave size={size} />
-      &ldquo;{text}&rdquo;
-    </p>
+      {chain.map((surface, idx) => (
+        <span key={idx}>
+          {idx > 0 && (
+            <span className="mx-2.5 text-[var(--color-text-muted)]">→</span>
+          )}
+          <span style={{ color: accent.hex }}>{surface}</span>
+        </span>
+      ))}
+    </div>
   );
 }
 
-export function InPracticeSection() {
-  const { sectionLabel, vignettes } = landingContent.inPractice;
-  const ordered = (["design", "outreach", "standup", "research"] as const).map(
-    (id) => vignettes.find((v) => v.id === id)!,
+function AccentRule({ accent, i = 1 }: { accent: AccentTone; i?: number }) {
+  return (
+    <div
+      aria-hidden="true"
+      className="ip-type-line my-4 h-px w-full"
+      style={{
+        ["--ip-stagger-i" as string]: i,
+        background: `linear-gradient(90deg, rgba(${accent.rgb}, 0.55), rgba(${accent.rgb}, 0.10) 80%, transparent)`,
+      }}
+    />
   );
+}
+
+function TypeLine({
+  i,
+  children,
+  className = "",
+  style,
+}: {
+  i: number;
+  children: React.ReactNode;
+  className?: string;
+  style?: React.CSSProperties;
+}) {
+  return (
+    <div
+      className={`ip-type-line ${className}`}
+      style={{ ["--ip-stagger-i" as string]: i, fontFamily: MONO_STACK, ...style }}
+    >
+      {children}
+    </div>
+  );
+}
+
+// ─── Artifact: Sirius's verbs for this use case ──────────────────────────────
+
+function VerbsArtifact({
+  id,
+  accent,
+  revealed,
+}: {
+  id: string;
+  accent: AccentTone;
+  revealed: boolean;
+}) {
+  const chain = CHAINS[id] ?? [];
+  const verbs = VERBS[id] ?? [];
+  return (
+    <div
+      data-revealed={revealed ? "true" : "false"}
+      className="ip-artifact"
+      style={{ ["--ip-accent-rgb" as string]: accent.rgb }}
+    >
+      <ChainHeader chain={chain} accent={accent} i={0} />
+      <AccentRule accent={accent} i={1} />
+
+      <ol className="mt-1 space-y-3">
+        {verbs.map((verb, idx) => (
+          <TypeLine
+            key={idx}
+            i={2 + idx}
+            className="grid grid-cols-[40px_1fr] items-baseline gap-4"
+          >
+            <span
+              style={{
+                fontFamily: MONO_STACK,
+                fontSize: 11,
+                letterSpacing: "0.20em",
+                color: "var(--color-text-disabled)",
+              }}
+            >
+              {String(idx + 1).padStart(2, "0")}
+            </span>
+            <span
+              style={{
+                fontFamily: MONO_STACK,
+                fontSize: "clamp(1.05rem, 1.4vw, 1.25rem)",
+                letterSpacing: "0.13em",
+                color: accent.hex,
+                fontWeight: 500,
+              }}
+            >
+              {verb}
+              <span style={{ color: "rgba(255,255,255,0.35)" }}>.</span>
+            </span>
+          </TypeLine>
+        ))}
+      </ol>
+    </div>
+  );
+}
+
+// ─── Card ─────────────────────────────────────────────────────────────────────
+
+type CardData = (typeof landingContent.inPractice.vignettes)[number];
+
+function PracticeCard({ card, total }: { card: CardData; total: number }) {
+  const accent = ACCENTS[card.id];
+  const split = HEADLINE_SPLITS[card.id];
+
+  const ref = useRef<HTMLElement | null>(null);
+  const [revealed, setRevealed] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const revealIO = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting && e.intersectionRatio >= 0.3) {
+            setRevealed(true);
+            revealIO.disconnect();
+            break;
+          }
+        }
+      },
+      { threshold: [0.3, 0.5] },
+    );
+    revealIO.observe(el);
+
+    return () => {
+      revealIO.disconnect();
+    };
+  }, []);
 
   return (
-    <section
-      id="in-practice"
-      className="scroll-mt-24 py-24 md:py-32"
+    <article
+      ref={ref}
+      data-revealed={revealed ? "true" : "false"}
+      className="ip-card relative grid grid-cols-1 items-center gap-12 border-t border-[var(--color-border-strong)] py-20 first:border-t-0 first:pt-4 last:pb-0 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:gap-16 md:py-28 md:first:pt-6 md:last:pb-0"
+      style={{
+        ["--ip-accent" as string]: accent.hex,
+        ["--ip-accent-rgb" as string]: accent.rgb,
+      }}
     >
+      {/* TEXT COLUMN */}
+      <div className="relative flex max-w-[58ch] flex-col">
+        <p className="flex items-center gap-3 text-[15px] italic leading-[1.5] text-[var(--color-text-secondary)]">
+          <VoiceWaveform accent={accent} revealed={revealed} />
+          <span>&ldquo;{card.voiceTrigger}&rdquo;</span>
+        </p>
+
+        <h3 className="font-display mt-6 max-w-[22ch] text-[clamp(1.9rem,3.4vw,2.8rem)] leading-[1.05] tracking-[-0.022em] text-[var(--color-text-primary)]">
+          {split.lead}
+          <em
+            className="font-display-italic not-italic"
+            style={{ color: accent.hex }}
+          >
+            {split.tail}
+          </em>
+        </h3>
+
+        <p className="mt-7 max-w-[54ch] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+          {card.body}
+        </p>
+
+        <p
+          className="mt-8 inline-flex items-baseline gap-3 text-[14px] leading-[1.5] text-[var(--color-text-primary)]"
+          style={{ fontFamily: MONO_STACK, letterSpacing: "0.01em" }}
+        >
+          <span aria-hidden="true" style={{ color: accent.hex }}>—</span>
+          <span>{card.punchline}</span>
+        </p>
+
+        <div
+          className="mt-12"
+          style={{
+            fontFamily: MONO_STACK,
+            fontSize: 10.5,
+            letterSpacing: "0.22em",
+            color: "var(--color-text-muted)",
+          }}
+        >
+          <span style={{ color: accent.hex, opacity: 0.9 }}>{card.seq}</span>
+          <span className="mx-2 opacity-60">/</span>
+          <span>{String(total).padStart(2, "0")}</span>
+        </div>
+      </div>
+
+      {/* ARTIFACT COLUMN — the verbs */}
+      <div className="relative flex justify-center md:justify-end">
+        <div className="w-full max-w-[420px]">
+          <VerbsArtifact id={card.id} accent={accent} revealed={revealed} />
+        </div>
+      </div>
+    </article>
+  );
+}
+
+// ─── Section ──────────────────────────────────────────────────────────────────
+
+export function InPracticeSection() {
+  const { sectionLabel, vignettes } = landingContent.inPractice;
+
+  return (
+    <section id="in-practice" className="scroll-mt-24 py-24 md:py-32">
       <Container>
-        <SectionLabel index="04" tone="cyan">{sectionLabel}</SectionLabel>
+        <SectionLabel index="04" tone="cyan">
+          {sectionLabel}
+        </SectionLabel>
 
         <h2 className="font-display mt-7 max-w-[26ch] text-[clamp(2.4rem,5.2vw,4rem)] leading-[0.92] tracking-[-0.028em] font-normal text-[var(--color-text-primary)]">
           Four short{" "}
@@ -82,64 +302,61 @@ export function InPracticeSection() {
           </em>
         </h2>
 
-        <div className="mt-16 flex flex-col">
-          {ordered.map((v) => {
-            const meta = metaMap[v.id];
-            return (
-              <article
-                key={v.id}
-                className="grid gap-8 border-t border-[var(--color-border-strong)] py-10 md:grid-cols-[200px_1fr] md:gap-12 md:py-14 last:border-b last:border-[var(--color-border-strong)]"
-              >
-                <div className="flex flex-col gap-3">
-                  <div className="flex items-center gap-2.5">
-                    <span
-                      aria-hidden="true"
-                      className="h-1.5 w-1.5 rounded-full"
-                      style={{
-                        background: "var(--color-accent-strong)",
-                        boxShadow: "0 0 8px rgba(var(--color-accent-strong-rgb), 0.6)",
-                      }}
-                    />
-                    <span
-                      className="text-[11.5px] font-medium uppercase tracking-[0.18em]"
-                      style={{ color: "var(--color-accent-strong)" }}
-                    >
-                      {meta.kind}
-                    </span>
-                  </div>
-                  <span className="font-mono text-[11px] tracking-[0.06em] text-[var(--color-text-muted)]">
-                    {meta.time}
-                  </span>
-                  <span className="mt-auto font-mono text-[11px] tracking-[0.06em] text-[var(--color-text-muted)]">
-                    {meta.seq} / {String(ordered.length).padStart(2, "0")}
-                  </span>
-                </div>
-
-                <div className="flex flex-col">
-                  {v.voiceTrigger && <VoiceTrigger text={v.voiceTrigger} size="md" />}
-                  <h3 className="font-display mt-3 max-w-[32ch] text-[clamp(1.45rem,2.4vw,1.9rem)] leading-[1.18] tracking-[-0.018em] text-[var(--color-text-primary)]">
-                    {v.title}
-                  </h3>
-                  <p className="mt-5 max-w-[58ch] text-[15.5px] leading-[1.7] text-[var(--color-text-secondary)]">
-                    {compactBody[v.id as keyof typeof compactBody]}
-                  </p>
-                  <p
-                    className="mt-7 inline-flex items-baseline gap-3 font-display-italic text-[17px] leading-[1.4]"
-                    style={{ color: "var(--color-warm)" }}
-                  >
-                    <span
-                      aria-hidden="true"
-                      className="relative top-[-3px] inline-block h-px w-7"
-                      style={{ background: "rgba(var(--color-warm-rgb), 0.7)" }}
-                    />
-                    {outcomeLines[v.id as keyof typeof outcomeLines]}
-                  </p>
-                </div>
-              </article>
-            );
-          })}
+        <div className="mt-14 flex flex-col">
+          {vignettes.map((v) => (
+            <PracticeCard key={v.id} card={v} total={vignettes.length} />
+          ))}
         </div>
       </Container>
+
+      <style>{`
+        /* Voice waveform — single slow pulse on reveal */
+        .ip-voice-bar {
+          height: var(--ip-wave-h);
+          background: var(--ip-wave-color, var(--color-accent-strong));
+          transform: scaleY(0.32);
+          transform-origin: bottom center;
+          opacity: 0.55;
+          transition: opacity 200ms ease;
+        }
+        .ip-voice[data-revealed="true"] .ip-voice-bar {
+          animation: ip-wave-once 620ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+          animation-delay: var(--ip-wave-delay, 0ms);
+          opacity: 0.95;
+        }
+        @keyframes ip-wave-once {
+          0%   { transform: scaleY(0.32); }
+          45%  { transform: scaleY(1); }
+          100% { transform: scaleY(0.55); }
+        }
+
+        /* Typewriter line reveal — clip-path inset with stepped timing */
+        .ip-type-line {
+          clip-path: inset(0 100% 0 0);
+          opacity: 0;
+          will-change: clip-path;
+        }
+        .ip-artifact[data-revealed="true"] .ip-type-line {
+          opacity: 1;
+          animation: ip-type 460ms steps(40, end) forwards;
+          animation-delay: calc(140ms + var(--ip-stagger-i, 0) * 110ms);
+        }
+        @keyframes ip-type {
+          from { clip-path: inset(0 100% 0 0); }
+          to   { clip-path: inset(0 0 0 0); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .ip-voice[data-revealed="true"] .ip-voice-bar,
+          .ip-artifact[data-revealed="true"] .ip-type-line {
+            animation: none !important;
+          }
+          .ip-type-line {
+            opacity: 1 !important;
+            clip-path: none !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }

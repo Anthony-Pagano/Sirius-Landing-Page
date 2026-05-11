@@ -21,101 +21,99 @@ export const landingContent = {
   workflows: {
     sectionLabel: "Workflows",
     title: "The work you already do, made callable.",
-    body: [
-      "You already have workflows. Cold outreach to a particular type of person, the way you put together a weekly client update, the steps you take when a deal moves to contract, your routine for assembling the investor pipeline review. They live in your head. You re-explain them to yourself (or to ChatGPT) every time you do them, and you reload the context from scratch each round.",
-      "Sirius watches you do them, and offers to extract them.",
+    intro:
+      "You already have workflows. They live in your head — invisible until you run them, then you run them again, and again, by hand.",
+    coda:
+      "Sirius watches the patterns. It only speaks when there's a useful shape to point at — a workflow worth saving, a meeting worth briefing. Everything quieter waits in the digest.",
+    notes: [
+      "Three times this week, the same flavour of email. Want me to bottle it into a workflow?",
+      "Your 14:00 with Daniel. You've never met. Brief?",
     ],
-    pulledQuote:
-      "Three times this week you've opened a meeting blind — CRM scramble, email dig, what-did-I-promise. Shall I take this on? Fifteen minutes before each one, you'd find a brief in your calendar — last contact, open threads, the bit you said you'd do.",
-    closing:
-      "Once extracted, a workflow is callable. You name the target — \"do another one for X\" — and Sirius runs the pipeline you'd already built in your head, without you having to reload any of it. It pauses to ask when it needs a judgement call, runs hands-off when it doesn't.\n\nThe point isn't that Sirius lets you build automations. It's that Sirius notices you're already running the same procedure by hand, and quietly takes the typing out of it.",
-  },
-  itNotices: {
-    sectionLabel: "It notices",
-    title: "Proactive, in a way that doesn't talk over you.",
-    body: [
-      "Sirius doesn't open with \"good morning.\" It's not that kind of assistant. But if it sees you sending the same flavour of email three times in a week, it'll offer to lift it into a workflow. Mention a project you're trying to ship, and it may quietly suggest a way to take a slice off your plate.",
-    ],
-    noticedQuote:
-      "Three times this week you've sent the same flavour of email. Want me to make it a workflow?",
   },
   fourWays: {
     sectionLabel: "The four surfaces",
     leadIn:
       "Voice and chat tell Sirius what to run. Schedules tell it when. Feeds show what came back. Four surfaces, one assistant.",
     items: [
-      { id: "voice",     title: "Voice",     body: "Talk to it like a colleague who never goes to lunch." },
+      { id: "voice",     title: "Voice",     body: "Talk to it. It's listening." },
       { id: "chat",      title: "Chat",      body: "One conversation. Everything you've ever told it. No new tabs." },
-      { id: "feeds",     title: "Feeds",     body: "Pick what you want Sirius to watch. NVDA news, papers on diffusion, your team's PRs. Sirius curates the updates, in the context of what you're working on. You read them at your pace." },
-      { id: "schedules", title: "Schedules", body: "Fire your workflows on a clock, or when something happens." },
+      { id: "feeds",     title: "Feeds",     body: "Pick what Sirius watches — markets, papers, your team's PRs, anything. It curates the updates against what you're working on. You read them at your pace." },
+      { id: "schedules", title: "Schedules", body: "Tell Sirius when. \"Lights on at 8.\" \"Standup digest at 9.\" \"Draft a reply when this client emails.\" Workflows or single actions, on a clock or when something happens." },
     ],
   },
   threeIdeas: {
-    sectionLabel: "Three good ideas",
-    title: "Three good ideas. One app.",
+    sectionLabel: "One system",
+    title: "Three parts. One app.",
     items: [
-      { name: "Claude",   gives: "the conversational depth" },
-      { name: "OpenClaw", gives: "the autonomous execution" },
-      { name: "n8n",      gives: "the recurring, plumbed-together automations" },
+      { index: "01", role: "The conversation that knows you." },
+      { index: "02", role: "The agent that acts for you." },
+      { index: "03", role: "The plumbing that runs while you sleep." },
     ],
     body:
-      "Arranged so a single assistant — the same one — does all three. The chat knows what your automations did this morning. The automations know what you talked about yesterday. Nothing falls between systems, because there is only one system.",
+      "Arranged so a single assistant — the same one — does all three. The chat knows what your schedules did this morning. The schedules know what you talked about yesterday. Nothing falls between systems, because there is only one system.",
+  },
+  whatsNext: {
+    sectionLabel: "What's next",
+    headlineLead: "The desktop is where Sirius starts.",
+    headlineTail: "Not where it stops.",
+    fragments: ["SWITCHES", "NOZZLES", "AXES"],
   },
   localData: {
     sectionLabel: "Local-first",
     title: "Your data stays on your machine.",
     body:
-      "Memories, conversations, files — all local. The workflows that need to run while you're asleep (outreach, briefings, anything recurring) run on Sirius's cloud, with only the data they need to do their job. Prefer fully local? You can have that. The trade is that automations stop when your laptop does.",
+      "Memories, conversations, files — all local. The workflows that need to run while you're asleep (outreach, briefings, anything recurring) run on Sirius's cloud, with only the data they need to do their job. Prefer fully local? You can have that. The trade is that those workflows stop when your laptop does.",
     footnote: "Private beta",
   },
   inPractice: {
     sectionLabel: "In practice",
     title: "Four short demonstrations.",
+    weekly: [
+      { id: "design",      label: "TUE",          tail: "FEEDBACK" },
+      { id: "engineering", label: "MON 09:00",    tail: "STANDUP" },
+      { id: "meeting",     label: "PER MEETING",  tail: "BRIEF" },
+      { id: "research",    label: "DAILY am",     tail: "BRIEF" },
+    ],
     vignettes: [
       {
-        id: "outreach",
-        title: "Cold outreach, at scale, without the smell of automation.",
-        voiceTrigger: "Sirius, hit my STEP-track list this Tuesday.",
-        body: "Tell Sirius who you want to talk to — \"founders of pre-seed dev-tools companies in Melbourne.\" It finds them, drafts emails in your voice, sends them, and when someone replies it pings you with a one-line summary and the suggested next move. The automation runs every Tuesday; you see the pipeline, never the spreadsheet.",
-        sampleOutput: [
-          "Hi Mira — saw your work on Coda's mobile editor. Coming from dev-tools myself, I'd love to compare notes on what shipped vs. what stayed in the spec.",
-        ],
+        id: "design",
+        seq: "01",
+        kind: "DESIGN",
+        frequency: "ad-hoc",
+        voiceTrigger: "Sirius, what came in from the client?",
+        title: "Client feedback that triages itself.",
+        body: "An email lands with eight nitpicks. Sirius makes the trivial edits, drafts the rest, then tells you the call — four done, two need you, one is scope creep.",
+        punchline: "You read the bundle, not the inbox.",
       },
       {
-        id: "design",
-        title: "Client feedback that triages itself.",
-        voiceTrigger: "Sirius, what came in from the client?",
-        body: "A client email lands with eight nitpicks. Sirius parses each, tags them — figma-edit, copy-change, question, scope-creep, out-of-scope — makes the trivial Figma edits via plugin, drafts replies for the rest, then presents the bundle: four done, two need your call, one is scope creep. Want me to send?",
-        sampleOutput: [
-          "Logo darker — figma-edit, done.",
-          "Brand fonts site-wide — figma-edit, done.",
-          "Headline reads too formal — copy-change, drafted.",
-          "Add testimonials section — scope-creep, flagged.",
-          "Make it look like Stripe — out-of-scope, declined.",
-        ],
-        sampleOutputSummary: "4 done · 2 drafted · 2 flagged. Want me to send?",
+        id: "engineering",
+        seq: "02",
+        kind: "ENGINEERING",
+        frequency: "mon · 09:00",
+        voiceTrigger: "Sirius, what's standup looking like?",
+        title: "Your standup, already written.",
+        body: "Every Monday, Sirius pulls the week's commits, the closed tickets, the team threads. A draft's in #standup before you sit down. You skim, fix the line that's wrong, post.",
+        punchline: "Twenty seconds, not twenty minutes.",
+      },
+      {
+        id: "meeting",
+        seq: "03",
+        kind: "MEETINGS",
+        frequency: "15 min before",
+        voiceTrigger: "Sirius, what's the 14:00?",
+        title: "Your next meeting, already briefed.",
+        body: "Fifteen minutes before each one, a brief lands — last contact, open threads, the thing you said you'd do. You walk in with the file.",
+        punchline: "Briefed, not blindsided.",
       },
       {
         id: "research",
-        title: "A research desk, for one.",
+        seq: "04",
+        kind: "RESEARCH",
+        frequency: "daily · am",
         voiceTrigger: "Sirius, what's worth knowing this morning?",
-        body: "Sirius keeps a feed on the companies you're tracking — earnings, filings, analyst notes, the occasional odd signal on Twitter. Two paragraphs of what's changed since yesterday before your first coffee. Ask \"what's the bear case on X\" and it already knows what you've read.",
-        sampleOutput: [
-          "NVDA: two analyst upgrades since Friday.",
-          "Anthropic: Sonnet 4.7 shipped, 1M-token context.",
-          "n8n 1.78: OpenAI-compatible LLM nodes.",
-        ],
-      },
-      {
-        id: "standup",
-        title: "Your standup, already written.",
-        voiceTrigger: "Sirius, what's standup looking like?",
-        body: "Every Monday, Sirius pulls last week's commits, the Linear tickets you closed, and the threads from #eng-team. By 9 a draft is waiting in #standup — what you shipped, what's next, what's blocking. You skim, fix the one line that's wrong, post.",
-        sampleOutput: [
-          "Shipped: Aurora migration, search-index flag, N+1 fix.",
-          "Next: deploy-script consolidation, auth refactor.",
-          "Blocking: Brennan to review LIN-901.",
-        ],
+        title: "A research desk, for one.",
+        body: "Sirius keeps a feed on the companies you're tracking. Two paragraphs of what's changed since yesterday, before your first coffee.",
+        punchline: "It already knows what you've read.",
       },
     ],
   },
@@ -125,7 +123,7 @@ export const landingContent = {
     items: [
       {
         q: "Where does my data live?",
-        a: "Memories, conversations, and files stay on your machine. Only the workflows you ask Sirius to run on a schedule — outreach, briefings, automations — touch its cloud, and only with the data they need.",
+        a: "Memories, conversations, and files stay on your machine. Only the workflows you ask Sirius to run on a schedule — outreach, briefings, anything recurring — touch its cloud, and only with the data they need.",
       },
       {
         q: "What models does it use?",
