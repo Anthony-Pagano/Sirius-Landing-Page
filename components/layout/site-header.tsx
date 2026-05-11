@@ -45,7 +45,7 @@ export function SiteHeader() {
             style={{ textDecorationColor: "rgba(var(--color-accent-rgb), 0.55)" }}
           >
             <span className="transition-colors duration-200 group-hover:text-[var(--color-accent)]">
-              Request access
+              Join waitlist
             </span>
             <span
               aria-hidden="true"
