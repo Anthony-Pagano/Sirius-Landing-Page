@@ -35,7 +35,8 @@ export type WaitlistRecord = {
 
 export async function findByEmail(email: string): Promise<WaitlistRecord | null> {
   const cfg = readConfig();
-  const filter = `LOWER({Email})='${email.replace(/'/g, "\\'")}'`;
+  const safeEmail = email.replace(/"/g, "");
+  const filter = `LOWER({Email})="${safeEmail}"`;
   const url = `${tableUrl(cfg)}?filterByFormula=${encodeURIComponent(filter)}&maxRecords=1`;
   const res = await fetch(url, { headers: authHeaders(cfg), cache: "no-store" });
   if (!res.ok) {
@@ -79,6 +80,9 @@ export async function createEntry(input: {
   }
   const data = (await res.json()) as { records: Array<{ id: string; fields: Record<string, unknown> }> };
   const row = data.records[0];
+  if (!row) {
+    throw new Error("Airtable createEntry returned no record");
+  }
   return {
     id: row.id,
     email: String(row.fields.Email ?? ""),
