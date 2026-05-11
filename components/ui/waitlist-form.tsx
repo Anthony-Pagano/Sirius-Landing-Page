@@ -40,10 +40,16 @@ export function WaitlistForm() {
     mountTimeRef.current = performance.now();
   }, []);
 
-  // Focus management: when step changes to a step that renders an input, focus it.
+  // Focus the active input after a step transition. Skip the initial mount so
+  // the email input doesn't auto-focus on page load (which would pop mobile
+  // keyboards and steal focus from keyboard users tabbing in).
+  const hasMountedRef = useRef(false);
   useEffect(() => {
+    if (!hasMountedRef.current) {
+      hasMountedRef.current = true;
+      return;
+    }
     if (step === "email" || step === "name") {
-      // wait one frame so the new input is mounted post-AnimatePresence swap
       const id = window.requestAnimationFrame(() => inputRef.current?.focus());
       return () => window.cancelAnimationFrame(id);
     }
