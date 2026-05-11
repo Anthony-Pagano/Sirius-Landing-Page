@@ -9,7 +9,7 @@ export const landingContent = {
     eyebrow: "Sirius",
     title: "An assistant. In the proper sense.",
     description:
-      "Listens. Remembers. Captures your workflos. Voice or keyboard, on your machine.",
+      "Listens. Remembers. Captures your workflows. Voice or keyboard, on your machine.",
     primaryCta: "Join waitlist",
     headlineAlternates: [
       "The assistant the others were pretending to be.",
