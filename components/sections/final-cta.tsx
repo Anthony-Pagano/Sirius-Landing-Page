@@ -4,7 +4,6 @@ import { motion, useReducedMotion } from "motion/react";
 
 import { landingContent } from "@/content/landing";
 import { Orb } from "@/components/sirius/orb";
-import { SectionLabel } from "@/components/ui/section-label";
 import { WaitlistForm } from "@/components/ui/waitlist-form";
 
 const { cta } = landingContent;
@@ -34,11 +33,9 @@ export function FinalCtaSection() {
           <Orb className="!h-[clamp(220px,26vw,320px)] !w-[clamp(220px,26vw,320px)]" />
         </div>
 
-        <SectionLabel tone="cyan">{cta.sectionLabel}</SectionLabel>
-
         <motion.h2
           {...fadeUp(0.1)}
-          className="font-display mt-5 text-balance font-normal text-[var(--color-text-primary)]"
+          className="font-display text-balance font-normal text-[var(--color-text-primary)]"
           style={{ fontSize: "clamp(3rem, 9vw, 7.5rem)", lineHeight: "0.9", letterSpacing: "-0.032em" }}
         >
           Meet{" "}

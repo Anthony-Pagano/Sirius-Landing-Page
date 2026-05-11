@@ -21,16 +21,21 @@ type SiriusOrbOptions = {
   mouseTarget: HTMLElement | null;
   seed: number;
   audioRef: React.MutableRefObject<OrbAudioSignal> | null;
+  tripartite: boolean;
 };
 
 export function Orb({
   className,
   staticRender = false,
   glowless = false,
+  tripartite = false,
+  interactive = true,
 }: {
   className?: string;
   staticRender?: boolean;
   glowless?: boolean;
+  tripartite?: boolean;
+  interactive?: boolean;
 }) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const shouldReduceMotion = useReducedMotion();
@@ -44,11 +49,12 @@ export function Orb({
     }
 
     const orb = new SiriusOrbRenderer(canvas, {
-      mouseEnabled: !frozen,
+      mouseEnabled: !frozen && interactive,
       flowSpeed: frozen ? 0 : 1,
       yawSpeed: frozen ? 0 : 0.13,
       breatheAmp: frozen ? 0 : 0.012,
       audioRef: frozen ? null : signalRef,
+      tripartite,
     });
 
     if (frozen) {
@@ -57,7 +63,7 @@ export function Orb({
     }
 
     return () => orb.destroy();
-  }, [frozen, signalRef]);
+  }, [frozen, signalRef, tripartite, interactive]);
 
   return (
     <div
@@ -120,6 +126,7 @@ class SiriusOrbRenderer {
       mouseTarget: null,
       seed: 1337,
       audioRef: null,
+      tripartite: false,
       ...options,
     };
 
@@ -329,7 +336,29 @@ class SiriusOrbRenderer {
         let green: number;
         let blue: number;
 
-        if (k < 0.5) {
+        if (opts.tripartite) {
+          // Clockwise from top: 0=cyan (default), 1=yellow, 2=green
+          const ang = Math.atan2(u, -v);
+          const norm = ((ang + TAU) % TAU) / SECTOR_ARC;
+          const sector = Math.floor(norm) % 3;
+          const sf = norm - Math.floor(norm);
+          let feather = 0;
+          if (sf > 1 - SECTOR_FEATHER) {
+            const fs = (sf - (1 - SECTOR_FEATHER)) / SECTOR_FEATHER;
+            feather = fs * fs * (3 - 2 * fs);
+          }
+          const [r0, g0, b0] = sectorRamp(sector, k);
+          if (feather > 0) {
+            const [r1, g1, b1] = sectorRamp((sector + 1) % 3, k);
+            red = r0 + (r1 - r0) * feather;
+            green = g0 + (g1 - g0) * feather;
+            blue = b0 + (b1 - b0) * feather;
+          } else {
+            red = r0;
+            green = g0;
+            blue = b0;
+          }
+        } else if (k < 0.5) {
           const t = k / 0.5;
           red = 4 + t * 30;
           green = 12 + t * 120;
@@ -426,4 +455,69 @@ function grad(hash: number, x: number, y: number, z: number) {
   const u = h < 8 ? x : y;
   const v = h < 4 ? y : h === 12 || h === 14 ? x : z;
   return (h & 1 ? -u : u) + (h & 2 ? -v : v);
+}
+
+const TAU = Math.PI * 2;
+const SECTOR_ARC = TAU / 3;
+const SECTOR_FEATHER = 0.08;
+
+// Three intensity-driven color ramps, one per sector.
+// Sector 0 = cyan (matches default ramp), 1 = yellow #f5c84a, 2 = green #9adcb0.
+function sectorRamp(sector: number, k: number): [number, number, number] {
+  let r: number;
+  let g: number;
+  let b: number;
+  if (sector === 1) {
+    if (k < 0.5) {
+      const t = k / 0.5;
+      r = 12 + t * 168;
+      g = 8 + t * 132;
+      b = 4 + t * 32;
+    } else if (k < 0.95) {
+      const t = (k - 0.5) / 0.45;
+      r = 180 + t * 65;
+      g = 140 + t * 60;
+      b = 36 + t * 38;
+    } else {
+      const t = Math.min(1, (k - 0.95) / 0.3);
+      r = 245 + t * 10;
+      g = 200 + t * 35;
+      b = 74 + t * 76;
+    }
+  } else if (sector === 2) {
+    if (k < 0.5) {
+      const t = k / 0.5;
+      r = 6 + t * 74;
+      g = 16 + t * 154;
+      b = 10 + t * 110;
+    } else if (k < 0.95) {
+      const t = (k - 0.5) / 0.45;
+      r = 80 + t * 74;
+      g = 170 + t * 50;
+      b = 120 + t * 56;
+    } else {
+      const t = Math.min(1, (k - 0.95) / 0.3);
+      r = 154 + t * 46;
+      g = 220 + t * 20;
+      b = 176 + t * 38;
+    }
+  } else {
+    if (k < 0.5) {
+      const t = k / 0.5;
+      r = 4 + t * 30;
+      g = 12 + t * 120;
+      b = 32 + t * 200;
+    } else if (k < 0.95) {
+      const t = (k - 0.5) / 0.45;
+      r = 34 + t * 90;
+      g = 132 + t * 80;
+      b = 232 + t * 18;
+    } else {
+      const t = Math.min(1, (k - 0.95) / 0.3);
+      r = 124 + t * 60;
+      g = 212 + t * 30;
+      b = 250 + t * 5;
+    }
+  }
+  return [r, g, b];
 }

@@ -4,58 +4,8 @@ import { motion, useReducedMotion, type Variants } from "motion/react";
 
 import { landingContent } from "@/content/landing";
 import { Orb } from "@/components/sirius/orb";
-import { useOrbAudio } from "@/components/sirius/orb-audio-context";
 import { ButtonLink } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
-
-function MicTrigger() {
-  const { state, requestPermission } = useOrbAudio();
-  const { micPrompt, micPrivacy } = landingContent.hero;
-
-  const showButton = state === "idle";
-  const showRequesting = state === "requesting";
-  const showListening = state === "granted";
-  // denied / unsupported / reduced-motion: hide button, still show privacy line
-
-  return (
-    <div className="mt-5 flex flex-col items-center gap-1.5">
-      {showListening && (
-        <span
-          className="font-mono text-[11px] tracking-wide"
-          style={{ color: "var(--color-success)" }}
-        >
-          Listening.
-        </span>
-      )}
-
-      {showRequesting && (
-        <span
-          className="text-[11px]"
-          style={{ color: "var(--color-text-muted)" }}
-        >
-          Requesting permission…
-        </span>
-      )}
-
-      {showButton && (
-        <button
-          type="button"
-          onClick={() => void requestPermission()}
-          className="rounded-sm text-[11px] text-[var(--color-text-muted)] underline-offset-2 decoration-[var(--color-text-faint)] transition-colors duration-200 hover:text-[var(--color-text-secondary)] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-bg)]"
-        >
-          {micPrompt}
-        </button>
-      )}
-
-      <p
-        className="max-w-[260px] text-center text-[11px] leading-snug"
-        style={{ color: "var(--color-text-muted)" }}
-      >
-        {micPrivacy}
-      </p>
-    </div>
-  );
-}
 
 const orbVariants: Variants = {
   hidden: { opacity: 0 },
@@ -128,7 +78,7 @@ export function HeroSection() {
               <span>An assistant in private beta</span>
             </p>
             <p className="mt-4 font-display-italic text-[clamp(0.95rem,1.2vw,1.05rem)] leading-[1.4] text-[var(--color-text-muted)]">
-              vol. 01 · the orb
+              v1 · sirius
             </p>
           </div>
 
@@ -142,8 +92,6 @@ export function HeroSection() {
             >
               <Orb className="!h-full !w-full" />
             </motion.div>
-
-            <MicTrigger />
           </div>
 
           <div className="order-3 md:order-3 md:text-left">
@@ -152,7 +100,6 @@ export function HeroSection() {
               <span aria-hidden="true" className="inline-block h-px w-8 bg-[var(--color-border-strong)]" />
             </p>
             <p className="mt-4 font-display-italic text-[clamp(0.95rem,1.2vw,1.05rem)] leading-[1.4] text-[var(--color-text-muted)]">
-              by sirius — for one
             </p>
           </div>
         </div>
@@ -200,11 +147,11 @@ export function HeroSection() {
               </span>
             </ButtonLink>
             <a
-              href="#workflows"
+              href="#three-ideas"
               className="text-[13px] text-[var(--color-text-secondary)] underline-offset-[6px] transition hover:text-[var(--color-text-primary)] hover:underline"
               style={{ textDecorationColor: "var(--color-border-strong)" }}
             >
-              read the thesis
+              how it works
             </a>
           </motion.div>
         </div>

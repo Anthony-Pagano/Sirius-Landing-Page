@@ -9,10 +9,8 @@ export const landingContent = {
     eyebrow: "Sirius",
     title: "An assistant. In the proper sense.",
     description:
-      "It chats, it remembers, and it has the decency to notice when you've done the same thing three times — and offer to never do it again. Voice or keyboard.",
-    primaryCta: "Request access",
-    micPrompt: "Talk to it",
-    micPrivacy: "Your voice stays in your browser. We're not listening.",
+      "Listens. Remembers. Captures your workflos. Voice or keyboard, on your machine.",
+    primaryCta: "Join waitlist",
     headlineAlternates: [
       "The assistant the others were pretending to be.",
       "Quietly competent.",
@@ -26,14 +24,14 @@ export const landingContent = {
     coda:
       "Sirius looks for repeated work and asks before it automates. If something is worth saving, it turns it into a workflow, so you can run it again without the headache of re-explaining.",
     notes: [
-      "Three times this week, the same flavour of email. Want me to bottle it into a workflow?",
-      "Your 14:00 with Daniel. You've never met. Brief?",
+      "Third 'Hey Anne, quick rundown' this month. Your calendar knows what you were in, your inbox knows what's still hanging, I can wire it together so this stops being a Friday chore.",
+      "Your 14:00 with Daniel is coming up. Your brief is ready."
     ],
   },
   fourWays: {
     sectionLabel: "One assistant. Four ways to command it.",
     leadIn:
-      "Sirius is not another chatbot. It listens, remembers, watches, schedules, and acts across the systems you already use.",
+      "Sirius is not another chatbot. It listens, remembers, schedules, and acts across the systems you already use.",
     items: [
       { id: "voice",     title: "Voice",     body: "Command Sirius naturally. Capture thoughts, trigger workflows, and get answers without looking away from your work." },
       { id: "chat",      title: "Chat",      body: "One conversation. Everything you've ever told it. No new tabs." },
@@ -123,11 +121,11 @@ export const landingContent = {
     items: [
       {
         q: "Where does my data live?",
-        a: "Your memories, conversations, and connected files stay on your machine. Sirius only uses the cloud for tasks you approve that need to keep running, like scheduled workflows, recurring briefings, or outreach. It sends only the context needed for that task.",
+        a: "Everything stays on your machine, for now. Your memories, conversations, and connected files will always live there. Soon, Sirius will be able to use the cloud for tasks you approve that need to keep running, like scheduled workflows, recurring briefings, or outreach.",
       },
       {
         q: "What models does it use?",
-        a: "Right now, Sirius uses a combination of models. e.g. Opus 4.7 for heavier reasoning, Sonnet 4.6 for medium tasks, and smaller models for routine tasks. ",
+        a: "Right now, Sirius uses a combination of Anthropic, OpenAI, and Gemini models.",
       },
       {
         q: "How is this different from any other chat agent?",
@@ -140,7 +138,6 @@ export const landingContent = {
     ],
   },
   cta: {
-    sectionLabel: "Availability",
     title: "Meet Sirius.",
     primaryCta: "Request access",
   },

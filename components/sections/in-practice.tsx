@@ -26,7 +26,7 @@ const CHAINS: Record<string, string[]> = {
 // Sirius's moves — what it does, not what it produces. Honest about operations,
 // silent on output specifics.
 const VERBS: Record<string, string[]> = {
-  design:      ["SCAN", "CATEGORISE", "DRAFT", "FLAG"],
+  design:      ["READ", "SORT", "DRAFT", "FLAG"],
   engineering: ["PULL", "MERGE", "SUMMARISE", "POST"],
   meeting:     ["WATCH", "GATHER", "BRIEF", "LAND"],
   research:    ["SUBSCRIBE", "FILTER", "COMPARE", "DIGEST"],
