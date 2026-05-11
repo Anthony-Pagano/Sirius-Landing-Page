@@ -1,4 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,400&family=Geist:wght@300;400;500;600&display=swap");
 @import "tailwindcss";
 
 :root {
@@ -71,8 +70,6 @@
   --dim: var(--color-text-muted);
   --cyan: var(--color-accent);
   --green: var(--color-success);
-  --font-display: "Fraunces", "Iowan Old Style", Georgia, serif;
-  --font-body: "Geist", "Inter", system-ui, sans-serif;
   --font-mono: var(--font-body);
 }
 
