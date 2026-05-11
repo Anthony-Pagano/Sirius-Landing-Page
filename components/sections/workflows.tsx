@@ -16,7 +16,7 @@ export function WorkflowsSection() {
             <h2 className="font-display text-balance mt-7 max-w-[18ch] text-[clamp(2.6rem,5.6vw,4.4rem)] leading-[0.92] tracking-[-0.028em] text-[var(--color-text-primary)] font-normal">
               The work you already do,{" "}
               <em className="font-display-italic not-italic" style={{ color: "var(--color-warm)" }}>
-                made callable.
+                saved for next time.
               </em>
             </h2>
 

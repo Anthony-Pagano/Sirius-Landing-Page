@@ -20,37 +20,37 @@ export const landingContent = {
   },
   workflows: {
     sectionLabel: "Workflows",
-    title: "The work you already do, made callable.",
+    title: "The work you already do, saved for next time.",
     intro:
-      "You already have workflows. They live in your head — invisible until you run them, then you run them again, and again, by hand.",
+      "You already have workflows. They’re just trapped in your head: the emails you rewrite, the prep you redo, the checks you run before every meeting.",
     coda:
-      "Sirius watches the patterns. It only speaks when there's a useful shape to point at — a workflow worth saving, a meeting worth briefing. Everything quieter waits in the digest.",
+      "Sirius looks for repeated work and asks before it automates. If something is worth saving, it turns it into a workflow, so you can run it again without the headache of re-explaining.",
     notes: [
       "Three times this week, the same flavour of email. Want me to bottle it into a workflow?",
       "Your 14:00 with Daniel. You've never met. Brief?",
     ],
   },
   fourWays: {
-    sectionLabel: "The four surfaces",
+    sectionLabel: "One assistant. Four ways to command it.",
     leadIn:
-      "Voice and chat tell Sirius what to run. Schedules tell it when. Feeds show what came back. Four surfaces, one assistant.",
+      "Sirius is not another chatbot. It listens, remembers, watches, schedules, and acts across the systems you already use.",
     items: [
-      { id: "voice",     title: "Voice",     body: "Talk to it. It's listening." },
+      { id: "voice",     title: "Voice",     body: "Command Sirius naturally. Capture thoughts, trigger workflows, and get answers without looking away from your work." },
       { id: "chat",      title: "Chat",      body: "One conversation. Everything you've ever told it. No new tabs." },
-      { id: "feeds",     title: "Feeds",     body: "Pick what Sirius watches — markets, papers, your team's PRs, anything. It curates the updates against what you're working on. You read them at your pace." },
-      { id: "schedules", title: "Schedules", body: "Tell Sirius when. \"Lights on at 8.\" \"Standup digest at 9.\" \"Draft a reply when this client emails.\" Workflows or single actions, on a clock or when something happens." },
+      { id: "feeds",     title: "Feeds",     body: "Connect the streams that matter. Sirius watches your world and notifies you when something deserves attention. Markets, papers, your team's PRs, anything." },
+      { id: "schedules", title: "Schedules", body: "Automate the timing. Workflows or single actions, on a clock or when something happens." },
     ],
   },
   threeIdeas: {
     sectionLabel: "One system",
-    title: "Three parts. One app.",
+    title: "One app. Everything about you.",
     items: [
-      { index: "01", role: "The conversation that knows you." },
-      { index: "02", role: "The agent that acts for you." },
-      { index: "03", role: "The plumbing that runs while you sleep." },
+      { index: "01", role: "The conversation that keeps the context." },
+      { index: "02", role: "The agent that does the work." },
+      { index: "03", role: "The workflows that automate the boring stuff." },
     ],
     body:
-      "Arranged so a single assistant — the same one — does all three. The chat knows what your schedules did this morning. The schedules know what you talked about yesterday. Nothing falls between systems, because there is only one system.",
+      "Everything shares the same memory, so you never have to re-explain yourself. The chat knows what your schedules did this morning. Or what you emailed John yesterday. Or that project you started (but didn't finish) last week. ",
   },
   whatsNext: {
     sectionLabel: "What's next",
@@ -62,12 +62,12 @@ export const landingContent = {
     sectionLabel: "Local-first",
     title: "Your data stays on your machine.",
     body:
-      "Memories, conversations, files — all local. The workflows that need to run while you're asleep (outreach, briefings, anything recurring) run on Sirius's cloud, with only the data they need to do their job. Prefer fully local? You can have that. The trade is that those workflows stop when your laptop does.",
+      "Memories, conversations, files are all local. The workflows that need to run while you're asleep (outreach, briefings, anything recurring) run on Sirius's cloud, with only the data they need to do their job. Prefer fully local? You can have that. The trade is that those workflows stop when your laptop does.",
     footnote: "Private beta",
   },
   inPractice: {
     sectionLabel: "In practice",
-    title: "Four short demonstrations.",
+    title: "\"Sirius, handle it for me.\"",
     weekly: [
       { id: "design",      label: "TUE",          tail: "FEEDBACK" },
       { id: "engineering", label: "MON 09:00",    tail: "STANDUP" },
@@ -81,9 +81,9 @@ export const landingContent = {
         kind: "DESIGN",
         frequency: "ad-hoc",
         voiceTrigger: "Sirius, what came in from the client?",
-        title: "Client feedback that triages itself.",
-        body: "An email lands with eight nitpicks. Sirius makes the trivial edits, drafts the rest, then tells you the call — four done, two need you, one is scope creep.",
-        punchline: "You read the bundle, not the inbox.",
+        title: "Client feedback, sorted before you read it.",
+        body: "A client sends a messy list of comments. Sirius separates quick fixes from real decisions, drafts the easy changes, and flags what needs you.",
+        punchline: "You review the call, not the chaos.",
       },
       {
         id: "engineering",
@@ -91,8 +91,8 @@ export const landingContent = {
         kind: "ENGINEERING",
         frequency: "mon · 09:00",
         voiceTrigger: "Sirius, what's standup looking like?",
-        title: "Your standup, already written.",
-        body: "Every Monday, Sirius pulls the week's commits, the closed tickets, the team threads. A draft's in #standup before you sit down. You skim, fix the line that's wrong, post.",
+        title: "Your standup, ready before you are.",
+        body: "Every Monday, Sirius pulls the week’s commits, closed tickets, and team threads. A draft is waiting before you sit down. You skim, fix anything off, and post.",
         punchline: "Twenty seconds, not twenty minutes.",
       },
       {
@@ -102,7 +102,7 @@ export const landingContent = {
         frequency: "15 min before",
         voiceTrigger: "Sirius, what's the 14:00?",
         title: "Your next meeting, already briefed.",
-        body: "Fifteen minutes before each one, a brief lands — last contact, open threads, the thing you said you'd do. You walk in with the file.",
+        body: "Fifteen minutes before a meeting, Sirius pulls the last thread, open tasks, previous notes, and anything you promised to follow up on. You walk in with the file.",
         punchline: "Briefed, not blindsided.",
       },
       {
@@ -113,7 +113,7 @@ export const landingContent = {
         voiceTrigger: "Sirius, what's worth knowing this morning?",
         title: "A research desk, for one.",
         body: "Sirius keeps a feed on the companies you're tracking. Two paragraphs of what's changed since yesterday, before your first coffee.",
-        punchline: "It already knows what you've read.",
+        punchline: "Never miss a signal.",
       },
     ],
   },
@@ -123,15 +123,15 @@ export const landingContent = {
     items: [
       {
         q: "Where does my data live?",
-        a: "Memories, conversations, and files stay on your machine. Only the workflows you ask Sirius to run on a schedule — outreach, briefings, anything recurring — touch its cloud, and only with the data they need.",
+        a: "Your memories, conversations, and connected files stay on your machine. Sirius only uses the cloud for tasks you approve that need to keep running, like scheduled workflows, recurring briefings, or outreach. It sends only the context needed for that task.",
       },
       {
         q: "What models does it use?",
-        a: "Whichever ones do the job — currently Claude for the heavy reasoning, smaller models for the routine. Sirius picks; you don't have to.",
+        a: "Right now, Sirius uses a combination of models. e.g. Opus 4.7 for heavier reasoning, Sonnet 4.6 for medium tasks, and smaller models for routine tasks. ",
       },
       {
-        q: "How is this different from a chat agent?",
-        a: "An agent answers when asked. Sirius watches, remembers, and offers — and runs the things you've asked it to run, on the schedule you've asked. The chat is a thin slice of it.",
+        q: "How is this different from any other chat agent?",
+        a: "An agent answers when asked, forces you to re-explain every time, and you're stuck trying to convince it to do what you want it to do. Sirius remembers all the details about you, and builds a workflow once, you run it anytime after with certainty that it’ll do what you want. Without burning through all your tokens."
       },
       {
         q: "When can I expect access?",
