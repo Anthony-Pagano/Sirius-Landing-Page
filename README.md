@@ -102,6 +102,43 @@ lib/
 - `npm run start`: run the production server locally
 - `npm run lint`: run lint checks
 
+## Waitlist setup
+
+The landing page's signup form posts to `/api/waitlist`, which writes to an Airtable base.
+
+**One-time Airtable setup**
+
+1. Create an Airtable base. Inside it, create a table named `Waitlist` with these fields:
+   - `Email` — Single line text (primary field)
+   - `Name` — Single line text
+   - `Source` — Single line text
+   - `Created At` — Created time (Airtable built-in type), UTC
+2. At https://airtable.com/create/tokens create a Personal Access Token with scopes `data.records:read` and `data.records:write`, restricted to that base.
+3. Copy the base ID from the base URL (`https://airtable.com/appXXXXXXXXXXXXXX/...`).
+
+**Local env vars**
+
+Add to `.env.local` (gitignored):
+
+```bash
+AIRTABLE_TOKEN=pat_...
+AIRTABLE_BASE_ID=app_...
+AIRTABLE_TABLE_NAME=Waitlist
+```
+
+**Production**
+
+Set the same three vars in your host's environment (e.g. Vercel project settings → Environment Variables).
+
+**Smoke test**
+
+```bash
+curl -sS -X POST http://localhost:3000/api/waitlist \
+  -H "Content-Type: application/json" \
+  -d '{"stage":"email","email":"smoke@example.com","elapsedMs":5000}'
+# expect: {"ok":true}
+```
+
 ## Recommended Next Steps
 
 1. Install dependencies with `npm install`.

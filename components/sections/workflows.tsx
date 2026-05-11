@@ -16,7 +16,7 @@ export function WorkflowsSection() {
             <h2 className="font-display text-balance mt-7 max-w-[18ch] text-[clamp(2.6rem,5.6vw,4.4rem)] leading-[0.92] tracking-[-0.028em] text-[var(--color-text-primary)] font-normal">
               The work you already do,{" "}
               <em className="font-display-italic not-italic" style={{ color: "var(--color-warm)" }}>
-                made callable.
+                saved for next time.
               </em>
             </h2>
 
@@ -35,25 +35,6 @@ export function WorkflowsSection() {
               <blockquote className="max-w-[30ch] font-display-italic text-[clamp(1.45rem,2.5vw,1.95rem)] leading-[1.4] text-[var(--color-text-primary)]">
                 &ldquo;{notes[0]}&rdquo;
               </blockquote>
-
-              <div className="mt-7 flex items-center gap-6">
-                <button
-                  type="button"
-                  className="text-[11px] font-medium uppercase tracking-[0.18em] pb-0.5 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus)] focus-visible:ring-offset-4 focus-visible:ring-offset-[var(--color-bg)]"
-                  style={{
-                    color: "var(--color-accent-strong)",
-                    borderBottom: "1px solid rgba(var(--color-accent-strong-rgb), 0.45)",
-                  }}
-                >
-                  Yes, extract
-                </button>
-                <button
-                  type="button"
-                  className="text-[11px] font-medium uppercase tracking-[0.18em] text-[var(--color-text-muted)] transition hover:text-[var(--color-text-primary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus)] focus-visible:ring-offset-4 focus-visible:ring-offset-[var(--color-bg)]"
-                >
-                  Not now
-                </button>
-              </div>
             </figure>
 
             <figure className="relative border-l-2 border-[rgba(var(--color-warm-rgb),0.55)] pl-6 md:pl-8">
