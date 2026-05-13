@@ -121,7 +121,7 @@ export const landingContent = {
     items: [
       {
         q: "Where does my data live?",
-        a: "Everything stays on your machine, for now. Your memories, conversations, and connected files will always live there. Soon, Sirius will be able to use the cloud for tasks you approve that need to keep running, like scheduled workflows, recurring briefings, or outreach.",
+        a: "Your memories, conversations, and connected files will always always live on your machine. Soon, Sirius will be able to use the cloud tasks you want running while you're away from your computer, like scheduled workflows, but they run on your machine for now.",
       },
       {
         q: "What models does it use?",
