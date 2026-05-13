@@ -20,9 +20,9 @@ export const landingContent = {
     sectionLabel: "Workflows",
     title: "The work you already do, saved for next time.",
     intro:
-      "You already have workflows. They’re just trapped in your head: the emails you rewrite, the prep you redo, the checks you run before every meeting.",
+      "You already have workflows. They’re just trapped in your head: the emails you rewrite, the checks you run before every meeting, and the same steps you take every time you want to ship a new feature.",
     coda:
-      "Sirius looks for repeated work and asks before it automates. If something is worth saving, it turns it into a workflow, so you can run it again without the headache of re-explaining.",
+      "Introducing workflows. A systematic way to get work done. Sirius makes them once, you can run them always. Think N8N, but for your assistant.",
     notes: [
       "Third 'Hey Anne, quick rundown' this month. Your calendar knows what you were in, your inbox knows what's still hanging, I can wire it together so this stops being a Friday chore.",
       "Your 14:00 with Daniel is coming up. Your brief is ready."
@@ -31,9 +31,9 @@ export const landingContent = {
   fourWays: {
     sectionLabel: "One assistant. Four ways to command it.",
     leadIn:
-      "Sirius is not another chatbot. It listens, remembers, schedules, and acts across the systems you already use.",
+      "Sirius listens, remembers, schedules, and acts across the systems you already use. It'll search the web, your emails, calendar, slack and every other app you use..",
     items: [
-      { id: "voice",     title: "Voice",     body: "Command Sirius naturally. Capture thoughts, trigger workflows, and get answers without looking away from your work." },
+      { id: "voice",     title: "Voice",     body: "Command Sirius naturally. You don't ever have to look awway form your work." },
       { id: "chat",      title: "Chat",      body: "One conversation. Everything you've ever told it. No new tabs." },
       { id: "feeds",     title: "Feeds",     body: "Connect the streams that matter. Sirius watches your world and notifies you when something deserves attention. Markets, papers, your team's PRs, anything." },
       { id: "schedules", title: "Schedules", body: "Automate the timing. Workflows or single actions, on a clock or when something happens." },
