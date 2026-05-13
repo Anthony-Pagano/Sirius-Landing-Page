@@ -7,9 +7,9 @@ export const landingContent = {
   },
   hero: {
     eyebrow: "Sirius",
-    title: "An assistant. In the proper sense.",
+    title: "AI assistants, rethought.",
     description:
-      "Listens. Remembers. Captures your workflows. Voice or keyboard, on your machine.",
+      "Listens. Remembers. Learns. Executes. Voice first, on your machine.",
     primaryCta: "Join waitlist",
     headlineAlternates: [
       "The assistant the others were pretending to be.",

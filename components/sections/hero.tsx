@@ -112,7 +112,7 @@ export function HeroSection() {
               animate={motionState.animate}
               variants={line1Variants}
             >
-              An assistant.
+              Your AI assistant.
             </motion.span>
             <motion.span
               className="block"
@@ -121,7 +121,7 @@ export function HeroSection() {
               variants={line2Variants}
               style={{ color: "var(--color-warm)" }}
             >
-              <em className="font-display-italic not-italic">In the proper sense.</em>
+              <em className="font-display-italic not-italic">rethought.</em>
             </motion.span>
           </h1>
 
