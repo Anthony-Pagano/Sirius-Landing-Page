@@ -40,6 +40,39 @@ export function WaitlistForm() {
     mountTimeRef.current = performance.now();
   }, []);
 
+  useEffect(() => {
+    const focusWaitlistInput = () => {
+      window.setTimeout(() => {
+        inputRef.current?.focus({ preventScroll: true });
+      }, 450);
+    };
+
+    const focusFromHash = () => {
+      if (window.location.hash === "#cta" || window.location.hash === "#waitlist") {
+        focusWaitlistInput();
+      }
+    };
+
+    const handleClick = (event: MouseEvent) => {
+      const target = event.target instanceof Element
+        ? event.target.closest('a[href="#cta"], a[href="#waitlist"]')
+        : null;
+
+      if (target) {
+        focusWaitlistInput();
+      }
+    };
+
+    focusFromHash();
+    window.addEventListener("hashchange", focusFromHash);
+    document.addEventListener("click", handleClick);
+
+    return () => {
+      window.removeEventListener("hashchange", focusFromHash);
+      document.removeEventListener("click", handleClick);
+    };
+  }, []);
+
   // Focus the active input after a step transition. Skip the initial mount so
   // the email input doesn't auto-focus on page load (which would pop mobile
   // keyboards and steal focus from keyboard users tabbing in).
@@ -133,6 +166,7 @@ export function WaitlistForm() {
 
   return (
     <form
+      id="waitlist"
       onSubmit={visibleStep === "email" ? onSubmitEmail : onSubmitName}
       noValidate
       className="w-full"

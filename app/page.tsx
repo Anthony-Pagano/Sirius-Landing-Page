@@ -19,11 +19,12 @@ export default function HomePage() {
       <ProgressRail />
       <HeroSection />
       <SectionDivider />
+      <InPracticeSection />
+      <SectionDivider />
       <WorkflowsSection />
       <SectionDivider />
       <FourWaysSection />
       <ThreeIdeasSection />
-      <InPracticeSection />
       <SectionDivider />
       <LocalDataSection />
       <FaqSection />
