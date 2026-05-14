@@ -155,7 +155,7 @@ export function HeroSection() {
             </a>
           </motion.div>
 
-          <dl className="mx-auto mt-10 grid max-w-[760px] gap-5 border-t border-[var(--color-border)] pt-8 text-left sm:grid-cols-3">
+          <dl className="mx-auto mt-10 grid max-w-[760px] gap-5 border-y border-[var(--color-border)] py-8 text-left sm:grid-cols-3">
             {proofPoints.map((point) => (
               <div key={point.title}>
                 <dt className="text-[12px] font-medium uppercase tracking-[0.18em] text-[var(--color-text-muted)]">

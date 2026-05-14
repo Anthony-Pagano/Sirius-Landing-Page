@@ -27,7 +27,7 @@ export function LocalDataSection() {
             </p>
             <dl className="mt-8 grid gap-5 sm:grid-cols-3">
               {trustPoints.map((point) => (
-                <div key={point.title} className="border-t border-[var(--color-border)] pt-4">
+                <div key={point.title} className="border-y border-[var(--color-border)] py-4">
                   <dt className="text-[12px] font-medium uppercase tracking-[0.18em] text-[var(--color-text-muted)]">
                     {point.title}
                   </dt>

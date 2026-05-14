@@ -310,7 +310,7 @@ export function InPracticeSection() {
           {intro}
         </p>
 
-        <div className="mt-14 flex flex-col">
+        <div className="mt-16 flex flex-col border-t border-[var(--color-border-strong)] pt-6 md:pt-8">
           {vignettes.map((v) => (
             <PracticeCard key={v.id} card={v} total={vignettes.length} />
           ))}
