@@ -3,7 +3,7 @@ import { Container } from "@/components/ui/container";
 import { SectionLabel } from "@/components/ui/section-label";
 
 export function WorkflowsSection() {
-  const { sectionLabel, title, intro, coda, notes } = landingContent.workflows;
+  const { sectionLabel, intro, coda, notes } = landingContent.workflows;
 
   return (
     <section id="workflows" className="relative scroll-mt-24 py-24 md:py-36">
@@ -14,14 +14,17 @@ export function WorkflowsSection() {
             <SectionLabel index="02" tone="cyan">{sectionLabel}</SectionLabel>
 
             <h2 className="font-display text-balance mt-7 max-w-[18ch] text-[clamp(2.6rem,5.6vw,4.4rem)] leading-[0.92] tracking-[-0.028em] text-[var(--color-text-primary)] font-normal">
-              {title}
+              The work you already do,{" "}
+              <em className="font-display-italic not-italic" style={{ color: "var(--color-warm)" }}>
+                saved for next time.
+              </em>
             </h2>
 
-            <p className="mt-8 max-w-[52ch] text-[17px] leading-[1.7] text-[var(--color-text-secondary)]">
+            <p className="mt-8 max-w-[50ch] text-[16px] leading-[1.72] text-[var(--color-text-secondary)]">
               {intro}
             </p>
 
-            <p className="mt-6 max-w-[52ch] text-[17px] leading-[1.7] text-[var(--color-text-secondary)]">
+            <p className="mt-5 max-w-[50ch] text-[16px] leading-[1.72] text-[var(--color-text-secondary)]">
               {coda}
             </p>
           </div>

@@ -74,7 +74,7 @@ export const landingContent = {
     sectionLabel: "Local-first",
     title: "Your data, your machine.",
     body:
-      "Sirius is local-first by design. Your personal memory, conversations, and connected files stay on your device by default, so Sirius can keep context without turning your work into a permanent cloud profile. When a workflow needs cloud support, Sirius sends only the context required to complete that task. You choose what runs, what gets connected, and what Sirius is allowed to remember.",
+      "Sirius keeps your personal memory, conversations, and connected files on your device by default. Cloud workflows only receive the context required to complete the task you approve.",
     trustPoints: [
       {
         title: "Local memory",
@@ -181,8 +181,6 @@ export const landingContent = {
   },
   cta: {
     title: "Meet Sirius.",
-    body:
-      "Join the private beta for a personal assistant that remembers your work, acts across your apps, and turns repeated tasks into workflows you can reuse.",
     primaryCta: "Request access",
     note: "Early access is rolling out in small waves.",
   },

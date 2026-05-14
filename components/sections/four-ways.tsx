@@ -110,9 +110,12 @@ export function FourWaysSection() {
       <Container>
         <SectionLabel index="03" tone="cyan">{sectionLabel}</SectionLabel>
         <h2 className="font-display text-balance mt-7 max-w-[20ch] text-[clamp(2.4rem,5.2vw,4rem)] leading-[0.92] tracking-[-0.028em] text-[var(--color-text-primary)] font-normal">
-          Command Sirius through voice, chat, schedules, and feeds.
+          Command Sirius through{" "}
+          <em className="font-display-italic not-italic" style={{ color: "var(--color-warm)" }}>
+            voice, chat, schedules, and feeds.
+          </em>
         </h2>
-        <p className="mt-7 max-w-[58ch] text-[clamp(1rem,1.4vw,1.15rem)] leading-[1.65] text-[var(--color-text-secondary)]">
+        <p className="mt-7 max-w-[52ch] text-[clamp(0.98rem,1.25vw,1.08rem)] leading-[1.68] text-[var(--color-text-secondary)]">
           {leadIn}
         </p>
 

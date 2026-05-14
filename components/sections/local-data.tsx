@@ -4,7 +4,7 @@ import { SectionLabel } from "@/components/ui/section-label";
 import { LocalDataDiagram } from "@/components/sirius/local-data-diagram";
 
 export function LocalDataSection() {
-  const { sectionLabel, title, body, trustPoints, footnote } = landingContent.localData;
+  const { sectionLabel, body, trustPoints, footnote } = landingContent.localData;
 
   return (
     <section id="local-data" className="band-deep scroll-mt-24 py-24 md:py-32">
@@ -13,13 +13,16 @@ export function LocalDataSection() {
           <div>
             <SectionLabel index="05" tone="cyan">{sectionLabel}</SectionLabel>
             <h2 className="font-display mt-7 text-[clamp(2.3rem,5vw,3.8rem)] leading-[0.92] tracking-[-0.028em] font-normal text-[var(--color-text-primary)] max-w-[18ch]">
-              {title}
+              Your data,{" "}
+              <em className="font-display-italic not-italic" style={{ color: "var(--color-warm)" }}>
+                your machine.
+              </em>
             </h2>
           </div>
 
           <div>
             <LocalDataDiagram />
-            <p className="mt-8 text-[16px] leading-[1.7] text-[var(--color-text-secondary)] max-w-[58ch]">
+            <p className="mt-8 text-[15.5px] leading-[1.72] text-[var(--color-text-secondary)] max-w-[54ch]">
               {body}
             </p>
             <dl className="mt-8 grid gap-5 sm:grid-cols-3">

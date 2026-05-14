@@ -10,7 +10,7 @@ const NODE_DEFS = [
 ] as const;
 
 export function ThreeIdeasSection() {
-  const { sectionLabel, title, items, body } = landingContent.threeIdeas;
+  const { sectionLabel, items, body } = landingContent.threeIdeas;
 
   return (
     <section
@@ -21,7 +21,10 @@ export function ThreeIdeasSection() {
         <SectionLabel index="04" tone="warm">{sectionLabel}</SectionLabel>
 
         <h2 className="font-display text-balance mt-7 max-w-[24ch] text-[clamp(2.6rem,5.6vw,4.4rem)] leading-[0.92] tracking-[-0.028em] text-[var(--color-text-primary)] font-normal">
-          {title}
+          One assistant that{" "}
+          <em className="font-display-italic not-italic" style={{ color: "var(--color-warm)" }}>
+            remembers, acts, and automates.
+          </em>
         </h2>
 
         <div className="mt-12 grid gap-12 md:grid-cols-[1.05fr_0.95fr] md:items-stretch md:gap-16">
@@ -67,7 +70,7 @@ export function ThreeIdeasSection() {
               })}
             </ul>
 
-            <p className="mt-8 text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+            <p className="mt-8 max-w-[54ch] text-[15.5px] leading-[1.72] text-[var(--color-text-secondary)]">
               {body}
             </p>
           </div>

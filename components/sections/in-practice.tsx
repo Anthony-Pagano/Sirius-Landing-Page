@@ -32,6 +32,13 @@ const VERBS: Record<string, string[]> = {
   research:    ["SUBSCRIBE", "FILTER", "COMPARE", "DIGEST"],
 };
 
+const TITLE_HIGHLIGHTS: Record<string, string> = {
+  design: "sorted before you read it.",
+  engineering: "ready before you are.",
+  meeting: "already briefed.",
+  research: "for one.",
+};
+
 // Match the site's body font (Geist) — tracking + caps carry the "technical
 // readout" tone without the visual jolt of true monospace.
 const MONO_STACK = `"Geist", "Inter", ui-sans-serif, system-ui, sans-serif`;
@@ -184,6 +191,9 @@ type CardData = (typeof landingContent.inPractice.vignettes)[number];
 
 function PracticeCard({ card, total }: { card: CardData; total: number }) {
   const accent = ACCENTS[card.id];
+  const highlight = TITLE_HIGHLIGHTS[card.id];
+  const highlightIndex = highlight ? card.title.indexOf(highlight) : -1;
+  const titleLead = highlightIndex >= 0 ? card.title.slice(0, highlightIndex) : card.title;
 
   const ref = useRef<HTMLElement | null>(null);
   const [revealed, setRevealed] = useState(false);
@@ -229,7 +239,15 @@ function PracticeCard({ card, total }: { card: CardData; total: number }) {
         </p>
 
         <h3 className="font-display mt-6 max-w-[22ch] text-[clamp(1.9rem,3.4vw,2.8rem)] leading-[1.05] tracking-[-0.022em] text-[var(--color-text-primary)]">
-          {card.title}
+          {titleLead}
+          {highlightIndex >= 0 && (
+            <em
+              className="font-display-italic not-italic"
+              style={{ color: "var(--color-warm)" }}
+            >
+              {highlight}
+            </em>
+          )}
         </h3>
 
         <p className="mt-7 max-w-[54ch] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
@@ -272,7 +290,7 @@ function PracticeCard({ card, total }: { card: CardData; total: number }) {
 // ─── Section ──────────────────────────────────────────────────────────────────
 
 export function InPracticeSection() {
-  const { sectionLabel, title, intro, vignettes } = landingContent.inPractice;
+  const { sectionLabel, intro, vignettes } = landingContent.inPractice;
 
   return (
     <section id="in-practice" className="scroll-mt-24 py-24 md:py-32">
@@ -282,10 +300,13 @@ export function InPracticeSection() {
         </SectionLabel>
 
         <h2 className="font-display mt-7 max-w-[26ch] text-[clamp(2.4rem,5.2vw,4rem)] leading-[0.92] tracking-[-0.028em] font-normal text-[var(--color-text-primary)]">
-          {title}
+          Stop doing the same work{" "}
+          <em className="font-display-italic not-italic" style={{ color: "var(--color-warm)" }}>
+            from scratch.
+          </em>
         </h2>
 
-        <p className="mt-7 max-w-[58ch] text-[clamp(1rem,1.4vw,1.15rem)] leading-[1.65] text-[var(--color-text-secondary)]">
+        <p className="mt-7 max-w-[52ch] text-[clamp(0.98rem,1.25vw,1.08rem)] leading-[1.68] text-[var(--color-text-secondary)]">
           {intro}
         </p>
 
