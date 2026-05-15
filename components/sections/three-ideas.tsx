@@ -4,9 +4,9 @@ import { SectionLabel } from "@/components/ui/section-label";
 import { Orb } from "@/components/sirius/orb";
 
 const NODE_DEFS = [
-  { index: "01", accent: "conversation", color: "#7ce0ff" },
-  { index: "02", accent: "agent",        color: "#f5c84a" },
-  { index: "03", accent: "workflows",    color: "#9adcb0" },
+  { index: "01", accent: "Memory",    color: "#7ce0ff" },
+  { index: "02", accent: "Actions",   color: "#f5c84a" },
+  { index: "03", accent: "Workflows", color: "#9adcb0" },
 ] as const;
 
 export function ThreeIdeasSection() {
@@ -18,12 +18,12 @@ export function ThreeIdeasSection() {
       className="relative scroll-mt-24 py-24 md:py-32"
     >
       <Container>
-        <SectionLabel index="03" tone="warm">{sectionLabel}</SectionLabel>
+        <SectionLabel index="04" tone="warm">{sectionLabel}</SectionLabel>
 
         <h2 className="font-display text-balance mt-7 max-w-[24ch] text-[clamp(2.6rem,5.6vw,4.4rem)] leading-[0.92] tracking-[-0.028em] text-[var(--color-text-primary)] font-normal">
-          Three parts.{" "}
+          One assistant that{" "}
           <em className="font-display-italic not-italic" style={{ color: "var(--color-warm)" }}>
-            One app.
+            remembers, acts, and automates.
           </em>
         </h2>
 
@@ -70,7 +70,7 @@ export function ThreeIdeasSection() {
               })}
             </ul>
 
-            <p className="mt-8 text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+            <p className="mt-8 max-w-[54ch] text-[15.5px] leading-[1.72] text-[var(--color-text-secondary)]">
               {body}
             </p>
           </div>

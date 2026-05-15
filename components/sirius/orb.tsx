@@ -29,7 +29,7 @@ export function Orb({
   staticRender = false,
   glowless = false,
   tripartite = false,
-  interactive = true,
+  interactive = false,
 }: {
   className?: string;
   staticRender?: boolean;
@@ -68,7 +68,7 @@ export function Orb({
   return (
     <div
       className={cn(
-        "relative h-[clamp(280px,70vw,360px)] w-[clamp(280px,70vw,360px)]",
+        "pointer-events-none relative h-[clamp(280px,70vw,360px)] w-[clamp(280px,70vw,360px)]",
         className,
       )}
       aria-hidden="true"

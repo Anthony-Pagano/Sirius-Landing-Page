@@ -6,10 +6,9 @@ import { landingContent } from "@/content/landing";
 import { Orb } from "@/components/sirius/orb";
 import { WaitlistForm } from "@/components/ui/waitlist-form";
 
-const { cta } = landingContent;
-
 export function FinalCtaSection() {
   const reducedMotion = useReducedMotion();
+  const { cta } = landingContent;
 
   const fadeUp = (delay: number) =>
     reducedMotion
@@ -46,6 +45,9 @@ export function FinalCtaSection() {
 
         <motion.div {...fadeUp(0.2)} className="mt-12 w-full max-w-[480px]">
           <WaitlistForm />
+          <p className="mt-4 text-[13px] leading-5 text-[var(--color-text-muted)]">
+            {cta.note}
+          </p>
         </motion.div>
       </div>
     </section>

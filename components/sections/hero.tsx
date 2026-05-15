@@ -48,7 +48,7 @@ const ctaVariants: Variants = {
 
 export function HeroSection() {
   const shouldReduceMotion = useReducedMotion();
-  const { description, primaryCta } = landingContent.hero;
+  const { title, description, primaryCta, proofPoints } = landingContent.hero;
 
   // When reduced motion is preferred, skip animation by omitting initial/animate.
   // The variants are still valid objects; the motion elements render in final state.
@@ -75,7 +75,7 @@ export function HeroSection() {
           <div className="order-2 md:order-1 md:text-right">
             <p className="inline-flex items-center gap-3 text-[11px] font-medium uppercase tracking-[0.22em] text-[var(--color-text-muted)]">
               <span aria-hidden="true" className="inline-block h-px w-8 bg-[var(--color-border-strong)]" />
-              <span>An assistant in private beta</span>
+              <span>Personal assistant in private beta</span>
             </p>
             <p className="mt-4 font-display-italic text-[clamp(0.95rem,1.2vw,1.05rem)] leading-[1.4] text-[var(--color-text-muted)]">
               v1 · sirius
@@ -112,7 +112,7 @@ export function HeroSection() {
               animate={motionState.animate}
               variants={line1Variants}
             >
-              An assistant.
+              {title}
             </motion.span>
             <motion.span
               className="block"
@@ -121,7 +121,7 @@ export function HeroSection() {
               variants={line2Variants}
               style={{ color: "var(--color-warm)" }}
             >
-              <em className="font-display-italic not-italic">In the proper sense.</em>
+              <em className="font-display-italic not-italic">that doesn&apos;t forget.</em>
             </motion.span>
           </h1>
 
@@ -147,13 +147,26 @@ export function HeroSection() {
               </span>
             </ButtonLink>
             <a
-              href="#three-ideas"
+              href="#in-practice"
               className="text-[13px] text-[var(--color-text-secondary)] underline-offset-[6px] transition hover:text-[var(--color-text-primary)] hover:underline"
               style={{ textDecorationColor: "var(--color-border-strong)" }}
             >
               how it works
             </a>
           </motion.div>
+
+          <dl className="mx-auto mt-10 grid max-w-[760px] gap-5 border-y border-[var(--color-border)] py-8 text-left sm:grid-cols-3">
+            {proofPoints.map((point) => (
+              <div key={point.title}>
+                <dt className="text-[12px] font-medium uppercase tracking-[0.18em] text-[var(--color-text-muted)]">
+                  {point.title}
+                </dt>
+                <dd className="mt-2 text-[14px] leading-[1.55] text-[var(--color-text-secondary)]">
+                  {point.body}
+                </dd>
+              </div>
+            ))}
+          </dl>
         </div>
       </Container>
 

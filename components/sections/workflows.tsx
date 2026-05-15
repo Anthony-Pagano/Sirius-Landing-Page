@@ -11,7 +11,7 @@ export function WorkflowsSection() {
         <div className="grid gap-12 md:grid-cols-[0.95fr_1.05fr] md:gap-20 md:items-start">
           {/* Left: framing */}
           <div className="md:pt-2">
-            <SectionLabel index="01" tone="cyan">{sectionLabel}</SectionLabel>
+            <SectionLabel index="02" tone="cyan">{sectionLabel}</SectionLabel>
 
             <h2 className="font-display text-balance mt-7 max-w-[18ch] text-[clamp(2.6rem,5.6vw,4.4rem)] leading-[0.92] tracking-[-0.028em] text-[var(--color-text-primary)] font-normal">
               The work you already do,{" "}
@@ -20,11 +20,11 @@ export function WorkflowsSection() {
               </em>
             </h2>
 
-            <p className="mt-8 max-w-[52ch] text-[17px] leading-[1.7] text-[var(--color-text-secondary)]">
+            <p className="mt-8 max-w-[50ch] text-[16px] leading-[1.72] text-[var(--color-text-secondary)]">
               {intro}
             </p>
 
-            <p className="mt-6 max-w-[52ch] text-[17px] leading-[1.7] text-[var(--color-text-secondary)]">
+            <p className="mt-5 max-w-[50ch] text-[16px] leading-[1.72] text-[var(--color-text-secondary)]">
               {coda}
             </p>
           </div>
