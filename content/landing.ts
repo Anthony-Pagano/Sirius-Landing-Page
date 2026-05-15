@@ -150,20 +150,12 @@ export const landingContent = {
     title: "What people ask first.",
     items: [
       {
-        q: "What is Sirius?",
-        a: "Sirius is a personal AI assistant for working professionals. It remembers your context, acts across your apps, and turns repeated tasks into workflows you can reuse.",
-      },
-      {
-        q: "Who is Sirius for?",
-        a: "Sirius is built for professionals who repeat context-heavy work: meeting prep, follow-ups, inbox cleanup, client feedback, research digests, standups, and recurring personal workflows.",
-      },
-      {
         q: "Where does my data live?",
         a: "Your personal memory, conversations, and connected files stay local by default. Some scheduled or background workflows may use Sirius cloud services when they need to run while your device is unavailable, but they only receive the context required for that workflow.",
       },
       {
         q: "How is Sirius different from ChatGPT or Claude?",
-        a: "Chat tools mostly respond inside one conversation. Sirius is designed to keep memory across your work, notice repeated tasks, and run workflows through voice, chat, schedules, and feeds.",
+        a: "1. Memory that actually persists. Sirius builds a picture of your projects, preferences, and patterns over time, instead of starting fresh every conversation.\n 2. It's wired into the tools you already use: email, calendar, slack, github, and more.\n3. Workflows. You can build automations that run on their own, not just ask questions and wait for answers.",
       },
       {
         q: "What can Sirius automate?",
@@ -171,7 +163,7 @@ export const landingContent = {
       },
       {
         q: "What models does Sirius use?",
-        a: "Sirius uses a mix of leading AI models depending on the task. The goal is to choose the right model for the job while keeping your personal context controlled.",
+        a: "Sirius uses a mix of leading AI models depending on the task. The goal is to choose the right model for the job while avoiding unecessary costs.",
       },
       {
         q: "When can I get access?",
