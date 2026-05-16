@@ -35,7 +35,7 @@ function StatusPill({ state }: { state: StepState }) {
         state === "done" &&
           "border-[rgba(167,219,178,0.32)] bg-[rgba(167,219,178,0.06)] text-[var(--color-success)]",
         state === "running" &&
-          "border-[rgba(var(--color-accent-rgb),0.36)] bg-[rgba(var(--color-accent-rgb),0.08)] text-[var(--color-accent)]",
+          "border-[rgba(108,216,255,0.36)] bg-[rgba(108,216,255,0.08)] text-[var(--color-state-listening-strong)]",
         state === "queued" &&
           "border-[var(--color-border)] text-[var(--color-text-faint)]",
         state === "gated" &&
@@ -45,7 +45,7 @@ function StatusPill({ state }: { state: StepState }) {
       )}
     >
       {state === "running" && (
-        <span className="h-1.5 w-1.5 rounded-full bg-[var(--color-accent)] motion-safe:animate-pulse" />
+        <span className="h-1.5 w-1.5 rounded-full bg-[var(--color-state-listening-strong)] motion-safe:animate-pulse" />
       )}
       {labels[state]}
     </span>

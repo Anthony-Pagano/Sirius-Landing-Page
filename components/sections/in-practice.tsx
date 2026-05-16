@@ -5,14 +5,15 @@ import { useEffect, useRef, useState } from "react";
 import { landingContent } from "@/content/landing";
 import { Container } from "@/components/ui/container";
 import { SectionLabel } from "@/components/ui/section-label";
+import { ScreenshotFrame } from "@/components/ui/screenshot-frame";
 
-type AccentTone = { hex: string; rgb: string };
+// ─── Per-vignette screenshot metadata ────────────────────────────────────────
 
-const ACCENTS: Record<string, AccentTone> = {
-  design:      { hex: "#6cd8ff", rgb: "108, 216, 255" },
-  engineering: { hex: "#9adcb0", rgb: "154, 220, 176" },
-  meeting:     { hex: "#d9b978", rgb: "217, 185, 120" },
-  research:    { hex: "#8a9cff", rgb: "138, 156, 255" },
+const SCREENSHOT_META: Record<string, { alt: string; caption: string }> = {
+  design:      { alt: "Sirius — client feedback triaged in the app",   caption: "Feedback, sorted in Sirius" },
+  engineering: { alt: "Sirius — standup assembled in the app",          caption: "Standup, ready in Sirius" },
+  meeting:     { alt: "Sirius — meeting brief in the app",              caption: "Meeting brief in Sirius" },
+  research:    { alt: "Sirius — research digest in the app",            caption: "Research desk in Sirius" },
 };
 
 // Surface chain — composition, not chrome.
@@ -43,16 +44,21 @@ const TITLE_HIGHLIGHTS: Record<string, string> = {
 // readout" tone without the visual jolt of true monospace.
 const MONO_STACK = `"Geist", "Inter", ui-sans-serif, system-ui, sans-serif`;
 
+// Live-state cyan tokens used consistently for operation-chain / wave elements.
+// These represent LIVE / IN-PROGRESS work — cyan is the correct semantic.
+const CYAN_HEX = "var(--color-state-listening-strong)";
+// Primitive RGB channels for --color-state-listening-strong (#6cd8ff).
+const CYAN_RGB_CHANNELS = "108, 216, 255";
+
 // ─── Voice glyph ─────────────────────────────────────────────────────────────
 
-function VoiceWaveform({ accent, revealed }: { accent: AccentTone; revealed: boolean }) {
+function VoiceWaveform({ revealed }: { revealed: boolean }) {
   const bars = [0.35, 0.7, 0.5, 0.95, 0.6, 0.38];
   return (
     <span
       aria-hidden="true"
       data-revealed={revealed ? "true" : "false"}
       className="ip-voice inline-flex h-[18px] shrink-0 items-end gap-[3px]"
-      style={{ ["--ip-wave-color" as string]: accent.hex }}
     >
       {bars.map((h, i) => (
         <span
@@ -70,7 +76,7 @@ function VoiceWaveform({ accent, revealed }: { accent: AccentTone; revealed: boo
 
 // ─── Typographic primitives ──────────────────────────────────────────────────
 
-function ChainHeader({ chain, accent, i = 0 }: { chain: string[]; accent: AccentTone; i?: number }) {
+function ChainHeader({ chain, i = 0 }: { chain: string[]; i?: number }) {
   return (
     <div
       className="ip-type-line"
@@ -86,21 +92,21 @@ function ChainHeader({ chain, accent, i = 0 }: { chain: string[]; accent: Accent
           {idx > 0 && (
             <span className="mx-2.5 text-[var(--color-text-muted)]">→</span>
           )}
-          <span style={{ color: accent.hex }}>{surface}</span>
+          <span style={{ color: CYAN_HEX }}>{surface}</span>
         </span>
       ))}
     </div>
   );
 }
 
-function AccentRule({ accent, i = 1 }: { accent: AccentTone; i?: number }) {
+function AccentRule({ i = 1 }: { i?: number }) {
   return (
     <div
       aria-hidden="true"
       className="ip-type-line my-4 h-px w-full"
       style={{
         ["--ip-stagger-i" as string]: i,
-        background: `linear-gradient(90deg, rgba(${accent.rgb}, 0.55), rgba(${accent.rgb}, 0.10) 80%, transparent)`,
+        background: `linear-gradient(90deg, rgba(${CYAN_RGB_CHANNELS}, 0.55), rgba(${CYAN_RGB_CHANNELS}, 0.10) 80%, transparent)`,
       }}
     />
   );
@@ -131,11 +137,9 @@ function TypeLine({
 
 function VerbsArtifact({
   id,
-  accent,
   revealed,
 }: {
   id: string;
-  accent: AccentTone;
   revealed: boolean;
 }) {
   const chain = CHAINS[id] ?? [];
@@ -144,10 +148,9 @@ function VerbsArtifact({
     <div
       data-revealed={revealed ? "true" : "false"}
       className="ip-artifact"
-      style={{ ["--ip-accent-rgb" as string]: accent.rgb }}
     >
-      <ChainHeader chain={chain} accent={accent} i={0} />
-      <AccentRule accent={accent} i={1} />
+      <ChainHeader chain={chain} i={0} />
+      <AccentRule i={1} />
 
       <ol className="mt-1 space-y-3">
         {verbs.map((verb, idx) => (
@@ -171,7 +174,7 @@ function VerbsArtifact({
                 fontFamily: MONO_STACK,
                 fontSize: "clamp(1.05rem, 1.4vw, 1.25rem)",
                 letterSpacing: "0.13em",
-                color: accent.hex,
+                color: CYAN_HEX,
                 fontWeight: 500,
               }}
             >
@@ -190,10 +193,10 @@ function VerbsArtifact({
 type CardData = (typeof landingContent.inPractice.vignettes)[number];
 
 function PracticeCard({ card, total }: { card: CardData; total: number }) {
-  const accent = ACCENTS[card.id];
   const highlight = TITLE_HIGHLIGHTS[card.id];
   const highlightIndex = highlight ? card.title.indexOf(highlight) : -1;
   const titleLead = highlightIndex >= 0 ? card.title.slice(0, highlightIndex) : card.title;
+  const screenshot = SCREENSHOT_META[card.id];
 
   const ref = useRef<HTMLElement | null>(null);
   const [revealed, setRevealed] = useState(false);
@@ -226,39 +229,35 @@ function PracticeCard({ card, total }: { card: CardData; total: number }) {
       ref={ref}
       data-revealed={revealed ? "true" : "false"}
       className="ip-card relative grid grid-cols-1 items-center gap-12 border-t border-[var(--color-border-strong)] py-20 first:border-t-0 first:pt-4 last:pb-0 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:gap-16 md:py-28 md:first:pt-6 md:last:pb-0"
-      style={{
-        ["--ip-accent" as string]: accent.hex,
-        ["--ip-accent-rgb" as string]: accent.rgb,
-      }}
     >
       {/* TEXT COLUMN */}
       <div className="relative flex max-w-[58ch] flex-col">
-        <p className="flex items-center gap-3 text-[15px] italic leading-[1.5] text-[var(--color-text-secondary)]">
-          <VoiceWaveform accent={accent} revealed={revealed} />
+        <p className="flex items-center gap-3 text-[15px] italic leading-[1.5] text-[var(--color-ink-2)]">
+          <VoiceWaveform revealed={revealed} />
           <span>&ldquo;{card.voiceTrigger}&rdquo;</span>
         </p>
 
-        <h3 className="font-display mt-6 max-w-[22ch] text-[clamp(1.9rem,3.4vw,2.8rem)] leading-[1.05] tracking-[-0.022em] text-[var(--color-text-primary)]">
+        <h3 className="font-display mt-6 max-w-[22ch] text-[clamp(1.9rem,3.4vw,2.8rem)] leading-[1.05] tracking-[-0.022em] text-[var(--color-ink-1)]">
           {titleLead}
           {highlightIndex >= 0 && (
             <em
               className="font-display-italic not-italic"
-              style={{ color: "var(--color-warm)" }}
+              style={{ color: "var(--color-accent)" }}
             >
               {highlight}
             </em>
           )}
         </h3>
 
-        <p className="mt-7 max-w-[54ch] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        <p className="mt-7 max-w-[54ch] text-[16px] leading-[1.7] text-[var(--color-ink-2)]">
           {card.body}
         </p>
 
         <p
-          className="mt-8 inline-flex items-baseline gap-3 text-[14px] leading-[1.5] text-[var(--color-text-primary)]"
+          className="mt-8 inline-flex items-baseline gap-3 text-[14px] leading-[1.5] text-[var(--color-ink-1)]"
           style={{ fontFamily: MONO_STACK, letterSpacing: "0.01em" }}
         >
-          <span aria-hidden="true" style={{ color: accent.hex }}>—</span>
+          <span aria-hidden="true" style={{ color: "var(--color-accent)" }}>—</span>
           <span>{card.punchline}</span>
         </p>
 
@@ -268,19 +267,26 @@ function PracticeCard({ card, total }: { card: CardData; total: number }) {
             fontFamily: MONO_STACK,
             fontSize: 10.5,
             letterSpacing: "0.22em",
-            color: "var(--color-text-muted)",
+            color: "var(--color-ink-3)",
           }}
         >
-          <span style={{ color: accent.hex, opacity: 0.9 }}>{card.seq}</span>
+          <span style={{ color: "var(--color-accent)", opacity: 0.9 }}>{card.seq}</span>
           <span className="mx-2 opacity-60">/</span>
           <span>{String(total).padStart(2, "0")}</span>
         </div>
       </div>
 
-      {/* ARTIFACT COLUMN — the verbs */}
-      <div className="relative flex justify-center md:justify-end">
-        <div className="w-full max-w-[420px]">
-          <VerbsArtifact id={card.id} accent={accent} revealed={revealed} />
+      {/* ARTIFACT COLUMN — screenshot placeholder above, verbs artifact below */}
+      <div className="relative flex flex-col justify-center md:justify-end">
+        <div className="w-full max-w-[420px] self-center md:self-end">
+          {screenshot && (
+            <ScreenshotFrame
+              alt={screenshot.alt}
+              caption={screenshot.caption}
+              className="mb-6"
+            />
+          )}
+          <VerbsArtifact id={card.id} revealed={revealed} />
         </div>
       </div>
     </article>
@@ -295,18 +301,19 @@ export function InPracticeSection() {
   return (
     <section id="in-practice" className="scroll-mt-24 py-24 md:py-32">
       <Container>
-        <SectionLabel index="01" tone="cyan">
+        {/* Section eyebrow — gold (decorative brand accent, tone="warm") */}
+        <SectionLabel index="01" tone="warm">
           {sectionLabel}
         </SectionLabel>
 
-        <h2 className="font-display mt-7 max-w-[26ch] text-[clamp(2.4rem,5.2vw,4rem)] leading-[0.92] tracking-[-0.028em] font-normal text-[var(--color-text-primary)]">
+        <h2 className="font-display mt-7 max-w-[26ch] text-[clamp(2.4rem,5.2vw,4rem)] leading-[0.92] tracking-[-0.028em] font-normal text-[var(--color-ink-1)]">
           Stop doing the same work{" "}
-          <em className="font-display-italic not-italic" style={{ color: "var(--color-warm)" }}>
+          <em className="font-display-italic not-italic" style={{ color: "var(--color-accent)" }}>
             from scratch.
           </em>
         </h2>
 
-        <p className="mt-7 max-w-[52ch] text-[clamp(0.98rem,1.25vw,1.08rem)] leading-[1.68] text-[var(--color-text-secondary)]">
+        <p className="mt-7 max-w-[52ch] text-[clamp(0.98rem,1.25vw,1.08rem)] leading-[1.68] text-[var(--color-ink-2)]">
           {intro}
         </p>
 
@@ -318,10 +325,11 @@ export function InPracticeSection() {
       </Container>
 
       <style>{`
-        /* Voice waveform — single slow pulse on reveal */
+        /* Voice waveform — single slow pulse on reveal.
+           Wave bars use CYAN (state-listening-strong) — this is a LIVE / running indicator. */
         .ip-voice-bar {
           height: var(--ip-wave-h);
-          background: var(--ip-wave-color, var(--color-accent-strong));
+          background: var(--ip-wave-color, var(--color-state-listening-strong));
           transform: scaleY(0.32);
           transform-origin: bottom center;
           opacity: 0.55;
