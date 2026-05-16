@@ -1,5 +1,5 @@
 import { ProductMock } from "@/components/ui/product-mock";
-import { cn } from "@/lib/utils";
+import { StatusPill } from "@/components/ui/status-pill";
 
 type StepState = "done" | "running" | "queued" | "gated" | "scheduled";
 
@@ -19,38 +19,13 @@ const STEPS: Step[] = [
   { label: "follow up · 5d",      detail: "if no reply",                state: "scheduled" },
 ];
 
-function StatusPill({ state }: { state: StepState }) {
-  const labels: Record<StepState, string> = {
-    done:      "Done",
-    running:   "Running",
-    queued:    "Queued",
-    gated:     "Awaiting review",
-    scheduled: "Scheduled",
-  };
-
-  return (
-    <span
-      className={cn(
-        "inline-flex h-6 items-center gap-1.5 rounded-full border px-2.5 font-mono text-[10px] uppercase tracking-[0.16em] shrink-0",
-        state === "done" &&
-          "border-[rgba(167,219,178,0.32)] bg-[rgba(167,219,178,0.06)] text-[var(--color-success)]",
-        state === "running" &&
-          "border-[rgba(108,216,255,0.36)] bg-[rgba(108,216,255,0.08)] text-[var(--color-state-listening-strong)]",
-        state === "queued" &&
-          "border-[var(--color-border)] text-[var(--color-ink-3)]",
-        state === "gated" &&
-          "border-[rgba(var(--color-accent-rgb),0.36)] bg-[rgba(var(--color-accent-rgb),0.08)] text-[var(--color-accent)]",
-        state === "scheduled" &&
-          "border-[var(--color-border)] text-[var(--color-ink-3)]",
-      )}
-    >
-      {state === "running" && (
-        <span className="h-1.5 w-1.5 rounded-full bg-[var(--color-state-listening-strong)] motion-safe:animate-pulse" />
-      )}
-      {labels[state]}
-    </span>
-  );
-}
+const STATE_TO_TONE = {
+  done:      { tone: "done",    label: "Done"            },
+  running:   { tone: "running", label: "Running"         },
+  queued:    { tone: "idle",    label: "Queued"          },
+  gated:     { tone: "gated",   label: "Awaiting review" },
+  scheduled: { tone: "idle",    label: "Scheduled"       },
+} as const;
 
 function Meta({ label, value }: { label: string; value: string }) {
   return (
@@ -89,7 +64,9 @@ export function WorkflowDagMock() {
                   <p className="mt-0.5 text-[12px] text-[var(--color-ink-3)]">{step.detail}</p>
                 )}
               </div>
-              <StatusPill state={step.state} />
+              <StatusPill tone={STATE_TO_TONE[step.state].tone}>
+                {STATE_TO_TONE[step.state].label}
+              </StatusPill>
             </div>
           ))}
         </div>
