@@ -10,9 +10,12 @@ const rightItems = [
   { label: "Outbound briefings", meta: "scheduled" },
 ];
 
-function PaneLabel({ children }: { children: string }) {
+function PaneLabel({ children, color }: { children: string; color?: string }) {
   return (
-    <span className="font-mono text-[10.5px] uppercase tracking-[0.2em] text-[var(--color-text-faint)]">
+    <span
+      className="font-mono text-[10.5px] uppercase tracking-[0.2em]"
+      style={{ color: color ?? "var(--color-ink-3)" }}
+    >
       {children}
     </span>
   );
@@ -25,7 +28,7 @@ function LaptopGlyph() {
       height="24"
       viewBox="0 0 36 24"
       fill="none"
-      stroke="var(--color-text-secondary)"
+      stroke="var(--color-accent)"
       strokeWidth="1.2"
       strokeLinecap="round"
       strokeLinejoin="round"
@@ -45,7 +48,7 @@ function CloudGlyph() {
       height="24"
       viewBox="0 0 36 24"
       fill="none"
-      stroke="var(--color-text-secondary)"
+      stroke="var(--color-ink-3)"
       strokeWidth="1.2"
       strokeLinecap="round"
       strokeLinejoin="round"
@@ -60,8 +63,9 @@ function CloudGlyph() {
 export function LocalDataDiagram() {
   return (
     <figure className="grid gap-5 md:grid-cols-[1fr_auto_1fr] md:gap-3 md:items-stretch">
-      <div className="rounded-[var(--radius-card)] border border-[var(--color-border)] bg-[var(--color-surface-inset)] p-5 md:p-6">
-        <PaneLabel>Your machine</PaneLabel>
+      {/* Local / "your machine" pane — GOLD highlight */}
+      <div className="rounded-[var(--radius-md)] border border-[var(--color-border-strong)] bg-[var(--color-surface-1)] p-5 md:p-6">
+        <PaneLabel color="var(--color-accent)">Your machine</PaneLabel>
         <LaptopGlyph />
         <ul>
           {leftItems.map(({ label, meta }) => (
@@ -70,10 +74,10 @@ export function LocalDataDiagram() {
               className="flex items-center gap-3 py-2.5 border-b border-[var(--color-border)] last:border-b-0"
             >
               <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-accent)]" />
-              <span className="flex-1 text-[14px] text-[var(--color-text-primary)]">
+              <span className="flex-1 text-[14px] text-[var(--color-ink-1)]">
                 {label}
               </span>
-              <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-[var(--color-text-faint)]">
+              <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-[var(--color-ink-3)]">
                 {meta}
               </span>
             </li>
@@ -81,8 +85,9 @@ export function LocalDataDiagram() {
         </ul>
       </div>
 
+      {/* Connector */}
       <div className="hidden md:flex flex-col items-center justify-center px-2">
-        <span className="font-display-italic text-[12px] text-[var(--color-text-faint)] mb-2 whitespace-nowrap">
+        <span className="font-display-italic text-[12px] text-[var(--color-ink-3)] mb-2 whitespace-nowrap">
           only when you ask it to
         </span>
         <div className="h-px w-12 bg-[var(--color-border-strong)]" />
@@ -102,7 +107,8 @@ export function LocalDataDiagram() {
         </svg>
       </div>
 
-      <div className="rounded-[var(--radius-card)] border border-[var(--color-border)] bg-[var(--color-surface-inset)] p-5 md:p-6">
+      {/* Cloud / scoped side — muted */}
+      <div className="rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-surface-2)] p-5 md:p-6">
         <PaneLabel>Sirius cloud</PaneLabel>
         <CloudGlyph />
         <ul>
@@ -111,11 +117,11 @@ export function LocalDataDiagram() {
               key={label}
               className="flex items-center gap-3 py-2.5 border-b border-[var(--color-border)] last:border-b-0"
             >
-              <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-warm)]" />
-              <span className="flex-1 text-[14px] text-[var(--color-text-primary)]">
+              <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-ink-3)]" />
+              <span className="flex-1 text-[14px] text-[var(--color-ink-3)]">
                 {label}
               </span>
-              <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-[var(--color-text-faint)]">
+              <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-[var(--color-ink-3)]">
                 {meta}
               </span>
             </li>
