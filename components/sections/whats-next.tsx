@@ -130,57 +130,59 @@ function StarCluster() {
       className="whats-next-cluster w-full max-w-[600px] h-auto"
     >
       <defs>
-        {/* Standard halo — blue-white dimmer stars, mapped to ink-3 tint */}
+        {/* Standard halo — blue-white with bright center, smooth fade */}
         <radialGradient id="wn-halo" cx="50%" cy="50%" r="50%">
-          <stop offset="0%"   stopColor="var(--color-ink-3)" stopOpacity="0.85" />
-          <stop offset="8%"   stopColor="var(--color-ink-3)" stopOpacity="0.45" />
-          <stop offset="22%"  stopColor="var(--color-ink-4)" stopOpacity="0.18" />
-          <stop offset="48%"  stopColor="var(--color-ink-4)" stopOpacity="0.06" />
-          <stop offset="100%" stopColor="var(--color-ink-4)" stopOpacity="0"    />
+          <stop offset="0%"   stopColor="rgba(255, 255, 255, 0.85)" />
+          <stop offset="8%"   stopColor="rgba(238, 246, 255, 0.55)" />
+          <stop offset="22%"  stopColor="rgba(216, 232, 254, 0.22)" />
+          <stop offset="48%"  stopColor="rgba(190, 215, 250, 0.07)" />
+          <stop offset="100%" stopColor="rgba(180, 210, 250, 0)"    />
         </radialGradient>
 
-        {/* Sirius halo — gold accent, larger reach */}
+        {/* Sirius halo — same shape, bigger reach via wider stop spread */}
         <radialGradient id="wn-halo-sirius" cx="50%" cy="50%" r="50%">
-          <stop offset="0%"   stopColor="var(--color-accent)" stopOpacity="1"    />
-          <stop offset="5%"   stopColor="var(--color-accent)" stopOpacity="0.78" />
-          <stop offset="14%"  stopColor="var(--color-accent)" stopOpacity="0.42" />
-          <stop offset="32%"  stopColor="rgba(217,185,120,0.16)"                 />
-          <stop offset="62%"  stopColor="rgba(217,185,120,0.04)"                 />
-          <stop offset="100%" stopColor="rgba(217,185,120,0)"                    />
+          <stop offset="0%"   stopColor="rgba(255, 255, 255, 1)"    />
+          <stop offset="5%"   stopColor="rgba(248, 252, 255, 0.78)" />
+          <stop offset="14%"  stopColor="rgba(228, 242, 255, 0.42)" />
+          <stop offset="32%"  stopColor="rgba(202, 224, 252, 0.16)" />
+          <stop offset="62%"  stopColor="rgba(180, 210, 250, 0.04)" />
+          <stop offset="100%" stopColor="rgba(180, 210, 250, 0)"    />
         </radialGradient>
 
-        {/* Wezen (F8) halo — warmer ink-3 tint */}
+        {/* Wezen (F8) halo — warmer cream tint */}
         <radialGradient id="wn-halo-warm" cx="50%" cy="50%" r="50%">
-          <stop offset="0%"   stopColor="var(--color-ink-3)" stopOpacity="0.85" />
-          <stop offset="8%"   stopColor="var(--color-ink-3)" stopOpacity="0.45" />
-          <stop offset="24%"  stopColor="var(--color-ink-4)" stopOpacity="0.18" />
-          <stop offset="52%"  stopColor="var(--color-ink-4)" stopOpacity="0.05" />
-          <stop offset="100%" stopColor="var(--color-ink-4)" stopOpacity="0"    />
+          <stop offset="0%"   stopColor="rgba(255, 252, 240, 0.85)" />
+          <stop offset="8%"   stopColor="rgba(252, 244, 220, 0.5)"  />
+          <stop offset="24%"  stopColor="rgba(248, 234, 200, 0.18)" />
+          <stop offset="52%"  stopColor="rgba(240, 220, 180, 0.05)" />
+          <stop offset="100%" stopColor="rgba(240, 220, 180, 0)"    />
         </radialGradient>
 
-        {/* Spike — standard stars, ink-3 toned streak */}
+        {/* Spike — radial gradient inside an elongated ellipse:
+            stretches to the ellipse aspect ratio, producing a streak
+            that's brightest at center and fades smoothly toward the tips */}
         <radialGradient id="wn-spike" cx="50%" cy="50%" r="50%">
-          <stop offset="0%"   stopColor="var(--color-ink-3)" stopOpacity="0.9"  />
-          <stop offset="14%"  stopColor="var(--color-ink-3)" stopOpacity="0.55" />
-          <stop offset="42%"  stopColor="var(--color-ink-4)" stopOpacity="0.16" />
-          <stop offset="100%" stopColor="var(--color-ink-4)" stopOpacity="0"    />
+          <stop offset="0%"   stopColor="rgba(255, 255, 255, 0.95)" />
+          <stop offset="14%"  stopColor="rgba(232, 244, 255, 0.65)" />
+          <stop offset="42%"  stopColor="rgba(212, 232, 254, 0.18)" />
+          <stop offset="100%" stopColor="rgba(212, 232, 254, 0)"    />
         </radialGradient>
 
-        {/* Sirius spike — gold, sharper falloff */}
+        {/* Sirius spike — sharper falloff, brighter center */}
         <radialGradient id="wn-spike-sirius" cx="50%" cy="50%" r="50%">
-          <stop offset="0%"   stopColor="var(--color-accent)" stopOpacity="1"    />
-          <stop offset="10%"  stopColor="var(--color-accent)" stopOpacity="0.85" />
-          <stop offset="32%"  stopColor="rgba(217,185,120,0.32)"                 />
-          <stop offset="68%"  stopColor="rgba(217,185,120,0.06)"                 />
-          <stop offset="100%" stopColor="rgba(217,185,120,0)"                    />
+          <stop offset="0%"   stopColor="rgba(255, 255, 255, 1)"    />
+          <stop offset="10%"  stopColor="rgba(244, 250, 255, 0.85)" />
+          <stop offset="32%"  stopColor="rgba(216, 234, 254, 0.32)" />
+          <stop offset="68%"  stopColor="rgba(200, 224, 252, 0.06)" />
+          <stop offset="100%" stopColor="rgba(200, 224, 252, 0)"    />
         </radialGradient>
 
         {/* Faint Milky Way nebulosity — Canis Major sits on the band */}
         <radialGradient id="wn-milkyway" cx="50%" cy="50%" r="50%">
-          <stop offset="0%"   stopColor="var(--color-ink-4)" stopOpacity="0.085" />
-          <stop offset="38%"  stopColor="var(--color-ink-4)" stopOpacity="0.04"  />
-          <stop offset="78%"  stopColor="var(--color-ink-4)" stopOpacity="0.012" />
-          <stop offset="100%" stopColor="var(--color-ink-4)" stopOpacity="0"     />
+          <stop offset="0%"   stopColor="rgba(168, 192, 232, 0.085)" />
+          <stop offset="38%"  stopColor="rgba(140, 170, 220, 0.04)"  />
+          <stop offset="78%"  stopColor="rgba(120, 150, 210, 0.012)" />
+          <stop offset="100%" stopColor="rgba(120, 150, 210, 0)"     />
         </radialGradient>
       </defs>
 
@@ -189,9 +191,9 @@ function StarCluster() {
         <ellipse cx="230" cy="200" rx="320" ry="120" fill="url(#wn-milkyway)" />
       </g>
 
-      {/* Asterism — constellation strokes via border-strong */}
+      {/* Asterism — barely-there hairlines */}
       <g
-        stroke="var(--color-border-strong)"
+        stroke="rgba(225, 240, 255, 0.05)"
         strokeWidth="0.6"
         strokeLinecap="round"
       >
