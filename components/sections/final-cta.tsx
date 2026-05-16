@@ -34,18 +34,18 @@ export function FinalCtaSection() {
 
         <motion.h2
           {...fadeUp(0.1)}
-          className="font-display text-balance font-normal text-[var(--color-text-primary)]"
-          style={{ fontSize: "clamp(3rem, 9vw, 7.5rem)", lineHeight: "0.9", letterSpacing: "-0.032em" }}
+          className="font-display text-balance font-normal text-[var(--color-ink-1)]"
+          style={{ fontSize: "clamp(3rem, 9vw, 7.5rem)", lineHeight: "0.9", letterSpacing: "-0.005em" }}
         >
           Meet{" "}
-          <em className="font-display-italic not-italic" style={{ color: "var(--color-warm)" }}>
+          <em className="font-display-italic not-italic" style={{ color: "var(--color-accent)" }}>
             Sirius.
           </em>
         </motion.h2>
 
         <motion.div {...fadeUp(0.2)} className="mt-12 w-full max-w-[480px]">
           <WaitlistForm />
-          <p className="mt-4 text-[13px] leading-5 text-[var(--color-text-muted)]">
+          <p className="mt-4 text-[13px] leading-5 text-[var(--color-ink-3)]">
             {cta.note}
           </p>
         </motion.div>
