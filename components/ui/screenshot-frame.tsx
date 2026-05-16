@@ -1,8 +1,9 @@
 import Image from "next/image";
+import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 type ScreenshotFrameProps = {
-  /** path under /public, e.g. "/screenshots/workflow-detail.png" — omit for placeholder */
+  /** path under /public, e.g. "/screenshots/workflow-detail.png" — omit for placeholder/children */
   src?: string;
   /** accessible description of the app screen */
   alt: string;
@@ -13,6 +14,8 @@ type ScreenshotFrameProps = {
   height?: number;
   priority?: boolean;
   className?: string;
+  /** recreated app UI rendered inside the bezel; takes precedence over src/placeholder */
+  children?: ReactNode;
 };
 
 export function ScreenshotFrame({
@@ -23,6 +26,7 @@ export function ScreenshotFrame({
   height = 1000,
   priority = false,
   className,
+  children,
 }: ScreenshotFrameProps) {
   return (
     <figure
@@ -34,7 +38,11 @@ export function ScreenshotFrame({
       )}
       style={{ aspectRatio: `${width} / ${height}` }}
     >
-      {src ? (
+      {children ? (
+        <div className="absolute inset-0 overflow-hidden bg-[var(--color-bg)]">
+          {children}
+        </div>
+      ) : src ? (
         <Image
           src={src}
           alt={alt}
