@@ -95,6 +95,7 @@ export function WorkflowsIndexShot() {
           overflow: "hidden",
         }}
       >
+        <div style={{ maxWidth: 920, margin: "0 auto", width: "100%", display: "flex", flexDirection: "column", flex: 1, minHeight: 0 }}>
         {/* PageHeader — matches app PageHeader.tsx */}
         <header
           style={{
@@ -188,6 +189,7 @@ export function WorkflowsIndexShot() {
         {/* Table */}
         <div style={{ flex: 1, minHeight: 0, overflow: "hidden" }}>
           <WorkflowsTable rows={ROWS} />
+        </div>
         </div>
       </div>
     </div>

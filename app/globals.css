@@ -39,6 +39,9 @@
   --color-success: #a7dbb2;
   --color-warning: #f0c879;
   --color-danger: #f0a3a3;
+
+  --color-bubble-user: #4A331A;
+  --color-bubble-assistant: #3A322A;
 }
 
 :root {

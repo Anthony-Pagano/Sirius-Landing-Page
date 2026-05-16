@@ -98,23 +98,64 @@ export function WorkflowShot({
             overflow: "hidden",
           }}
         >
-          {/* Left: DAG pane — dot-grid canvas texture matches the app */}
+          {/* Left: DAG pane — header strip + scrollable dot-canvas */}
           <div
             style={{
+              position: "relative",
               borderRadius: 12,
               overflow: "hidden",
               display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
+              flexDirection: "column",
               backgroundColor: "var(--color-surface-1)",
-              backgroundImage:
-                "radial-gradient(circle, var(--color-border-strong) 1px, transparent 1px)",
-              backgroundSize: "22px 22px",
-              backgroundPosition: "0 0",
               border: "1px solid var(--color-border)",
             }}
           >
-            <DagMini steps={steps} />
+            <div
+              style={{
+                padding: "12px 18px",
+                borderBottom: "1px solid var(--color-border)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
+              <span
+                style={{
+                  fontSize: 10.5,
+                  color: "var(--color-ink-3)",
+                  fontWeight: 500,
+                  letterSpacing: "0.16em",
+                  textTransform: "uppercase",
+                  fontFamily: "var(--font-sans)",
+                }}
+              >
+                Flow
+              </span>
+              <span
+                style={{
+                  fontSize: 11,
+                  color: "var(--color-ink-4)",
+                  fontWeight: 500,
+                  fontFamily: "var(--font-sans)",
+                }}
+              >
+                {steps.length} {steps.length === 1 ? "step" : "steps"} · click a node for details
+              </span>
+            </div>
+            <div
+              style={{
+                flex: 1,
+                minHeight: 0,
+                overflow: "auto",
+                padding: "32px 0",
+                backgroundImage:
+                  "radial-gradient(circle, var(--color-border-strong) 1px, transparent 1px)",
+                backgroundSize: "22px 22px",
+                backgroundPosition: "0 0",
+              }}
+            >
+              <DagMini steps={steps} />
+            </div>
           </div>
 
           {/* Right: Chat pane */}

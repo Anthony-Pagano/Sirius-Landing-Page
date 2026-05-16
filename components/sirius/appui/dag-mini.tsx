@@ -28,21 +28,13 @@ const PAD_Y = 48;
 const ACCENT = "var(--color-accent)";
 
 function dotColor(state: DagStep["state"]): string {
-  switch (state) {
-    case "done":    return "var(--color-success)";
-    case "running": return "var(--color-state-listening-strong)";
-    case "gated":   return "var(--color-accent)";
-    case "idle":    return "var(--color-ink-4)";
-  }
+  if (state === "gated") return "var(--color-accent)";
+  return "var(--color-success)";
 }
 
 function borderColor(state: DagStep["state"]): string {
-  switch (state) {
-    case "done":    return "var(--color-border-strong)";
-    case "running": return "rgba(108,216,255,0.45)";
-    case "gated":   return "rgba(217,185,120,0.45)";
-    case "idle":    return "var(--color-border)";
-  }
+  if (state === "gated") return "rgba(217,185,120,0.4)";
+  return "var(--color-border)";
 }
 
 function boxShadow(state: DagStep["state"]): string | undefined {
@@ -51,11 +43,8 @@ function boxShadow(state: DagStep["state"]): string | undefined {
 }
 
 function typeColor(state: DagStep["state"]): string {
-  switch (state) {
-    case "gated":   return "var(--color-accent)";
-    case "running": return "var(--color-state-listening-strong)";
-    default:        return "var(--color-ink-3)";
-  }
+  if (state === "gated") return "var(--color-accent)";
+  return "var(--color-ink-3)";
 }
 
 export function DagMini({ steps }: { steps: DagStep[] }) {
@@ -162,10 +151,6 @@ export function DagMini({ steps }: { steps: DagStep[] }) {
                   borderRadius: 50,
                   background: dotColor(s.state),
                   flexShrink: 0,
-                  animation:
-                    s.state === "running"
-                      ? "sirius-pulse 1.6s ease-in-out infinite"
-                      : undefined,
                 }}
                 aria-hidden
               />

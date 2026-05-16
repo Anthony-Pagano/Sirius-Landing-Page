@@ -63,6 +63,16 @@ export function ChatPane({
         </span>
       </div>
 
+      {/* Body wrapper — 14px horizontal + bottom padding per app */}
+      <div
+        style={{
+          flex: 1,
+          minHeight: 0,
+          display: "flex",
+          flexDirection: "column",
+          padding: "0 14px 14px",
+        }}
+      >
       {/* Message list — flex-1 overflow-hidden flex-col gap-14 padding 8px 12px */}
       <div
         style={{
@@ -124,7 +134,7 @@ export function ChatPane({
                     fontSize: 14,
                     lineHeight: 1.55,
                     color: "var(--color-ink-1)",
-                    background: "#4A331A",
+                    background: "var(--color-bubble-user)",
                     border: "1px solid var(--color-border)",
                     boxShadow: "0 1px 0 rgba(0,0,0,0.18)",
                     wordWrap: "break-word",
@@ -177,8 +187,6 @@ export function ChatPane({
           alignItems: "flex-start",
           paddingTop: 12,
           paddingBottom: 14,
-          paddingLeft: 12,
-          paddingRight: 12,
           borderTop: "1px solid var(--color-border)",
           flexShrink: 0,
         }}
@@ -218,16 +226,16 @@ export function ChatPane({
           Send a message…
         </div>
 
-        {/* Send button — app primary md: h-9 px-3 rounded-[8px] text-[13px] font-medium */}
+        {/* Send button — app primary md: h-11 px-4 rounded-[8px] text-[13px] font-medium */}
         <div
           style={{
             display: "inline-flex",
             alignItems: "center",
             justifyContent: "center",
             gap: 8,
-            height: 36,
-            paddingLeft: 12,
-            paddingRight: 12,
+            height: 44,
+            paddingLeft: 16,
+            paddingRight: 16,
             borderRadius: 8,
             fontSize: 13,
             fontFamily: "var(--font-sans)",
@@ -240,6 +248,7 @@ export function ChatPane({
           <AppIcon name="send" size={13} stroke="currentColor" />
           Send
         </div>
+      </div>
       </div>
     </div>
   );

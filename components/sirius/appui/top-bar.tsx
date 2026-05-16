@@ -100,7 +100,7 @@ export function TopBar({
                 fontWeight: 500,
               }}
             >
-              <AppIcon name="clock" size={12} />
+              <AppIcon name="arrow" size={12} />
               {trigger}
             </span>
             <span
@@ -117,16 +117,16 @@ export function TopBar({
           </div>
         </div>
 
-        {/* Run now button — app primary md: h-9 px-3 rounded-[8px] text-[13px] */}
+        {/* Run now button — app primary md: h-11 px-4 rounded-[8px] text-[13px] */}
         <div
           style={{
             display: "inline-flex",
             alignItems: "center",
             justifyContent: "center",
             gap: 8,
-            height: 36,
-            paddingLeft: 12,
-            paddingRight: 12,
+            height: 44,
+            paddingLeft: 16,
+            paddingRight: 16,
             borderRadius: 8,
             fontSize: 13,
             fontFamily: "var(--font-sans)",

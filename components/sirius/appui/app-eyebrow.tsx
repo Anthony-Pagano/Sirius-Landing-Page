@@ -23,8 +23,8 @@ export function AppEyebrow({
       style={{
         fontSize: 10.5,
         fontFamily: "var(--font-sans)",
-        letterSpacing: 2,
-        fontWeight: 600,
+        letterSpacing: "0.16em",
+        fontWeight: 500,
         color,
         textTransform: "uppercase",
       }}

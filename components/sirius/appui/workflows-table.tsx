@@ -52,7 +52,7 @@ export function WorkflowsTable({
                   fontWeight: 600,
                   textTransform: "uppercase",
                   borderBottom: "1px solid var(--color-border)",
-                  background: "var(--color-surface-2)",
+                  background: "var(--color-surface-1)",
                 }}
               >
                 {h}
@@ -72,13 +72,27 @@ export function WorkflowsTable({
               }}
             >
               {/* Icon col */}
-              <td style={{ padding: "12px 18px", verticalAlign: "middle", color: "var(--color-ink-3)" }}>
-                <AppIcon name="flows" size={14} />
+              <td style={{ padding: "14px 18px", verticalAlign: "middle" }}>
+                <span
+                  style={{
+                    display: "inline-flex",
+                    width: 26,
+                    height: 26,
+                    borderRadius: 6,
+                    background: "rgba(217,185,120,0.08)",
+                    border: "1px solid rgba(217,185,120,0.22)",
+                    color: "var(--color-accent)",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <AppIcon name="flows" size={13} />
+                </span>
               </td>
               {/* Name */}
               <td
                 style={{
-                  padding: "12px 18px",
+                  padding: "14px 18px",
                   verticalAlign: "middle",
                   color: "var(--color-ink-1)",
                   fontWeight: 500,
@@ -90,7 +104,7 @@ export function WorkflowsTable({
               {/* Trigger */}
               <td
                 style={{
-                  padding: "12px 18px",
+                  padding: "14px 18px",
                   verticalAlign: "middle",
                   color: "var(--color-ink-3)",
                   fontFamily: "var(--font-sans)",
@@ -99,13 +113,13 @@ export function WorkflowsTable({
                 {r.trigger}
               </td>
               {/* Status */}
-              <td style={{ padding: "12px 18px", verticalAlign: "middle" }}>
+              <td style={{ padding: "14px 18px", verticalAlign: "middle" }}>
                 <AppPill tone={r.tone} label={r.statusLabel} />
               </td>
               {/* Last run */}
               <td
                 style={{
-                  padding: "12px 18px",
+                  padding: "14px 18px",
                   verticalAlign: "middle",
                   color: "var(--color-ink-3)",
                   fontFamily: "var(--font-sans)",
@@ -117,7 +131,7 @@ export function WorkflowsTable({
               {/* Runs */}
               <td
                 style={{
-                  padding: "12px 18px",
+                  padding: "14px 18px",
                   verticalAlign: "middle",
                   color: "var(--color-ink-3)",
                   fontFamily: "var(--font-sans)",
@@ -126,15 +140,15 @@ export function WorkflowsTable({
               >
                 {r.runs}
               </td>
-              {/* Chevron */}
+              {/* Arrow */}
               <td
                 style={{
-                  padding: "12px 18px",
+                  padding: "14px 18px",
                   verticalAlign: "middle",
                   color: "var(--color-ink-4)",
                 }}
               >
-                <AppIcon name="play" size={12} />
+                <AppIcon name="arrow" size={14} />
               </td>
             </tr>
           ))}
