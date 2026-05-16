@@ -3,6 +3,7 @@ import { Container } from "@/components/ui/container";
 import { SectionLabel } from "@/components/ui/section-label";
 import { ScreenshotFrame } from "@/components/ui/screenshot-frame";
 import { Orb } from "@/components/sirius/orb";
+import { WorkflowsIndexShot } from "@/components/sirius/appui";
 
 const NODE_DEFS = [
   { index: "01", accent: "Memory",    color: "var(--color-accent)" },
@@ -79,7 +80,9 @@ export function ThreeIdeasSection() {
               alt="Sirius workflows index — runnable workflows with status"
               caption="Workflows, run by name"
               className="mt-8 w-full"
-            />
+            >
+              <WorkflowsIndexShot />
+            </ScreenshotFrame>
           </div>
         </div>
       </Container>

@@ -6,6 +6,8 @@ import { landingContent } from "@/content/landing";
 import { Container } from "@/components/ui/container";
 import { SectionLabel } from "@/components/ui/section-label";
 import { ScreenshotFrame } from "@/components/ui/screenshot-frame";
+import { WorkflowShot } from "@/components/sirius/appui";
+import type { WorkflowShotProps } from "@/components/sirius/appui";
 
 // ─── Per-vignette screenshot metadata ────────────────────────────────────────
 
@@ -14,6 +16,87 @@ const SCREENSHOT_META: Record<string, { alt: string; caption: string }> = {
   engineering: { alt: "Sirius — standup assembled in the app",          caption: "Standup, ready in Sirius" },
   meeting:     { alt: "Sirius — meeting brief in the app",              caption: "Meeting brief in Sirius" },
   research:    { alt: "Sirius — research digest in the app",            caption: "Research desk in Sirius" },
+};
+
+// ─── Per-vignette WorkflowShot props ─────────────────────────────────────────
+
+const SHOT_BY_ID: Record<string, WorkflowShotProps> = {
+  design: {
+    variant: "compact",
+    breadcrumb: "Client feedback",
+    title: "Client feedback",
+    tone: "running",
+    statusLabel: "Running",
+    trigger: "Per inbound",
+    runsMeta: "23 runs",
+    steps: [
+      { type: "READ", title: "Read the comments", state: "done" },
+      { type: "SORT", title: "Sort by section", state: "done" },
+      { type: "DRAFT", title: "Draft the routine replies", state: "done" },
+      { type: "FLAG", title: "Flag scope changes", state: "running" },
+    ],
+    messages: [
+      { role: "user", text: "Sirius, what came in from the client?" },
+      { role: "assistant", text: "Sorted 6 comments by section. Drafted replies to the 4 routine ones; 2 change scope — flagged for you." },
+    ],
+  },
+  engineering: {
+    variant: "compact",
+    breadcrumb: "Standup digest",
+    title: "Standup digest",
+    tone: "running",
+    statusLabel: "Running",
+    trigger: "Mon 09:00",
+    runsMeta: "48 runs",
+    steps: [
+      { type: "PULL", title: "Pull PRs + threads", state: "done" },
+      { type: "MERGE", title: "Merge by area", state: "done" },
+      { type: "SUMMARISE", title: "Summarise blockers", state: "done" },
+      { type: "POST", title: "Post the digest", state: "running" },
+    ],
+    messages: [
+      { role: "user", text: "Sirius, what's standup looking like?" },
+      { role: "assistant", text: "Pulled 9 PRs and 3 threads. Digest is posted — two blockers are pinned at the top." },
+    ],
+  },
+  meeting: {
+    variant: "compact",
+    breadcrumb: "Meeting brief",
+    title: "Meeting brief",
+    tone: "done",
+    statusLabel: "Done",
+    trigger: "Per meeting",
+    runsMeta: "96 runs",
+    steps: [
+      { type: "WATCH", title: "Watch the calendar", state: "done" },
+      { type: "GATHER", title: "Gather the thread", state: "done" },
+      { type: "BRIEF", title: "Write the brief", state: "done" },
+      { type: "LAND", title: "Land it in inbox", state: "done" },
+    ],
+    messages: [
+      { role: "user", text: "Sirius, what's the 14:00?" },
+      { role: "assistant", text: "Brief's in your inbox: latest thread, open tasks, and the last three decisions with this account." },
+    ],
+  },
+  research: {
+    variant: "compact",
+    breadcrumb: "Research digest",
+    title: "Research digest",
+    tone: "running",
+    statusLabel: "Running",
+    trigger: "Daily 07:00",
+    runsMeta: "140 runs",
+    steps: [
+      { type: "SUBSCRIBE", title: "Watch the sources", state: "done" },
+      { type: "FILTER", title: "Filter to signal", state: "done" },
+      { type: "COMPARE", title: "Compare the conflicts", state: "running" },
+      { type: "DIGEST", title: "Write the digest", state: "idle" },
+    ],
+    messages: [
+      { role: "user", text: "Sirius, what's worth knowing this morning?" },
+      { role: "assistant", text: "Filtered 40 items to 6. Two contradict last week's read — comparing now, digest lands in ~2 min." },
+    ],
+  },
 };
 
 // Surface chain — composition, not chrome.
@@ -284,7 +367,11 @@ function PracticeCard({ card, total }: { card: CardData; total: number }) {
               alt={screenshot.alt}
               caption={screenshot.caption}
               className="mb-6"
-            />
+            >
+              {SHOT_BY_ID[card.id] && (
+                <WorkflowShot {...SHOT_BY_ID[card.id]} />
+              )}
+            </ScreenshotFrame>
           )}
           <VerbsArtifact id={card.id} revealed={revealed} />
         </div>
