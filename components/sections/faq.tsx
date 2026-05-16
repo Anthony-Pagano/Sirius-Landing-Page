@@ -8,7 +8,7 @@ export function FaqSection() {
   return (
     <section
       id="faq"
-      className="relative scroll-mt-24 bg-[var(--color-bg-muted)] py-20 md:py-24"
+      className="relative scroll-mt-24 bg-[var(--color-surface-deep)] py-20 md:py-24"
       style={{
         borderTop: "1px solid var(--color-border-strong)",
         borderBottom: "1px solid var(--color-border-strong)",
@@ -19,7 +19,7 @@ export function FaqSection() {
           <div className="md:sticky md:top-24 md:self-start">
             <SectionLabel tone="warm">{sectionLabel}</SectionLabel>
             <h2
-              className="font-display mt-5 max-w-[18ch] text-[clamp(1.7rem,2.6vw,2.3rem)] font-normal leading-[1.1] text-[var(--color-text-primary)]"
+              className="font-display mt-5 max-w-[18ch] text-[clamp(1.7rem,2.6vw,2.3rem)] font-normal leading-[1.1] text-[var(--color-ink-1)]"
               style={{ letterSpacing: "-0.005em" }}
             >
               {sectionLabel.toLowerCase() === "questions" ? "What people ask first." : sectionLabel}

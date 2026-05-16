@@ -37,11 +37,11 @@ function StatusPill({ state }: { state: StepState }) {
         state === "running" &&
           "border-[rgba(108,216,255,0.36)] bg-[rgba(108,216,255,0.08)] text-[var(--color-state-listening-strong)]",
         state === "queued" &&
-          "border-[var(--color-border)] text-[var(--color-text-faint)]",
+          "border-[var(--color-border)] text-[var(--color-ink-3)]",
         state === "gated" &&
-          "border-[rgba(var(--color-warm-rgb),0.36)] bg-[rgba(var(--color-warm-rgb),0.08)] text-[var(--color-warm)]",
+          "border-[rgba(var(--color-accent-rgb),0.36)] bg-[rgba(var(--color-accent-rgb),0.08)] text-[var(--color-accent)]",
         state === "scheduled" &&
-          "border-[var(--color-border)] text-[var(--color-text-faint)]",
+          "border-[var(--color-border)] text-[var(--color-ink-3)]",
       )}
     >
       {state === "running" && (
@@ -55,10 +55,10 @@ function StatusPill({ state }: { state: StepState }) {
 function Meta({ label, value }: { label: string; value: string }) {
   return (
     <div>
-      <p className="font-mono text-[10.5px] uppercase tracking-[0.18em] text-[var(--color-text-faint)]">
+      <p className="font-mono text-[10.5px] uppercase tracking-[0.18em] text-[var(--color-ink-3)]">
         {label}
       </p>
-      <p className="mt-1 text-[14px] text-[var(--color-text-primary)]">{value}</p>
+      <p className="mt-1 text-[14px] text-[var(--color-ink-1)]">{value}</p>
     </div>
   );
 }
@@ -73,20 +73,20 @@ export function WorkflowDagMock() {
       </div>
 
       <div className="mt-6 pt-5 border-t border-[var(--color-border)]">
-        <p className="font-mono text-[10.5px] uppercase tracking-[0.18em] text-[var(--color-text-faint)]">
+        <p className="font-mono text-[10.5px] uppercase tracking-[0.18em] text-[var(--color-ink-3)]">
           Steps
         </p>
 
         <div className="mt-3 divide-y divide-[var(--color-border)]">
           {STEPS.map((step, i) => (
             <div key={step.label} className="flex items-center gap-4 py-3">
-              <span className="font-mono text-[10.5px] text-[var(--color-text-faint)] w-6 shrink-0">
+              <span className="font-mono text-[10.5px] text-[var(--color-ink-3)] w-6 shrink-0">
                 {(i + 1).toString().padStart(2, "0")}
               </span>
               <div className="flex-1 min-w-0">
-                <p className="text-[14px] text-[var(--color-text-primary)]">{step.label}</p>
+                <p className="text-[14px] text-[var(--color-ink-1)]">{step.label}</p>
                 {step.detail && (
-                  <p className="mt-0.5 text-[12px] text-[var(--color-text-faint)]">{step.detail}</p>
+                  <p className="mt-0.5 text-[12px] text-[var(--color-ink-3)]">{step.detail}</p>
                 )}
               </div>
               <StatusPill state={step.state} />
@@ -99,7 +99,7 @@ export function WorkflowDagMock() {
         <p className="font-mono text-[10.5px] uppercase tracking-[0.18em] text-[var(--color-accent)]">
           Latest opener · drafted
         </p>
-        <p className="mt-2 font-display-italic text-[13.5px] leading-[1.55] text-[var(--color-text-secondary)]">
+        <p className="mt-2 font-display-italic text-[13.5px] leading-[1.55] text-[var(--color-ink-2)]">
           &ldquo;Hi Mira — saw your work on Coda&apos;s mobile editor. Coming from dev-tools myself, I&apos;d love to compare notes on what shipped vs. what stayed in the spec…&rdquo;
         </p>
       </div>

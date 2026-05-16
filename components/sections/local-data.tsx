@@ -14,7 +14,7 @@ export function LocalDataSection() {
             <SectionLabel index="05" tone="warm">{sectionLabel}</SectionLabel>
             <h2 className="font-display mt-7 text-[clamp(2.3rem,5vw,3.8rem)] leading-[0.92] tracking-[-0.028em] font-normal text-[var(--color-ink-1)] max-w-[18ch]">
               Your data,{" "}
-              <em className="font-display-italic not-italic" style={{ color: "var(--color-warm)" }}>
+              <em className="font-display-italic not-italic" style={{ color: "var(--color-accent)" }}>
                 your machine.
               </em>
             </h2>

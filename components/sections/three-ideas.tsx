@@ -23,7 +23,7 @@ export function ThreeIdeasSection() {
 
         <h2 className="font-display text-balance mt-7 max-w-[24ch] text-[clamp(2.6rem,5.6vw,4.4rem)] leading-[0.92] tracking-[-0.028em] text-[var(--color-ink-1)] font-normal">
           One assistant that{" "}
-          <em className="font-display-italic not-italic" style={{ color: "var(--color-warm)" }}>
+          <em className="font-display-italic not-italic" style={{ color: "var(--color-accent)" }}>
             remembers, acts, and automates.
           </em>
         </h2>
@@ -61,7 +61,7 @@ export function ThreeIdeasSection() {
                     {head}
                     <span
                       className="font-display-italic"
-                      style={{ color: node?.color ?? "var(--color-warm)" }}
+                      style={{ color: node?.color ?? "var(--color-accent)" }}
                     >
                       {accent}
                     </span>

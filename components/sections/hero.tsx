@@ -115,7 +115,7 @@ export function HeroSection() {
               initial={motionState.initial}
               animate={motionState.animate}
               variants={line2Variants}
-              style={{ color: "var(--color-warm)" }}
+              style={{ color: "var(--color-accent)" }}
             >
               <em className="font-display-italic not-italic">that doesn&apos;t forget.</em>
             </motion.span>

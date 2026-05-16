@@ -90,7 +90,7 @@ function ChainHeader({ chain, i = 0 }: { chain: string[]; i?: number }) {
       {chain.map((surface, idx) => (
         <span key={idx}>
           {idx > 0 && (
-            <span className="mx-2.5 text-[var(--color-text-muted)]">→</span>
+            <span className="mx-2.5 text-[var(--color-ink-3)]">→</span>
           )}
           <span style={{ color: CYAN_HEX }}>{surface}</span>
         </span>
@@ -164,7 +164,7 @@ function VerbsArtifact({
                 fontFamily: MONO_STACK,
                 fontSize: 11,
                 letterSpacing: "0.20em",
-                color: "var(--color-text-disabled)",
+                color: "var(--color-ink-4)",
               }}
             >
               {String(idx + 1).padStart(2, "0")}

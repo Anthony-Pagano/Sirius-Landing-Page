@@ -110,13 +110,13 @@ export function FourWaysSection() {
     <section id="four-ways" className="band-deep relative scroll-mt-24 py-24 md:py-32">
       <Container>
         <SectionLabel index="03" tone="warm">{sectionLabel}</SectionLabel>
-        <h2 className="font-display text-balance mt-7 max-w-[20ch] text-[clamp(2.4rem,5.2vw,4rem)] leading-[0.92] tracking-[-0.028em] text-[var(--color-text-primary)] font-normal">
+        <h2 className="font-display text-balance mt-7 max-w-[20ch] text-[clamp(2.4rem,5.2vw,4rem)] leading-[0.92] tracking-[-0.028em] text-[var(--color-ink-1)] font-normal">
           Command Sirius through{" "}
-          <em className="font-display-italic not-italic" style={{ color: "var(--color-warm)" }}>
+          <em className="font-display-italic not-italic" style={{ color: "var(--color-accent)" }}>
             voice, chat, schedules, and feeds.
           </em>
         </h2>
-        <p className="mt-7 max-w-[52ch] text-[clamp(0.98rem,1.25vw,1.08rem)] leading-[1.68] text-[var(--color-text-secondary)]">
+        <p className="mt-7 max-w-[52ch] text-[clamp(0.98rem,1.25vw,1.08rem)] leading-[1.68] text-[var(--color-ink-2)]">
           {leadIn}
         </p>
 
