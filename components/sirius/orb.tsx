@@ -337,7 +337,7 @@ class SiriusOrbRenderer {
         let blue: number;
 
         if (opts.tripartite) {
-          // Clockwise from top: 0=gold/memory, 1=gold-strong/actions, 2=cyan/workflows
+          // Clockwise from top: 0=gold/memory, 1=green/actions, 2=cyan/workflows
           const ang = Math.atan2(u, -v);
           const norm = ((ang + TAU) % TAU) / SECTOR_ARC;
           const sector = Math.floor(norm) % 3;
@@ -360,19 +360,19 @@ class SiriusOrbRenderer {
           }
         } else if (k < 0.5) {
           const t = k / 0.5;
-          red = 8 + t * 209;
-          green = 7 + t * 178;
-          blue = 4 + t * 116;
+          red = 4 + t * 30;
+          green = 12 + t * 120;
+          blue = 32 + t * 200;
         } else if (k < 0.95) {
           const t = (k - 0.5) / 0.45;
-          red = 217 + t * 23;
-          green = 185 + t * 15;
-          blue = 120 + t * 1;
+          red = 34 + t * 90;
+          green = 132 + t * 80;
+          blue = 232 + t * 18;
         } else {
           const t = Math.min(1, (k - 0.95) / 0.3);
-          red = 240 + t * 15;
-          green = 200 + t * 30;
-          blue = 121 + t * 59;
+          red = 124 + t * 60;
+          green = 212 + t * 30;
+          blue = 250 + t * 5;
         }
 
         // Audio centroid colour bias: warm (treble) pulls toward cream, cool (bass) toward cyan.
@@ -462,28 +462,28 @@ const SECTOR_ARC = TAU / 3;
 const SECTOR_FEATHER = 0.08;
 
 // Three intensity-driven color ramps, one per sector.
-// Sector 0 = gold/memory (217,185,120), 1 = gold-strong/actions (240,200,121), 2 = cyan/workflows (108,216,255).
+// Sector 0 = gold/memory (217,185,120), 1 = green/actions (167,219,178), 2 = cyan/workflows (108,216,255).
 function sectorRamp(sector: number, k: number): [number, number, number] {
   let r: number;
   let g: number;
   let b: number;
   if (sector === 1) {
-    // Zone 1 — gold-strong / Actions, anchored at 240,200,121
+    // Zone 1 — green / Actions, anchored at 167,219,178
     if (k < 0.5) {
       const t = k / 0.5;
-      r = 12 + t * 228;
-      g = 9 + t * 191;
-      b = 4 + t * 117;
+      r = 10 + t * 90;
+      g = 20 + t * 147;
+      b = 15 + t * 75;
     } else if (k < 0.95) {
       const t = (k - 0.5) / 0.45;
-      r = 240 + t * 15;
-      g = 200 + t * 15;
-      b = 121 + t * 9;
+      r = 100 + t * 67;
+      g = 167 + t * 53;
+      b = 90 + t * 88;
     } else {
       const t = Math.min(1, (k - 0.95) / 0.3);
-      r = 255;
-      g = 215 + t * 20;
-      b = 130 + t * 45;
+      r = 167 + t * 33;
+      g = 220 + t * 15;
+      b = 178 + t * 27;
     }
   } else if (sector === 2) {
     // Zone 2 — cyan / Workflows, anchored at 108,216,255
