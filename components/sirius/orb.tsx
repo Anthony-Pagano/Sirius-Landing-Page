@@ -337,7 +337,7 @@ class SiriusOrbRenderer {
         let blue: number;
 
         if (opts.tripartite) {
-          // Clockwise from top: 0=cyan (default), 1=yellow, 2=green
+          // Clockwise from top: 0=gold/memory, 1=gold-strong/actions, 2=cyan/workflows
           const ang = Math.atan2(u, -v);
           const norm = ((ang + TAU) % TAU) / SECTOR_ARC;
           const sector = Math.floor(norm) % 3;
@@ -360,19 +360,19 @@ class SiriusOrbRenderer {
           }
         } else if (k < 0.5) {
           const t = k / 0.5;
-          red = 4 + t * 30;
-          green = 12 + t * 120;
-          blue = 32 + t * 200;
+          red = 8 + t * 209;
+          green = 7 + t * 178;
+          blue = 4 + t * 116;
         } else if (k < 0.95) {
           const t = (k - 0.5) / 0.45;
-          red = 34 + t * 90;
-          green = 132 + t * 80;
-          blue = 232 + t * 18;
+          red = 217 + t * 23;
+          green = 185 + t * 15;
+          blue = 120 + t * 1;
         } else {
           const t = Math.min(1, (k - 0.95) / 0.3);
-          red = 124 + t * 60;
-          green = 212 + t * 30;
-          blue = 250 + t * 5;
+          red = 240 + t * 15;
+          green = 200 + t * 30;
+          blue = 121 + t * 59;
         }
 
         // Audio centroid colour bias: warm (treble) pulls toward cream, cool (bass) toward cyan.
@@ -462,61 +462,64 @@ const SECTOR_ARC = TAU / 3;
 const SECTOR_FEATHER = 0.08;
 
 // Three intensity-driven color ramps, one per sector.
-// Sector 0 = cyan (matches default ramp), 1 = yellow #f5c84a, 2 = green #9adcb0.
+// Sector 0 = gold/memory (217,185,120), 1 = gold-strong/actions (240,200,121), 2 = cyan/workflows (108,216,255).
 function sectorRamp(sector: number, k: number): [number, number, number] {
   let r: number;
   let g: number;
   let b: number;
   if (sector === 1) {
+    // Zone 1 — gold-strong / Actions, anchored at 240,200,121
     if (k < 0.5) {
       const t = k / 0.5;
-      r = 12 + t * 168;
-      g = 8 + t * 132;
-      b = 4 + t * 32;
+      r = 12 + t * 228;
+      g = 9 + t * 191;
+      b = 4 + t * 117;
     } else if (k < 0.95) {
       const t = (k - 0.5) / 0.45;
-      r = 180 + t * 65;
-      g = 140 + t * 60;
-      b = 36 + t * 38;
+      r = 240 + t * 15;
+      g = 200 + t * 15;
+      b = 121 + t * 9;
     } else {
       const t = Math.min(1, (k - 0.95) / 0.3);
-      r = 245 + t * 10;
-      g = 200 + t * 35;
-      b = 74 + t * 76;
+      r = 255;
+      g = 215 + t * 20;
+      b = 130 + t * 45;
     }
   } else if (sector === 2) {
+    // Zone 2 — cyan / Workflows, anchored at 108,216,255
     if (k < 0.5) {
       const t = k / 0.5;
-      r = 6 + t * 74;
-      g = 16 + t * 154;
-      b = 10 + t * 110;
+      r = 4 + t * 104;
+      g = 8 + t * 208;
+      b = 16 + t * 239;
     } else if (k < 0.95) {
       const t = (k - 0.5) / 0.45;
-      r = 80 + t * 74;
-      g = 170 + t * 50;
-      b = 120 + t * 56;
+      r = 108 + t * 47;
+      g = 216 - t * 2;
+      b = 255 - t * 26;
     } else {
       const t = Math.min(1, (k - 0.95) / 0.3);
-      r = 154 + t * 46;
-      g = 220 + t * 20;
-      b = 176 + t * 38;
+      r = 155 - t * 75;
+      g = 214 - t * 54;
+      b = 229 + t * 11;
     }
   } else {
+    // Zone 0 — gold / Memory, anchored at 217,185,120
     if (k < 0.5) {
       const t = k / 0.5;
-      r = 4 + t * 30;
-      g = 12 + t * 120;
-      b = 32 + t * 200;
+      r = 8 + t * 209;
+      g = 7 + t * 178;
+      b = 4 + t * 116;
     } else if (k < 0.95) {
       const t = (k - 0.5) / 0.45;
-      r = 34 + t * 90;
-      g = 132 + t * 80;
-      b = 232 + t * 18;
+      r = 217 + t * 23;
+      g = 185 + t * 15;
+      b = 120 + t * 1;
     } else {
       const t = Math.min(1, (k - 0.95) / 0.3);
-      r = 124 + t * 60;
-      g = 212 + t * 30;
-      b = 250 + t * 5;
+      r = 240 + t * 15;
+      g = 200 + t * 25;
+      b = 121 + t * 49;
     }
   }
   return [r, g, b];
