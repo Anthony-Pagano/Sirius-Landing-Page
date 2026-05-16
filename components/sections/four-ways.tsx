@@ -1,6 +1,7 @@
 import { landingContent } from "@/content/landing";
 import { Container } from "@/components/ui/container";
 import { SectionLabel } from "@/components/ui/section-label";
+import { Surface } from "@/components/ui/surface";
 
 function VoiceGlyph() {
   return (
@@ -89,17 +90,17 @@ const glyphMap: Record<string, React.FC> = {
 };
 
 const accentMap: Record<string, string> = {
-  voice:     "var(--color-accent-strong)",
+  voice:     "var(--color-state-listening-strong)",
   chat:      "var(--color-success)",
-  schedules: "var(--color-warm)",
   feeds:     "var(--color-warning)",
+  schedules: "var(--color-accent)",
 };
 
 const accentRgbMap: Record<string, string> = {
-  voice:     "101, 215, 242",
+  voice:     "108, 216, 255",
   chat:      "167, 219, 178",
-  schedules: "217, 185, 120",
   feeds:     "240, 200, 121",
+  schedules: "217, 185, 120",
 };
 
 export function FourWaysSection() {
@@ -108,7 +109,7 @@ export function FourWaysSection() {
   return (
     <section id="four-ways" className="band-deep relative scroll-mt-24 py-24 md:py-32">
       <Container>
-        <SectionLabel index="03" tone="cyan">{sectionLabel}</SectionLabel>
+        <SectionLabel index="03" tone="warm">{sectionLabel}</SectionLabel>
         <h2 className="font-display text-balance mt-7 max-w-[20ch] text-[clamp(2.4rem,5.2vw,4rem)] leading-[0.92] tracking-[-0.028em] text-[var(--color-text-primary)] font-normal">
           Command Sirius through{" "}
           <em className="font-display-italic not-italic" style={{ color: "var(--color-warm)" }}>
@@ -126,12 +127,10 @@ export function FourWaysSection() {
             const accentRgb = accentRgbMap[item.id];
             const order = String(idx + 1).padStart(2, "0");
             return (
-              <article
+              <Surface
                 key={item.id}
-                className="panel-recessed relative flex flex-col rounded-[var(--radius-card)] p-7"
-                style={{
-                  ["--accent-rgb" as string]: accentRgb,
-                }}
+                level={1}
+                className="relative flex flex-col p-7"
               >
                 <div className="flex items-start justify-between">
                   <div style={{ color: accent }}>
@@ -139,16 +138,16 @@ export function FourWaysSection() {
                   </div>
                   <span
                     className="font-mono text-[10px] tracking-[0.2em]"
-                    style={{ color: "var(--color-text-muted)" }}
+                    style={{ color: "var(--color-ink-3)" }}
                   >
                     {order}
                   </span>
                 </div>
 
-                <h3 className="font-display mt-6 text-[1.4rem] leading-tight font-normal text-[var(--color-text-primary)]">
+                <h3 className="font-display mt-6 text-[1.4rem] leading-tight font-normal text-[var(--color-ink-1)]">
                   {item.title}
                 </h3>
-                <p className="mt-3 text-[15px] leading-[1.6] text-[var(--color-text-secondary)]">
+                <p className="mt-3 text-[15px] leading-[1.6] text-[var(--color-ink-2)]">
                   {item.body}
                 </p>
 
@@ -157,7 +156,7 @@ export function FourWaysSection() {
                   className="mt-6 block h-px w-10"
                   style={{ background: `rgba(${accentRgb}, 0.5)` }}
                 />
-              </article>
+              </Surface>
             );
           })}
         </div>
