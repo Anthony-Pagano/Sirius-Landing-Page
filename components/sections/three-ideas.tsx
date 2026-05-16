@@ -1,12 +1,13 @@
 import { landingContent } from "@/content/landing";
 import { Container } from "@/components/ui/container";
 import { SectionLabel } from "@/components/ui/section-label";
+import { ScreenshotFrame } from "@/components/ui/screenshot-frame";
 import { Orb } from "@/components/sirius/orb";
 
 const NODE_DEFS = [
-  { index: "01", accent: "Memory",    color: "#7ce0ff" },
-  { index: "02", accent: "Actions",   color: "#f5c84a" },
-  { index: "03", accent: "Workflows", color: "#9adcb0" },
+  { index: "01", accent: "Memory",    color: "var(--color-accent)" },
+  { index: "02", accent: "Actions",   color: "var(--color-accent-strong)" },
+  { index: "03", accent: "Workflows", color: "var(--color-state-listening-strong)" },
 ] as const;
 
 export function ThreeIdeasSection() {
@@ -20,7 +21,7 @@ export function ThreeIdeasSection() {
       <Container>
         <SectionLabel index="04" tone="warm">{sectionLabel}</SectionLabel>
 
-        <h2 className="font-display text-balance mt-7 max-w-[24ch] text-[clamp(2.6rem,5.6vw,4.4rem)] leading-[0.92] tracking-[-0.028em] text-[var(--color-text-primary)] font-normal">
+        <h2 className="font-display text-balance mt-7 max-w-[24ch] text-[clamp(2.6rem,5.6vw,4.4rem)] leading-[0.92] tracking-[-0.028em] text-[var(--color-ink-1)] font-normal">
           One assistant that{" "}
           <em className="font-display-italic not-italic" style={{ color: "var(--color-warm)" }}>
             remembers, acts, and automates.
@@ -55,7 +56,7 @@ export function ThreeIdeasSection() {
                 return (
                   <li
                     key={item.index}
-                    className="py-5 text-[clamp(1.1rem,1.6vw,1.3rem)] leading-[1.45] text-[var(--color-text-primary)]"
+                    className="py-5 text-[clamp(1.1rem,1.6vw,1.3rem)] leading-[1.45] text-[var(--color-ink-1)]"
                   >
                     {head}
                     <span
@@ -70,9 +71,15 @@ export function ThreeIdeasSection() {
               })}
             </ul>
 
-            <p className="mt-8 max-w-[54ch] text-[15.5px] leading-[1.72] text-[var(--color-text-secondary)]">
+            <p className="mt-8 max-w-[54ch] text-[15.5px] leading-[1.72] text-[var(--color-ink-2)]">
               {body}
             </p>
+
+            <ScreenshotFrame
+              alt="Sirius workflows index — runnable workflows with status"
+              caption="Workflows, run by name"
+              className="mt-8 w-full"
+            />
           </div>
         </div>
       </Container>
