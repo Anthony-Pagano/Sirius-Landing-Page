@@ -6,6 +6,8 @@ import { landingContent } from "@/content/landing";
 import { Orb } from "@/components/sirius/orb";
 import { ButtonLink } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
+import { SectionLabel } from "@/components/ui/section-label";
+import { ScreenshotFrame } from "@/components/ui/screenshot-frame";
 
 const orbVariants: Variants = {
   hidden: { opacity: 0 },
@@ -73,11 +75,8 @@ export function HeroSection() {
       <Container className="relative">
         <div className="grid items-center gap-10 md:grid-cols-[1fr_auto_1fr] md:gap-12 lg:gap-16">
           <div className="order-2 md:order-1 md:text-right">
-            <p className="inline-flex items-center gap-3 text-[11px] font-medium uppercase tracking-[0.22em] text-[var(--color-text-muted)]">
-              <span aria-hidden="true" className="inline-block h-px w-8 bg-[var(--color-border-strong)]" />
-              <span>Personal assistant in private beta</span>
-            </p>
-            <p className="mt-4 font-display-italic text-[clamp(0.95rem,1.2vw,1.05rem)] leading-[1.4] text-[var(--color-text-muted)]">
+            <SectionLabel>Personal assistant in private beta</SectionLabel>
+            <p className="mt-4 font-display-italic text-[clamp(0.95rem,1.2vw,1.05rem)] leading-[1.4] text-[var(--color-ink-3)]">
               v1 · sirius
             </p>
           </div>
@@ -95,17 +94,14 @@ export function HeroSection() {
           </div>
 
           <div className="order-3 md:order-3 md:text-left">
-            <p className="inline-flex items-center gap-3 text-[11px] font-medium uppercase tracking-[0.22em] text-[var(--color-text-muted)]">
-              <span>private · local · yours</span>
-              <span aria-hidden="true" className="inline-block h-px w-8 bg-[var(--color-border-strong)]" />
-            </p>
-            <p className="mt-4 font-display-italic text-[clamp(0.95rem,1.2vw,1.05rem)] leading-[1.4] text-[var(--color-text-muted)]">
+            <SectionLabel>private · local · yours</SectionLabel>
+            <p className="mt-4 font-display-italic text-[clamp(0.95rem,1.2vw,1.05rem)] leading-[1.4] text-[var(--color-ink-3)]">
             </p>
           </div>
         </div>
 
         <div className="mt-14 md:mt-20 text-center">
-          <h1 className="font-display text-balance font-normal text-[var(--color-text-primary)]" style={{ fontSize: "clamp(3.2rem, 11vw, 9.5rem)", lineHeight: "0.9", letterSpacing: "-0.035em" }}>
+          <h1 className="font-display text-balance font-normal text-[var(--color-ink-1)]" style={{ fontSize: "clamp(3.2rem, 11vw, 9.5rem)", lineHeight: "0.9", letterSpacing: "-0.035em" }}>
             <motion.span
               className="block"
               initial={motionState.initial}
@@ -126,7 +122,7 @@ export function HeroSection() {
           </h1>
 
           <motion.p
-            className="mx-auto mt-8 max-w-[560px] text-[clamp(1rem,1.4vw,1.18rem)] leading-[1.55] text-[var(--color-text-secondary)]"
+            className="mx-auto mt-8 max-w-[560px] text-[clamp(1rem,1.4vw,1.18rem)] leading-[1.55] text-[var(--color-ink-2)]"
             initial={motionState.initial}
             animate={motionState.animate}
             variants={subheadVariants}
@@ -146,22 +142,26 @@ export function HeroSection() {
                 <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-0.5">↗</span>
               </span>
             </ButtonLink>
-            <a
-              href="#in-practice"
-              className="text-[13px] text-[var(--color-text-secondary)] underline-offset-[6px] transition hover:text-[var(--color-text-primary)] hover:underline"
-              style={{ textDecorationColor: "var(--color-border-strong)" }}
-            >
+            <ButtonLink href="#in-practice" variant="quiet">
               how it works
-            </a>
+            </ButtonLink>
           </motion.div>
+
+          <div className="mx-auto mt-14 w-full max-w-5xl">
+            <ScreenshotFrame
+              alt="Sirius workflow workspace — live DAG on the left, workflow chat on the right"
+              caption="Workflow workspace — live DAG + chat"
+              priority
+            />
+          </div>
 
           <dl className="mx-auto mt-10 grid max-w-[760px] gap-5 border-y border-[var(--color-border)] py-8 text-left sm:grid-cols-3">
             {proofPoints.map((point) => (
               <div key={point.title}>
-                <dt className="text-[12px] font-medium uppercase tracking-[0.18em] text-[var(--color-text-muted)]">
+                <dt className="text-[12px] font-medium uppercase tracking-[0.18em] text-[var(--color-ink-3)]">
                   {point.title}
                 </dt>
-                <dd className="mt-2 text-[14px] leading-[1.55] text-[var(--color-text-secondary)]">
+                <dd className="mt-2 text-[14px] leading-[1.55] text-[var(--color-ink-2)]">
                   {point.body}
                 </dd>
               </div>
@@ -171,7 +171,7 @@ export function HeroSection() {
       </Container>
 
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5">
-        <span className="text-[11px] font-medium uppercase tracking-[0.2em] text-[var(--color-text-muted)]">
+        <span className="text-[11px] font-medium uppercase tracking-[0.2em] text-[var(--color-ink-3)]">
           more below
         </span>
         <svg
@@ -184,7 +184,7 @@ export function HeroSection() {
           strokeLinecap="round"
           strokeLinejoin="round"
           aria-hidden="true"
-          className="text-[var(--color-text-faint)] motion-safe:animate-bounce"
+          className="text-[var(--color-ink-4)] motion-safe:animate-bounce"
         >
           <path d="M2 2 L8 8 L14 2" />
         </svg>
