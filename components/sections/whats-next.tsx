@@ -219,8 +219,7 @@ export function WhatsNextSection() {
   return (
     <section
       id="whats-next"
-      className="band-deep relative scroll-mt-24 py-24 md:py-32"
-      style={{ borderBottom: "none" }}
+      className="relative scroll-mt-24 bg-[var(--color-bg)] py-24 md:py-32"
     >
       <Container>
         <div className="grid gap-12 md:grid-cols-[0.92fr_1.08fr] md:items-center md:gap-16">
