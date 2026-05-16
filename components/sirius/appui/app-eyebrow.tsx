@@ -1,8 +1,8 @@
 import React from "react";
 
 /**
- * AppEyebrow — matches app Eyebrow.tsx exactly.
- * fontSize 10.5, letterSpacing 2, fontWeight 600, uppercase.
+ * AppEyebrow — matches the app's PageHeader/pane eyebrow exactly.
+ * fontSize 10.5, letterSpacing 0.16em, fontWeight 500, uppercase.
  */
 export function AppEyebrow({
   children,
