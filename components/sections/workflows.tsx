@@ -11,7 +11,7 @@ export function WorkflowsSection() {
         <div className="grid gap-12 md:grid-cols-[0.95fr_1.05fr] md:gap-20 md:items-start">
           {/* Left: framing */}
           <div className="md:pt-2">
-            <SectionLabel index="02" tone="cyan">{sectionLabel}</SectionLabel>
+            <SectionLabel index="02" tone="warm">{sectionLabel}</SectionLabel>
 
             <h2 className="font-display text-balance mt-7 max-w-[18ch] text-[clamp(2.6rem,5.6vw,4.4rem)] leading-[0.92] tracking-[-0.028em] text-[var(--color-text-primary)] font-normal">
               The work you already do,{" "}
