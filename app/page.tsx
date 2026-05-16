@@ -14,7 +14,7 @@ import { SectionDivider } from "@/components/ui/section-divider";
 
 export default function HomePage() {
   return (
-    <main className="relative min-h-screen overflow-x-clip bg-[var(--color-bg)] text-[var(--color-text)]">
+    <main className="relative min-h-screen overflow-x-clip bg-[var(--color-bg)] text-[var(--color-ink-1)]">
       <SiteHeader />
       <ProgressRail />
       <HeroSection />
