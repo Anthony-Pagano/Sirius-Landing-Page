@@ -6,7 +6,7 @@ import { Orb } from "@/components/sirius/orb";
 
 const NODE_DEFS = [
   { index: "01", accent: "Memory",    color: "var(--color-accent)" },
-  { index: "02", accent: "Actions",   color: "var(--color-accent-strong)" },
+  { index: "02", accent: "Actions",   color: "var(--color-success)" },
   { index: "03", accent: "Workflows", color: "var(--color-state-listening-strong)" },
 ] as const;
 
