@@ -98,7 +98,7 @@ export function WorkflowShot({
             overflow: "hidden",
           }}
         >
-          {/* Left: DAG pane */}
+          {/* Left: DAG pane — dot-grid canvas texture matches the app */}
           <div
             style={{
               borderRadius: 12,
@@ -106,7 +106,11 @@ export function WorkflowShot({
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              background: "var(--color-surface-1)",
+              backgroundColor: "var(--color-surface-1)",
+              backgroundImage:
+                "radial-gradient(circle, var(--color-border-strong) 1px, transparent 1px)",
+              backgroundSize: "22px 22px",
+              backgroundPosition: "0 0",
               border: "1px solid var(--color-border)",
             }}
           >
