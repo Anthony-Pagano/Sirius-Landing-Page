@@ -29,7 +29,7 @@ export function SiteHeader() {
               <span className="relative h-1.5 w-1.5 rounded-full bg-[var(--color-accent)]" />
             )}
           </span>
-          <span className="font-mono text-[12.5px] font-medium uppercase tracking-[0.28em] text-[var(--color-text-primary)]">
+          <span className="font-sans text-[12.5px] font-medium uppercase tracking-[0.28em] text-[var(--color-text-primary)]">
             Sirius
           </span>
         </Link>
