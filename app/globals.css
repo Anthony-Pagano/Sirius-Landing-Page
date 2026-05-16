@@ -3,7 +3,6 @@
 @theme {
   --font-sans: var(--font-body), "Geist", "Inter", system-ui, sans-serif;
   --font-mono: var(--font-body), ui-monospace, monospace;
-  --font-display: var(--font-display), "Fraunces", "Iowan Old Style", Georgia, serif;
 
   --spacing-0_5: 2px;  --spacing-1: 4px;   --spacing-2: 8px;
   --spacing-3: 12px;   --spacing-4: 16px;  --spacing-5: 20px;
@@ -94,7 +93,6 @@
   --color-shadow-problem-card: rgba(0, 0, 0, 0.22);
   --color-shadow-problem-visual: rgba(0, 0, 0, 0.24);
   --color-selection: rgba(217, 185, 120, 0.22);
-  --color-bg: #1B1712;
   --color-panel: var(--color-surface-1);
   --color-panel-strong: var(--color-surface-2);
   --color-panel-solid: var(--color-surface-1);
@@ -114,7 +112,6 @@
   --dim: var(--color-ink-3);
   --cyan: var(--color-state-listening);
   --green: var(--color-success);
-  --font-mono: var(--font-body);
 
   /* Legacy cyan accent aliases — DEFAULT to gold (brand). Section
      tasks override locally where state cyan is correct. */
