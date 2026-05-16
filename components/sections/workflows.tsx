@@ -1,6 +1,8 @@
 import { landingContent } from "@/content/landing";
+import { WorkflowsIndexShot, ScaledShot } from "@/components/sirius/appui";
 import { Container } from "@/components/ui/container";
 import { SectionLabel } from "@/components/ui/section-label";
+import { ScreenshotFrame } from "@/components/ui/screenshot-frame";
 
 export function WorkflowsSection() {
   const { sectionLabel, intro, coda, notes } = landingContent.workflows;
@@ -8,7 +10,7 @@ export function WorkflowsSection() {
   return (
     <section id="workflows" className="relative scroll-mt-24 py-24 md:py-36">
       <Container>
-        <div className="grid gap-12 md:grid-cols-[0.95fr_1.05fr] md:gap-20 md:items-start">
+        <div className="grid gap-12 md:grid-cols-[0.9fr_1.1fr] md:gap-20 md:items-start">
           {/* Left: framing */}
           <div className="md:pt-2">
             <SectionLabel index="02" tone="warm">{sectionLabel}</SectionLabel>
@@ -29,19 +31,32 @@ export function WorkflowsSection() {
             </p>
           </div>
 
-          {/* Right: Sirius's captured moments — two stacked notes */}
-          <div className="relative flex flex-col gap-20 md:pt-14">
-            <figure className="relative border-l-2 border-[rgba(var(--color-accent-rgb),0.55)] pl-6 md:pl-8">
-              <blockquote className="max-w-[30ch] font-display-italic text-[clamp(1.45rem,2.5vw,1.95rem)] leading-[1.4] text-[var(--color-ink-1)]">
-                &ldquo;{notes[0]}&rdquo;
-              </blockquote>
-            </figure>
+          <div className="relative md:pt-4">
+            <ScreenshotFrame
+              alt="Sirius workflows index with filters, statuses, triggers, and run counts"
+              caption="Workflows index"
+              className="w-full"
+            >
+              <ScaledShot width={1360} height={850}>
+                <WorkflowsIndexShot />
+              </ScaledShot>
+            </ScreenshotFrame>
 
-            <figure className="relative border-l-2 border-[rgba(var(--color-accent-rgb),0.55)] pl-6 md:pl-8">
-              <blockquote className="max-w-[30ch] font-display-italic text-[clamp(1.45rem,2.5vw,1.95rem)] leading-[1.4] text-[var(--color-ink-1)]">
-                &ldquo;{notes[1]}&rdquo;
-              </blockquote>
-            </figure>
+            <div className="mt-5 grid gap-4 sm:grid-cols-2">
+              {notes.map((note, index) => (
+                <figure
+                  key={note}
+                  className="rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-surface-1)] p-5"
+                >
+                  <figcaption className="mb-3 text-[10.5px] font-semibold uppercase tracking-[0.16em] text-[var(--color-state-listening)]">
+                    Sirius suggestion {String(index + 1).padStart(2, "0")}
+                  </figcaption>
+                  <blockquote className="text-[14.5px] leading-[1.6] text-[var(--color-ink-2)]">
+                    &ldquo;{note}&rdquo;
+                  </blockquote>
+                </figure>
+              ))}
+            </div>
           </div>
         </div>
       </Container>

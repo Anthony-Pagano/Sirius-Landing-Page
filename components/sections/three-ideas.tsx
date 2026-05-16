@@ -1,9 +1,7 @@
 import { landingContent } from "@/content/landing";
 import { Container } from "@/components/ui/container";
 import { SectionLabel } from "@/components/ui/section-label";
-import { ScreenshotFrame } from "@/components/ui/screenshot-frame";
 import { Orb } from "@/components/sirius/orb";
-import { WorkflowsIndexShot, ScaledShot } from "@/components/sirius/appui";
 
 const NODE_DEFS = [
   { index: "01", accent: "Memory",    color: "var(--color-accent)" },
@@ -29,20 +27,20 @@ export function ThreeIdeasSection() {
           </em>
         </h2>
 
-        <div className="mt-12 grid gap-12 md:grid-cols-[1.05fr_0.95fr] md:items-stretch md:gap-16">
+        <div className="mt-12 grid gap-10 md:grid-cols-[1fr_0.9fr] md:items-center md:gap-8">
           <div className="relative flex h-full w-full items-center justify-center">
             <div
               aria-hidden="true"
-              className="pointer-events-none absolute inset-0"
+              className="pointer-events-none absolute left-1/2 top-1/2 h-[150%] w-[190%] -translate-x-1/2 -translate-y-1/2"
               style={{
                 background:
-                  "radial-gradient(ellipse at 50% 50%, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.55) 38%, transparent 76%)",
+                  "radial-gradient(ellipse at 50% 50%, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.4) 34%, transparent 72%)",
               }}
             />
             <Orb
               tripartite
               interactive={false}
-              className="pointer-events-none relative h-[clamp(220px,26vw,320px)] w-[clamp(220px,26vw,320px)]"
+              className="pointer-events-none relative h-[clamp(240px,30vw,400px)] w-[clamp(240px,30vw,400px)]"
             />
           </div>
 
@@ -75,16 +73,6 @@ export function ThreeIdeasSection() {
             <p className="mt-8 max-w-[54ch] text-[15.5px] leading-[1.72] text-[var(--color-ink-2)]">
               {body}
             </p>
-
-            <ScreenshotFrame
-              alt="Sirius workflows index — runnable workflows with status"
-              caption="Workflows, run by name"
-              className="mt-8 w-full"
-            >
-              <ScaledShot width={1360} height={850}>
-                <WorkflowsIndexShot />
-              </ScaledShot>
-            </ScreenshotFrame>
           </div>
         </div>
       </Container>

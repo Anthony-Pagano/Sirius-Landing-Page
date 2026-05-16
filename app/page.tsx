@@ -29,6 +29,7 @@ export default function HomePage() {
       <LocalDataSection />
       <FaqSection />
       <FinalCtaSection />
+      <SectionDivider />
       <WhatsNextSection />
       <SiteFooter />
     </main>

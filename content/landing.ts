@@ -11,20 +11,6 @@ export const landingContent = {
     description:
       "Sirius remembers the context behind your work, acts across your apps, and turns repeated tasks into workflows you can reuse.",
     primaryCta: "Request early access",
-    proofPoints: [
-      {
-        title: "Memory",
-        body: "Keeps context across chats, files, meetings, and apps.",
-      },
-      {
-        title: "Action",
-        body: "Drafts, sorts, briefs, schedules, and follows up.",
-      },
-      {
-        title: "Privacy",
-        body: "Keeps your personal context local by default.",
-      },
-    ],
     headlineAlternates: [
       "The assistant the others were pretending to be.",
       "Quietly competent.",
@@ -36,7 +22,7 @@ export const landingContent = {
     intro:
       "You already have workflows: the emails you rewrite, the checks you run before meetings, the updates you pull together every week.",
     coda:
-      "Sirius notices the patterns, helps package the useful ones, and lets you run them again by voice, chat, schedule, or trigger.",
+      "Sirius notices the patterns, helps package the useful ones, and lets you run them again by voice or chat. Feeds and schedules are next.",
     notes: [
       "You've written this kind of client update three times this month. Want me to save it as a workflow?",
       "Your 2:00 meeting is coming up. I pulled the latest thread, open tasks, and last notes.",
@@ -45,12 +31,12 @@ export const landingContent = {
   fourWays: {
     sectionLabel: "One assistant. Four ways to command it.",
     leadIn:
-      "Use voice when you are in flow, chat when you need detail, schedules when work should happen later, and feeds when Sirius should keep watch.",
+      "Use voice when you are in flow and chat when you need detail. Feeds and schedules are coming soon for work that should be watched or run later.",
     items: [
       { id: "voice",     title: "Voice",     body: "Ask naturally without leaving your work." },
       { id: "chat",      title: "Chat",      body: "Work through details with the same assistant that remembers your context." },
-      { id: "feeds",     title: "Feeds",     body: "Track updates from the sources that matter and surface what needs attention." },
-      { id: "schedules", title: "Schedules", body: "Run tasks at a time, on a cadence, or when something changes." },
+      { id: "feeds",     title: "Feeds",     body: "Coming soon: track updates from the sources that matter and surface what needs attention." },
+      { id: "schedules", title: "Schedules", body: "Coming soon: run tasks at a time or set events as triggers." },
     ],
   },
   threeIdeas: {
@@ -62,34 +48,17 @@ export const landingContent = {
       { index: "03", role: "Workflows that run again." },
     ],
     body:
-      "Sirius keeps conversation, actions, and workflows connected through the same memory. The chat knows what your schedules did this morning. Your workflows know what you asked yesterday. Your briefs include the context you would otherwise have to repeat.",
+      "Sirius keeps conversation, actions, and workflows connected through the same memory. Chat knows what your workflows did earlier. Your workflows know what you asked yesterday. Your briefs include the context you would otherwise have to repeat.",
   },
   whatsNext: {
     sectionLabel: "What's next",
     headlineLead: "The desktop is where Sirius starts.",
     headlineTail: "Not where it stops.",
-    fragments: ["SWITCHES", "NOZZLES", "AXES"],
+    fragments: ["MOBILE", "TEAM MEMORY", "BROWSER CONTEXT"],
   },
   localData: {
     sectionLabel: "Local-first",
     title: "Your data, your machine.",
-    body:
-      "Sirius keeps your personal memory, conversations, and connected files on your device by default. Cloud workflows only receive the context required to complete the task you approve.",
-    trustPoints: [
-      {
-        title: "Local memory",
-        body: "Your long-term assistant memory stays on your machine.",
-      },
-      {
-        title: "Scoped cloud work",
-        body: "Scheduled workflows use only the context they need.",
-      },
-      {
-        title: "User control",
-        body: "You decide what Sirius can access, remember, and run.",
-      },
-    ],
-    footnote: "Private beta",
   },
   inPractice: {
     sectionLabel: "In practice",
@@ -159,11 +128,11 @@ export const landingContent = {
       },
       {
         q: "What can Sirius automate?",
-        a: "Sirius can help with repeatable knowledge work: drafting replies, preparing meeting briefs, summarizing updates, triaging feedback, tracking feeds, and running scheduled workflows.",
+        a: "Sirius can help with repeatable knowledge work: drafting replies, preparing meeting briefs, summarizing updates, and triaging feedback. Feed tracking and scheduled workflows are coming soon.",
       },
       {
         q: "What models does Sirius use?",
-        a: "Sirius uses a mix of leading AI models depending on the task. The goal is to choose the right model for the job while avoiding unecessary costs.",
+        a: "Sirius uses a mix of leading AI models depending on the task. The goal is to choose the right model for the job while avoiding unnecessary costs.",
       },
       {
         q: "When can I get access?",

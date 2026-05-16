@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { AppIcon } from "@/components/sirius/appui";
 import { Orb } from "@/components/sirius/orb";
 import { Container } from "@/components/ui/container";
 
@@ -41,17 +42,14 @@ export function SiteHeader() {
           <span aria-hidden="true" className="hidden h-px w-6 bg-[var(--color-border-strong)] sm:inline-block" />
           <a
             href="#cta"
-            className="group inline-flex items-center gap-1.5 text-[13px] text-[var(--color-ink-1)] underline-offset-[6px] transition hover:underline outline-none focus-visible:ring-2 focus-visible:ring-[rgba(217,185,120,0.55)] focus-visible:ring-offset-4 focus-visible:ring-offset-[var(--color-bg)]"
+            className="group inline-flex cursor-pointer items-center text-[13px] text-[var(--color-ink-1)] underline-offset-[6px] transition hover:underline outline-none focus-visible:ring-2 focus-visible:ring-[rgba(217,185,120,0.55)] focus-visible:ring-offset-4 focus-visible:ring-offset-[var(--color-bg)]"
             style={{ textDecorationColor: "rgba(var(--color-accent-rgb), 0.55)" }}
           >
-            <span className="transition-colors duration-200 group-hover:text-[var(--color-accent)]">
+            <span className="inline-flex items-center gap-1.5 transition-colors duration-200 group-hover:text-[var(--color-accent)]">
               Join waitlist
-            </span>
-            <span
-              aria-hidden="true"
-              className="text-[var(--color-ink-3)] transition-all duration-200 group-hover:translate-x-0.5 group-hover:text-[var(--color-accent)]"
-            >
-              ↗
+              <span className="inline-flex motion-safe:transition-transform motion-safe:duration-200 motion-safe:ease-out group-hover:translate-x-0.5">
+                <AppIcon name="arrow" size={13} stroke="currentColor" />
+              </span>
             </span>
           </a>
         </div>

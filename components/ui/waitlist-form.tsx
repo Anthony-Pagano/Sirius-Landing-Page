@@ -3,6 +3,8 @@
 import { FormEvent, useEffect, useId, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 
+import { AppIcon } from "@/components/sirius/appui";
+
 type Step = "email" | "submittingEmail" | "name" | "submittingName" | "done" | "errorEmail" | "errorName";
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -184,7 +186,7 @@ export function WaitlistForm() {
       <div className="relative">
         <AnimatePresence mode="wait" initial={false}>
           {visibleStep === "email" && (
-            <motion.div key="email" {...motionProps} className="flex w-full items-stretch gap-3">
+            <motion.div key="email" {...motionProps} className="flex w-full items-stretch gap-2 border-b border-[var(--color-border-strong)] transition-colors focus-within:border-[var(--color-accent)]">
               <label htmlFor={inputId} className="sr-only">
                 Email address
               </label>
@@ -206,20 +208,25 @@ export function WaitlistForm() {
                 aria-describedby={statusId}
                 aria-invalid={step === "errorEmail"}
                 disabled={isSubmitting}
-                className="min-w-0 flex-1 h-12 px-4 bg-[var(--color-surface-1)] border border-[var(--color-border-strong)] rounded-[var(--radius-sm)] text-[16px] text-[var(--color-ink-1)] placeholder:text-[var(--color-ink-3)] outline-none transition-colors focus:border-[var(--color-accent)] focus:ring-2 focus:ring-[rgba(217,185,120,0.32)] disabled:opacity-60"
+                className="min-w-0 flex-1 h-12 px-1 bg-transparent text-[16px] text-[var(--color-ink-1)] placeholder:text-[var(--color-ink-3)] outline-none disabled:opacity-60"
               />
               <button
                 type="submit"
-                disabled={isSubmitting || !EMAIL_REGEX.test(email.trim())}
-                className="shrink-0 h-12 px-5 bg-[var(--color-accent)] text-[var(--color-bg)] text-[14px] font-medium tracking-tight rounded-[var(--radius-sm)] transition hover:bg-[var(--color-accent-strong)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(217,185,120,0.55)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-bg)] disabled:cursor-not-allowed disabled:opacity-50"
+                disabled={isSubmitting}
+                className="group inline-flex h-12 shrink-0 cursor-pointer items-center gap-2 rounded-[var(--radius-xs)] bg-transparent px-2 text-[14px] font-medium text-[var(--color-accent)] outline-none transition-colors hover:text-[var(--color-accent-strong)] focus-visible:ring-2 focus-visible:ring-[rgba(var(--color-accent-rgb),0.5)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-bg)] disabled:cursor-not-allowed disabled:opacity-50"
               >
-                {step === "submittingEmail" ? "Sending" : "Request access →"}
+                {step === "submittingEmail" ? "Sending" : "Request access"}
+                {step !== "submittingEmail" && (
+                  <span className="inline-flex motion-safe:transition-transform motion-safe:duration-200 motion-safe:ease-out group-hover:translate-x-0.5">
+                    <AppIcon name="arrow" size={13} stroke="currentColor" />
+                  </span>
+                )}
               </button>
             </motion.div>
           )}
 
           {visibleStep === "name" && (
-            <motion.div key="name" {...motionProps} className="flex w-full items-stretch gap-3">
+            <motion.div key="name" {...motionProps} className="flex w-full items-stretch gap-2 border-b border-[var(--color-border-strong)] transition-colors focus-within:border-[var(--color-accent)]">
               <label htmlFor={inputId} className="sr-only">
                 Your name
               </label>
@@ -240,14 +247,19 @@ export function WaitlistForm() {
                 aria-describedby={statusId}
                 aria-invalid={step === "errorName"}
                 disabled={isSubmitting}
-                className="min-w-0 flex-1 h-12 px-4 bg-[var(--color-surface-1)] border border-[var(--color-border-strong)] rounded-[var(--radius-sm)] text-[16px] text-[var(--color-ink-1)] placeholder:text-[var(--color-ink-3)] outline-none transition-colors focus:border-[var(--color-accent)] focus:ring-2 focus:ring-[rgba(217,185,120,0.32)] disabled:opacity-60"
+                className="min-w-0 flex-1 h-12 px-1 bg-transparent text-[16px] text-[var(--color-ink-1)] placeholder:text-[var(--color-ink-3)] outline-none disabled:opacity-60"
               />
               <button
                 type="submit"
-                disabled={isSubmitting || name.trim().length === 0}
-                className="shrink-0 h-12 px-5 bg-[var(--color-accent)] text-[var(--color-bg)] text-[14px] font-medium tracking-tight rounded-[var(--radius-sm)] transition hover:bg-[var(--color-accent-strong)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(217,185,120,0.55)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-bg)] disabled:cursor-not-allowed disabled:opacity-50"
+                disabled={isSubmitting}
+                className="group inline-flex h-12 shrink-0 cursor-pointer items-center gap-2 rounded-[var(--radius-xs)] bg-transparent px-2 text-[14px] font-medium text-[var(--color-accent)] outline-none transition-colors hover:text-[var(--color-accent-strong)] focus-visible:ring-2 focus-visible:ring-[rgba(var(--color-accent-rgb),0.5)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-bg)] disabled:cursor-not-allowed disabled:opacity-50"
               >
-                {step === "submittingName" ? "Sending" : "Join →"}
+                {step === "submittingName" ? "Sending" : "Join"}
+                {step !== "submittingName" && (
+                  <span className="inline-flex motion-safe:transition-transform motion-safe:duration-200 motion-safe:ease-out group-hover:translate-x-0.5">
+                    <AppIcon name="arrow" size={13} stroke="currentColor" />
+                  </span>
+                )}
               </button>
             </motion.div>
           )}
@@ -258,7 +270,12 @@ export function WaitlistForm() {
               {...motionProps}
               className="w-full text-[18px] text-[var(--color-ink-1)]"
             >
-              <span aria-hidden="true">✓ </span>You&apos;re on the list, {firstName}. We&apos;ll be in touch.
+              <span className="inline-flex items-center gap-2">
+                <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-[var(--color-success)] text-[var(--color-bg)]">
+                  <AppIcon name="check" size={14} stroke="currentColor" />
+                </span>
+                You&apos;re on the list, {firstName}. We&apos;ll be in touch.
+              </span>
             </motion.p>
           )}
         </AnimatePresence>

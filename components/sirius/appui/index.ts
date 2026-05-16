@@ -15,3 +15,4 @@ export { TopBar } from "./top-bar";
 export { WorkflowShot } from "./workflow-shot";
 export type { WorkflowShotProps } from "./workflow-shot";
 export { WorkflowsIndexShot } from "./workflows-index-shot";
+export { VoiceHomeShot } from "./voice-home-shot";

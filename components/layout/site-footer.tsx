@@ -18,7 +18,7 @@ export function SiteFooter() {
               className="pointer-events-none absolute inset-0 rounded-full"
               style={{
                 background:
-                  "radial-gradient(circle at 50% 50%, rgba(217,185,120,0.18) 0%, rgba(217,185,120,0.06) 60%, transparent 100%)",
+                  "radial-gradient(circle at 50% 50%, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.55) 60%, rgba(0,0,0,0.25) 100%)",
               }}
             />
             {FOOTER_ORB ? (
@@ -27,7 +27,7 @@ export function SiteFooter() {
               <span className="relative h-1.5 w-1.5 rounded-full bg-[var(--color-accent)]" />
             )}
           </span>
-          <span className="font-sans text-[12.5px] font-medium uppercase tracking-[0.28em] text-[var(--color-accent)]">
+          <span className="font-sans text-[12.5px] font-medium uppercase tracking-[0.28em] text-[var(--color-ink-1)]">
             Sirius
           </span>
         </div>

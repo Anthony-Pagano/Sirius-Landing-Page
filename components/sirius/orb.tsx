@@ -22,6 +22,7 @@ type SiriusOrbOptions = {
   seed: number;
   audioRef: React.MutableRefObject<OrbAudioSignal> | null;
   tripartite: boolean;
+  listenTone: boolean;
 };
 
 export function Orb({
@@ -30,14 +31,19 @@ export function Orb({
   glowless = false,
   tripartite = false,
   interactive = false,
+  pulse = false,
+  listening = false,
 }: {
   className?: string;
   staticRender?: boolean;
   glowless?: boolean;
   tripartite?: boolean;
   interactive?: boolean;
+  pulse?: boolean;
+  listening?: boolean;
 }) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
   const shouldReduceMotion = useReducedMotion();
   const { signalRef } = useOrbAudio();
   const frozen = staticRender || !!shouldReduceMotion;
@@ -55,6 +61,7 @@ export function Orb({
       breatheAmp: frozen ? 0 : 0.012,
       audioRef: frozen ? null : signalRef,
       tripartite,
+      listenTone: listening,
     });
 
     if (frozen) {
@@ -63,12 +70,63 @@ export function Orb({
     }
 
     return () => orb.destroy();
-  }, [frozen, signalRef, tripartite, interactive]);
+  }, [frozen, signalRef, tripartite, interactive, listening]);
+
+  useEffect(() => {
+    const node = wrapperRef.current;
+    if (!node || frozen || !pulse) {
+      if (node) {
+        node.style.transform = "scale(1)";
+      }
+      return;
+    }
+
+    let smoothAmp = 0;
+    let activeMix = 0;
+    let raf: number;
+
+    const tick = () => {
+      const signal = signalRef.current;
+      const target = Math.max(0, Math.min(1, signal.amplitude));
+
+      // Envelope follower: responsive attack, slow release. It tracks the
+      // *shape* of speech (rising/falling energy) rather than snapping on
+      // every syllable — amplitude-driven without the buggy per-word twitch.
+      const k = target > smoothAmp ? 0.22 : 0.06;
+      smoothAmp += (target - smoothAmp) * k;
+      activeMix += ((signal.active ? 1 : 0) - activeMix) * 0.12;
+
+      const t = performance.now() * 0.001;
+
+      // Idle: slow, subtle breath so the orb is alive before a tap.
+      const idleBreath = Math.sin(t * 0.85) * 0.014 + Math.sin(t * 1.55 + 1.2) * 0.007;
+
+      // Listening: a small steady base pulse so it never freezes between
+      // words, plus an amplitude swell that rides voice energy (soft curve
+      // so loud speech reads strong without spiking). Peaks ~+17%.
+      const basePulse = 0.022 + Math.sin(t * 2.2) * 0.016;
+      const voiceSwell = Math.pow(smoothAmp, 0.7) * 0.13;
+      const listenPulse = basePulse + voiceSwell;
+
+      const breath = idleBreath * (1 - activeMix) + listenPulse * activeMix;
+      const scale = 1 + breath;
+      node.style.transform = `scale(${scale.toFixed(4)})`;
+
+      raf = requestAnimationFrame(tick);
+    };
+
+    raf = requestAnimationFrame(tick);
+    return () => {
+      cancelAnimationFrame(raf);
+      node.style.transform = "scale(1)";
+    };
+  }, [frozen, pulse, signalRef]);
 
   return (
     <div
+      ref={wrapperRef}
       className={cn(
-        "pointer-events-none relative h-[clamp(280px,70vw,360px)] w-[clamp(280px,70vw,360px)]",
+        "pointer-events-none relative h-[clamp(280px,70vw,360px)] w-[clamp(280px,70vw,360px)] will-change-transform",
         className,
       )}
       aria-hidden="true"
@@ -103,6 +161,7 @@ class SiriusOrbRenderer {
   private mouseVelY = 0;
   private mouseLastX = 0;
   private mouseLastY = 0;
+  private listenMix = 0;
 
   constructor(canvas: HTMLCanvasElement, options: Partial<SiriusOrbOptions> = {}) {
     const ctx = canvas.getContext("2d");
@@ -127,9 +186,11 @@ class SiriusOrbRenderer {
       seed: 1337,
       audioRef: null,
       tripartite: false,
+      listenTone: false,
       ...options,
     };
 
+    this.listenMix = this.opts.listenTone ? 1 : 0;
     this.initPerlin();
     this.w = canvas.width;
     this.h = canvas.height;
@@ -267,14 +328,16 @@ class SiriusOrbRenderer {
     const wt = tt * 0.045;
     const baseBreathe = 1 + Math.sin(tt * 0.55) * opts.breatheAmp;
 
-    // Audio-reactive modulation — falls back to neutral values when inactive.
+    // Listening mode is smoothed on the existing renderer instance. The
+    // Perlin tables and time field stay alive; no React rebuild is involved.
     const audio = opts.audioRef?.current;
     const audioActive = !!audio?.active;
-    const audioAmp = audioActive ? audio!.amplitude : 0;
-    const audioCent = audioActive ? audio!.centroid : 0.5;
+    const audioCent = audio?.centroid ?? 0.5;
+    this.listenMix += ((opts.listenTone || audioActive ? 1 : 0) - this.listenMix) * 0.06;
 
-    const breathe = baseBreathe * (1 + audioAmp * 0.18);
-    const wispGain = opts.wispGain * (1 + audioAmp * 0.35);
+    const listenPulse = (0.5 + 0.5 * Math.sin(tt * 2.4)) * this.listenMix;
+    const breathe = baseBreathe + listenPulse * 0.18;
+    const wispGain = opts.wispGain;
 
     const stirX = -this.mouseLocalSmoothX * 0.55 + this.mouseVelX * 1.6;
     const stirY = -this.mouseLocalSmoothY * 0.55 + this.mouseVelY * 1.6;
@@ -375,11 +438,48 @@ class SiriusOrbRenderer {
           blue = 250 + t * 5;
         }
 
-        // Audio centroid colour bias: warm (treble) pulls toward cream, cool (bass) toward cyan.
+        // Ambient centroid colour bias: warm (treble) pulls toward cream,
+        // cool (bass) toward cyan.
         const warm = audioCent; // 0 = cool/bass, 1 = warm/treble
-        red   = red   * (1 + warm * 0.25);
-        green = green * (1 + warm * 0.10);
-        blue  = blue  * (1 - warm * 0.20);
+        red = red * (1 + warm * 0.25);
+        green = green * (1 + warm * 0.1);
+        blue = blue * (1 - warm * 0.2);
+
+        if (this.listenMix > 0.001) {
+          // Match the shipped app's listening state: slow violet/purple/pink
+          // sweep toward warm orange. Blend gradually so the mode switch is
+          // a colour crossfade, not a visual reset.
+          const listenHue = 295 + Math.sin(tt * 0.42) * 75;
+          const [loR, loG, loB] = hsl(listenHue, 0.7, 0.1);
+          const [midR, midG, midB] = hsl(listenHue, 0.85, 0.45);
+          const [hiR, hiG, hiB] = hsl(listenHue + 20, 0.9, 0.78);
+          let listenRed: number;
+          let listenGreen: number;
+          let listenBlue: number;
+
+          if (k < 0.5) {
+            const t = k / 0.5;
+            listenRed = loR + t * (midR - loR);
+            listenGreen = loG + t * (midG - loG);
+            listenBlue = loB + t * (midB - loB);
+          } else if (k < 0.95) {
+            const t = (k - 0.5) / 0.45;
+            listenRed = midR + t * (hiR - midR);
+            listenGreen = midG + t * (hiG - midG);
+            listenBlue = midB + t * (hiB - midB);
+          } else {
+            const t = Math.min(1, (k - 0.95) / 0.3);
+            listenRed = hiR + t * 30;
+            listenGreen = hiG + t * 30;
+            listenBlue = hiB + t * 30;
+          }
+
+          const mix = this.listenMix;
+          const inv = 1 - mix;
+          red = red * inv + listenRed * mix;
+          green = green * inv + listenGreen * mix;
+          blue = blue * inv + listenBlue * mix;
+        }
 
         const alpha = aa * Math.min(1, intensity * 1.05);
         data[dataIndex] = Math.min(255, red) | 0;
@@ -455,6 +555,37 @@ function grad(hash: number, x: number, y: number, z: number) {
   const u = h < 8 ? x : y;
   const v = h < 4 ? y : h === 12 || h === 14 ? x : z;
   return (h & 1 ? -u : u) + (h & 2 ? -v : v);
+}
+
+function hsl(h: number, s: number, l: number): [number, number, number] {
+  const hue = ((h % 360) + 360) % 360;
+  const c = (1 - Math.abs(2 * l - 1)) * s;
+  const hp = hue / 60;
+  const x = c * (1 - Math.abs((hp % 2) - 1));
+  let r1 = 0;
+  let g1 = 0;
+  let b1 = 0;
+  if (hp < 1) {
+    r1 = c;
+    g1 = x;
+  } else if (hp < 2) {
+    r1 = x;
+    g1 = c;
+  } else if (hp < 3) {
+    g1 = c;
+    b1 = x;
+  } else if (hp < 4) {
+    g1 = x;
+    b1 = c;
+  } else if (hp < 5) {
+    r1 = x;
+    b1 = c;
+  } else {
+    r1 = c;
+    b1 = x;
+  }
+  const m = l - c / 2;
+  return [(r1 + m) * 255, (g1 + m) * 255, (b1 + m) * 255];
 }
 
 const TAU = Math.PI * 2;

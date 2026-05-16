@@ -33,7 +33,7 @@ export function ScreenshotFrame({
       role="img"
       aria-label={alt}
       className={cn(
-        "relative overflow-hidden rounded-[var(--radius-lg)] border border-[var(--color-border-strong)] bg-[var(--color-surface-1)] shadow-[0_24px_64px_rgba(0,0,0,0.45)]",
+        "relative overflow-hidden rounded-[var(--radius-lg)] border border-[var(--color-border-strong)] bg-[var(--color-surface-1)] shadow-[0_14px_40px_rgba(0,0,0,0.28)]",
         className,
       )}
       style={{ aspectRatio: `${width} / ${height}` }}
