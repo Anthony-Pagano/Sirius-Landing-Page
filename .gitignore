@@ -1,4 +1,5 @@
 .next/
+.superpowers/
 node_modules/
 .vercel/
 dist/
