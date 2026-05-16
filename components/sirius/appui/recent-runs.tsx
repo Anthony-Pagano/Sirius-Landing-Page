@@ -1,6 +1,16 @@
 import { AppEyebrow } from "./app-eyebrow";
-import { AppPill, AppPillTone } from "./app-pill";
+import { AppPill } from "./app-pill";
+import type { AppPillTone } from "./app-pill";
 
+/**
+ * RecentRuns — faithful static port of app's recent-runs footer strip.
+ *
+ * Matches workflows/[name]/page.tsx footer exactly:
+ * - padding: "14px 48px 20px", borderTop
+ * - header row: AppEyebrow "Recent runs" + "See all →" link text
+ * - chips: flex gap-2 flex-wrap mt-2, each p-[8px_12px] rounded-[8px]
+ *   surface-1 border, Pill + when (12.5px ink-2 tabular) + dur (11.5px ink-4 tabular ml-auto)
+ */
 export function RecentRuns({
   runs,
 }: {
@@ -8,25 +18,69 @@ export function RecentRuns({
 }) {
   return (
     <div
-      className="px-4 pt-3 pb-3"
-      style={{ borderTop: "1px solid var(--color-border)" }}
+      style={{
+        flexShrink: 0,
+        padding: "14px 48px 20px",
+        borderTop: "1px solid var(--color-border)",
+      }}
     >
-      <AppEyebrow accent="dim">Recent runs</AppEyebrow>
-      <div className="flex gap-2 flex-wrap mt-2">
+      {/* Header row */}
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          marginBottom: 8,
+        }}
+      >
+        <AppEyebrow accent="dim">Recent runs</AppEyebrow>
+        <span
+          style={{
+            fontSize: 12,
+            fontFamily: "var(--font-sans)",
+            color: "var(--color-ink-3)",
+            fontWeight: 500,
+          }}
+        >
+          See all →
+        </span>
+      </div>
+
+      {/* Run chips */}
+      <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
         {runs.map((run, i) => (
           <div
             key={i}
-            className="flex items-center gap-2.5 px-3 py-2 rounded-[8px]"
             style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 10,
+              padding: "8px 12px",
+              borderRadius: 8,
               background: "var(--color-surface-1)",
               border: "1px solid var(--color-border)",
+              fontFamily: "var(--font-sans)",
+              minWidth: 200,
             }}
           >
             <AppPill tone={run.tone} label={run.label} />
-            <span className="text-[11px] tabular-nums text-[var(--color-ink-2)]">
+            <span
+              style={{
+                fontSize: 12.5,
+                color: "var(--color-ink-2)",
+                fontVariantNumeric: "tabular-nums",
+              }}
+            >
               {run.when}
             </span>
-            <span className="ml-auto text-[10.5px] tabular-nums text-[var(--color-ink-4)]">
+            <span
+              style={{
+                marginLeft: "auto",
+                fontSize: 11.5,
+                color: "var(--color-ink-4)",
+                fontVariantNumeric: "tabular-nums",
+              }}
+            >
               {run.dur}
             </span>
           </div>

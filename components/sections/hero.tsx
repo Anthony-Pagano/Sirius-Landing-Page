@@ -8,7 +8,7 @@ import { ButtonLink } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { SectionLabel } from "@/components/ui/section-label";
 import { ScreenshotFrame } from "@/components/ui/screenshot-frame";
-import { WorkflowShot } from "@/components/sirius/appui";
+import { WorkflowShot, ScaledShot } from "@/components/sirius/appui";
 
 const orbVariants: Variants = {
   hidden: { opacity: 0 },
@@ -154,32 +154,33 @@ export function HeroSection() {
               caption="Workflow workspace — live DAG + chat"
               priority
             >
-              <WorkflowShot
-                variant="full"
-                breadcrumb="Weekly client update"
-                title="Weekly client update"
-                tone="awaiting"
-                statusLabel="Awaiting input"
-                trigger="Manual trigger"
-                runsMeta="12 runs · last 2h ago"
-                railActive="flows"
-                steps={[
-                  { type: "READ", title: "Pull this week's thread", state: "done" },
-                  { type: "DRAFT", title: "Draft the update", state: "done" },
-                  { type: "REVIEW", title: "Confirm the figure", state: "gated" },
-                  { type: "SEND", title: "Send to the client", state: "idle" },
-                ]}
-                chatHeader="Chat with this workflow"
-                messages={[
-                  { role: "user", text: "Sirius, where’s the client update?" },
-                  { role: "assistant", text: "Drafted from this week’s thread in your usual format. I flagged one revenue figure that changed — confirm it and I’ll send." },
-                ]}
-                recentRuns={[
-                  { tone: "done", label: "Done", when: "2h ago", dur: "1m 04s" },
-                  { tone: "done", label: "Done", when: "1d ago", dur: "58s" },
-                  { tone: "failed", label: "Failed", when: "3d ago", dur: "12s" },
-                ]}
-              />
+              <ScaledShot width={1360} height={850}>
+                <WorkflowShot
+                  breadcrumb="Weekly client update"
+                  title="Weekly client update"
+                  tone="awaiting"
+                  statusLabel="Awaiting input"
+                  trigger="Manual trigger"
+                  runsMeta="12 runs · last 2h ago"
+                  railActive="flows"
+                  steps={[
+                    { id: "read",   type: "READ",   title: "Pull this week’s thread", col: 0, next: ["draft"],  state: "done" },
+                    { id: "draft",  type: "DRAFT",  title: "Draft the update",        col: 1, next: ["review"], state: "done" },
+                    { id: "review", type: "REVIEW", title: "Confirm the figure",      col: 2, next: ["send"],   state: "gated" },
+                    { id: "send",   type: "SEND",   title: "Send to the client",      col: 3, next: [],         state: "idle" },
+                  ]}
+                  chatHeader="Chat with this workflow"
+                  messages={[
+                    { role: "user",      text: "Sirius, where’s the client update?" },
+                    { role: "assistant", text: "Drafted from this week’s thread in your usual format. I flagged one revenue figure that changed — confirm it and I’ll send." },
+                  ]}
+                  recentRuns={[
+                    { tone: "done",   label: "Done",   when: "2h ago", dur: "1m 04s" },
+                    { tone: "done",   label: "Done",   when: "1d ago", dur: "58s" },
+                    { tone: "failed", label: "Failed", when: "3d ago", dur: "12s" },
+                  ]}
+                />
+              </ScaledShot>
             </ScreenshotFrame>
           </div>
 

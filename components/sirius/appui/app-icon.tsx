@@ -1,3 +1,5 @@
+import React from "react";
+
 export type AppIconName =
   | "work"
   | "flows"
@@ -14,165 +16,163 @@ export type AppIconName =
   | "check"
   | "spark"
   | "table"
-  | "plus";
+  | "plus"
+  | "arrow"
+  | "dots";
 
-function iconPath(name: AppIconName): React.ReactNode {
-  switch (name) {
-    case "work":
-      return (
-        <>
-          <line x1="4" y1="8" x2="20" y2="8" />
-          <line x1="4" y1="12" x2="20" y2="12" />
-          <line x1="4" y1="16" x2="20" y2="16" />
-        </>
-      );
-    case "flows":
-      return (
-        <>
-          <circle cx="5" cy="12" r="2.5" />
-          <circle cx="12" cy="6" r="2.5" />
-          <circle cx="19" cy="12" r="2.5" />
-          <line x1="7.5" y1="12" x2="9.5" y2="6" />
-          <line x1="14.5" y1="6" x2="16.5" y2="12" />
-        </>
-      );
-    case "feed":
-      return (
-        <>
-          <circle cx="5" cy="19" r="1.5" />
-          <path d="M4 12a8 8 0 0 1 8 8" />
-          <path d="M4 6a14 14 0 0 1 14 14" />
-        </>
-      );
-    case "voice":
-      return (
-        <>
-          <circle cx="12" cy="12" r="3" />
-          <circle cx="12" cy="12" r="6" />
-          <circle cx="12" cy="12" r="9" />
-        </>
-      );
-    case "settings":
-      return (
-        <>
-          <circle cx="12" cy="12" r="3" />
-          <line x1="12" y1="3" x2="12" y2="5" />
-          <line x1="12" y1="19" x2="12" y2="21" />
-          <line x1="3" y1="12" x2="5" y2="12" />
-          <line x1="19" y1="12" x2="21" y2="12" />
-          <line x1="5.6" y1="5.6" x2="7" y2="7" />
-          <line x1="17" y1="17" x2="18.4" y2="18.4" />
-          <line x1="18.4" y1="5.6" x2="17" y2="7" />
-          <line x1="7" y1="17" x2="5.6" y2="18.4" />
-        </>
-      );
-    case "play":
-      return <polygon points="6,4 20,12 6,20" />;
-    case "send":
-      return (
-        <>
-          <path d="M22 2L11 13" />
-          <path d="M22 2L15 22L11 13L2 9L22 2Z" />
-        </>
-      );
-    case "clock":
-      return (
-        <>
-          <circle cx="12" cy="12" r="9" />
-          <polyline points="12,7 12,12 15,15" />
-        </>
-      );
-    case "mail":
-      return (
-        <>
-          <rect x="3" y="5" width="18" height="14" rx="2" />
-          <polyline points="3,5 12,13 21,5" />
-        </>
-      );
-    case "doc":
-      return (
-        <>
-          <path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z" />
-          <polyline points="14,3 14,8 19,8" />
-          <line x1="8" y1="13" x2="16" y2="13" />
-          <line x1="8" y1="17" x2="12" y2="17" />
-        </>
-      );
-    case "git":
-      return (
-        <>
-          <circle cx="7" cy="18" r="2.5" />
-          <circle cx="17" cy="6" r="2.5" />
-          <path d="M7 15.5V9a4 4 0 0 1 4-4h3" />
-          <path d="M14.5 6l2.5-2.5L19.5 6" />
-        </>
-      );
-    case "search":
-      return (
-        <>
-          <circle cx="10.5" cy="10.5" r="6.5" />
-          <line x1="15.5" y1="15.5" x2="21" y2="21" />
-        </>
-      );
-    case "check":
-      return <polyline points="4,12 9,17 20,7" />;
-    case "spark":
-      return (
-        <>
-          <line x1="12" y1="2" x2="12" y2="6" />
-          <line x1="12" y1="18" x2="12" y2="22" />
-          <line x1="2" y1="12" x2="6" y2="12" />
-          <line x1="18" y1="12" x2="22" y2="12" />
-          <line x1="4.9" y1="4.9" x2="7.8" y2="7.8" />
-          <line x1="16.2" y1="16.2" x2="19.1" y2="19.1" />
-          <line x1="19.1" y1="4.9" x2="16.2" y2="7.8" />
-          <line x1="7.8" y1="16.2" x2="4.9" y2="19.1" />
-        </>
-      );
-    case "table":
-      return (
-        <>
-          <rect x="3" y="3" width="18" height="18" rx="2" />
-          <line x1="3" y1="9" x2="21" y2="9" />
-          <line x1="3" y1="15" x2="21" y2="15" />
-          <line x1="9" y1="9" x2="9" y2="21" />
-          <line x1="15" y1="9" x2="15" y2="21" />
-        </>
-      );
-    case "plus":
-      return (
-        <>
-          <line x1="12" y1="4" x2="12" y2="20" />
-          <line x1="4" y1="12" x2="20" y2="12" />
-        </>
-      );
-    default:
-      return null;
-  }
-}
-
-import React from "react";
-
+/**
+ * AppIcon — verbatim SVG paths from the app's Icon.tsx.
+ * viewBox 0 0 24 24, strokeWidth 1.4, round caps/joins, stroke="currentColor".
+ */
 export function AppIcon({
   name,
   size = 16,
+  stroke = "currentColor",
 }: {
   name: AppIconName;
   size?: number;
+  stroke?: string;
 }) {
-  return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={1.4}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden
-    >
-      {iconPath(name)}
-    </svg>
-  );
+  const p = {
+    width: size,
+    height: size,
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke,
+    strokeWidth: 1.4,
+    strokeLinecap: "round" as const,
+    strokeLinejoin: "round" as const,
+    "aria-hidden": true,
+  };
+
+  switch (name) {
+    case "voice":
+      return (
+        <svg {...p}>
+          <circle cx="12" cy="12" r="3.5" />
+          <circle cx="12" cy="12" r="7.5" opacity="0.5" />
+          <circle cx="12" cy="12" r="10.5" opacity="0.25" />
+        </svg>
+      );
+    case "work":
+      return (
+        <svg {...p}>
+          <path d="M4 6h16M4 12h16M4 18h10" />
+        </svg>
+      );
+    case "flows":
+      return (
+        <svg {...p}>
+          <circle cx="5" cy="6" r="2" />
+          <circle cx="19" cy="6" r="2" />
+          <circle cx="12" cy="18" r="2" />
+          <path d="M7 6h10M6.5 7.5 11 16.5M17.5 7.5 13 16.5" />
+        </svg>
+      );
+    case "feed":
+      return (
+        <svg {...p}>
+          <path d="M4 11a9 9 0 0 1 9 9" />
+          <path d="M4 4a16 16 0 0 1 16 16" />
+          <circle cx="5" cy="19" r="1.5" fill={stroke} />
+        </svg>
+      );
+    case "send":
+      return (
+        <svg {...p}>
+          <path d="M4 12l16-8-6 18-3-7-7-3z" />
+        </svg>
+      );
+    case "play":
+      return (
+        <svg {...p}>
+          <path d="M7 4l13 8-13 8z" fill={stroke} stroke="none" />
+        </svg>
+      );
+    case "arrow":
+      return (
+        <svg {...p}>
+          <path d="M5 12h14M13 6l6 6-6 6" />
+        </svg>
+      );
+    case "plus":
+      return (
+        <svg {...p}>
+          <path d="M12 5v14M5 12h14" />
+        </svg>
+      );
+    case "dots":
+      return (
+        <svg {...p}>
+          <circle cx="5" cy="12" r="1" fill={stroke} />
+          <circle cx="12" cy="12" r="1" fill={stroke} />
+          <circle cx="19" cy="12" r="1" fill={stroke} />
+        </svg>
+      );
+    case "check":
+      return (
+        <svg {...p}>
+          <path d="M5 13l4 4 10-10" />
+        </svg>
+      );
+    case "spark":
+      return (
+        <svg {...p}>
+          <path d="M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M5.6 18.4l2.8-2.8M15.6 8.4l2.8-2.8" />
+        </svg>
+      );
+    case "doc":
+      return (
+        <svg {...p}>
+          <path d="M7 3h8l4 4v14H7z" />
+          <path d="M14 3v5h5M10 13h7M10 17h5" />
+        </svg>
+      );
+    case "mail":
+      return (
+        <svg {...p}>
+          <rect x="3" y="6" width="18" height="13" rx="1.5" />
+          <path d="M3 7l9 7 9-7" />
+        </svg>
+      );
+    case "git":
+      return (
+        <svg {...p}>
+          <circle cx="6" cy="6" r="2" />
+          <circle cx="6" cy="18" r="2" />
+          <circle cx="18" cy="13" r="2" />
+          <path d="M6 8v8M8 6h6a4 4 0 0 1 4 4v1" />
+        </svg>
+      );
+    case "table":
+      return (
+        <svg {...p}>
+          <rect x="3" y="5" width="18" height="14" rx="1.5" />
+          <path d="M3 10h18M9 10v9" />
+        </svg>
+      );
+    case "clock":
+      return (
+        <svg {...p}>
+          <circle cx="12" cy="12" r="9" />
+          <path d="M12 7v5l3 2" />
+        </svg>
+      );
+    case "search":
+      return (
+        <svg {...p}>
+          <circle cx="11" cy="11" r="7" />
+          <path d="m20 20-3.5-3.5" />
+        </svg>
+      );
+    case "settings":
+      return (
+        <svg {...p}>
+          <circle cx="12" cy="12" r="3" />
+          <path d="M19 12a7 7 0 0 0-.2-1.6l2-1.5-2-3.4-2.4.9a7 7 0 0 0-2.7-1.6L13.2 2h-2.4l-.5 2.8a7 7 0 0 0-2.7 1.6L5.2 5.5l-2 3.4 2 1.5A7 7 0 0 0 5 12c0 .5.1 1.1.2 1.6l-2 1.5 2 3.4 2.4-.9a7 7 0 0 0 2.7 1.6l.5 2.8h2.4l.5-2.8a7 7 0 0 0 2.7-1.6l2.4.9 2-3.4-2-1.5c.1-.5.2-1.1.2-1.6z" />
+        </svg>
+      );
+    default:
+      return <svg {...p} />;
+  }
 }

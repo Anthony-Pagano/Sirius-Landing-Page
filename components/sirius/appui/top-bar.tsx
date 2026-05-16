@@ -2,6 +2,16 @@ import { AppPill } from "./app-pill";
 import type { AppPillTone } from "./app-pill";
 import { AppIcon } from "./app-icon";
 
+/**
+ * TopBar — faithful static port of the app's workflow-detail top bar.
+ *
+ * Matches app workflows/[name]/page.tsx header section exactly:
+ * - padding: "24px 48px 20px", borderBottom
+ * - breadcrumb: gap 8, fontSize 12.5, mb 12
+ * - h1: font-title 38px letterSpacing -0.005em lineHeight 1.1
+ * - meta row: mt 10, gap 14, Pill + trigger (clock icon + label) + runsMeta
+ * - Run now button: primary md h-9 px-3 rounded-[8px] 13px
+ */
 export function TopBar({
   breadcrumb,
   title,
@@ -9,7 +19,6 @@ export function TopBar({
   statusLabel,
   trigger,
   runsMeta,
-  compact = false,
 }: {
   breadcrumb: string;
   title: string;
@@ -17,79 +26,120 @@ export function TopBar({
   statusLabel: string;
   trigger: string;
   runsMeta: string;
-  compact?: boolean;
 }) {
   return (
     <div
-      className={[
-        "flex items-end justify-between gap-4",
-        compact ? "px-4 py-3" : "px-5 py-3.5",
-      ].join(" ")}
-      style={{ borderBottom: "1px solid var(--color-border)" }}
+      style={{
+        flexShrink: 0,
+        padding: "24px 48px 20px",
+        borderBottom: "1px solid var(--color-border)",
+      }}
     >
-      {/* Left column */}
-      <div className="min-w-0 flex-1">
-        {/* Breadcrumb */}
-        <div className="flex items-center gap-1.5 text-[11px] mb-1.5">
-          <span
-            className="font-medium"
-            style={{ color: "var(--color-ink-3)" }}
-          >
-            Workflows
-          </span>
-          <span style={{ color: "var(--color-ink-4)" }}>/</span>
-          <span
-            className="font-medium truncate"
-            style={{ color: "var(--color-ink-2)" }}
-          >
-            {breadcrumb}
-          </span>
-        </div>
-
-        {/* Title */}
-        <h2
-          className={[compact ? "text-[18px]" : "text-[22px]", "leading-[1.1]"].join(" ")}
-          style={{
-            color: "var(--color-ink-1)",
-            fontFamily: "var(--font-display)",
-            fontWeight: 400,
-            letterSpacing: "-0.005em",
-          }}
-        >
-          {title}
-        </h2>
-
-        {/* Meta row */}
-        <div className="flex items-center gap-3 flex-wrap mt-2">
-          <AppPill tone={tone} label={statusLabel} />
-          <span
-            className="flex items-center gap-1.5 text-[11px] font-medium"
-            style={{ color: "var(--color-ink-3)" }}
-          >
-            <AppIcon name="clock" size={11} />
-            {trigger}
-          </span>
-          <span
-            className="text-[11px] font-medium tabular-nums"
-            style={{ color: "var(--color-ink-3)" }}
-          >
-            {runsMeta}
-          </span>
-        </div>
-      </div>
-
-      {/* Right: Run now button */}
-      <button
-        type="button"
-        className="inline-flex items-center gap-1.5 h-8 px-3 rounded-[8px] text-[12px] font-medium shrink-0"
+      {/* Breadcrumb row */}
+      <div
         style={{
-          background: "var(--color-accent)",
-          color: "var(--color-bg)",
+          display: "flex",
+          alignItems: "center",
+          gap: 8,
+          marginBottom: 12,
+          fontSize: 12.5,
+          fontFamily: "var(--font-sans)",
         }}
       >
-        <AppIcon name="play" size={11} />
-        Run now
-      </button>
+        <span style={{ color: "var(--color-ink-3)", fontWeight: 500 }}>Workflows</span>
+        <span style={{ color: "var(--color-ink-4)" }}>/</span>
+        <span style={{ color: "var(--color-ink-2)", fontWeight: 500 }}>{breadcrumb}</span>
+      </div>
+
+      {/* Title + actions row */}
+      <div
+        style={{
+          display: "flex",
+          alignItems: "flex-end",
+          justifyContent: "space-between",
+          gap: 24,
+          flexWrap: "wrap",
+        }}
+      >
+        <div style={{ minWidth: 0, flex: 1 }}>
+          {/* Title — Fraunces 38, matches app h1 exactly */}
+          <h1
+            style={{
+              margin: 0,
+              fontFamily: "var(--font-title)",
+              fontWeight: 400,
+              fontStyle: "normal",
+              fontSize: 38,
+              color: "var(--color-ink-1)",
+              letterSpacing: "-0.005em",
+              lineHeight: 1.1,
+            }}
+          >
+            {title}
+          </h1>
+
+          {/* Meta row */}
+          <div
+            style={{
+              marginTop: 10,
+              display: "flex",
+              alignItems: "center",
+              gap: 14,
+              flexWrap: "wrap",
+            }}
+          >
+            <AppPill tone={tone} label={statusLabel} />
+            <span
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 6,
+                fontSize: 12.5,
+                fontFamily: "var(--font-sans)",
+                color: "var(--color-ink-3)",
+                fontWeight: 500,
+              }}
+            >
+              <AppIcon name="clock" size={12} />
+              {trigger}
+            </span>
+            <span
+              style={{
+                fontSize: 12.5,
+                fontFamily: "var(--font-sans)",
+                color: "var(--color-ink-3)",
+                fontWeight: 500,
+                fontVariantNumeric: "tabular-nums",
+              }}
+            >
+              {runsMeta}
+            </span>
+          </div>
+        </div>
+
+        {/* Run now button — app primary md: h-9 px-3 rounded-[8px] text-[13px] */}
+        <div
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: 8,
+            height: 36,
+            paddingLeft: 12,
+            paddingRight: 12,
+            borderRadius: 8,
+            fontSize: 13,
+            fontFamily: "var(--font-sans)",
+            fontWeight: 500,
+            background: "var(--color-accent)",
+            color: "var(--color-bg)",
+            flexShrink: 0,
+          }}
+        >
+          <AppIcon name="play" size={12} stroke="currentColor" />
+          Run now
+        </div>
+      </div>
     </div>
   );
 }

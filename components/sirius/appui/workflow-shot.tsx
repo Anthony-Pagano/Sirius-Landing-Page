@@ -1,5 +1,4 @@
 import type { AppPillTone } from "./app-pill";
-import type { AppIconName } from "./app-icon";
 import { Rail } from "./rail";
 import { TopBar } from "./top-bar";
 import { DagMini } from "./dag-mini";
@@ -8,8 +7,13 @@ import { ChatPane } from "./chat-pane";
 import type { ChatMsg } from "./chat-pane";
 import { RecentRuns } from "./recent-runs";
 
+const DEFAULT_RUNS: { tone: AppPillTone; label: string; when: string; dur: string }[] = [
+  { tone: "done", label: "Done", when: "2h ago", dur: "1m 04s" },
+  { tone: "done", label: "Done", when: "1d ago", dur: "58s" },
+  { tone: "failed", label: "Failed", when: "3d ago", dur: "12s" },
+];
+
 export type WorkflowShotProps = {
-  variant: "full" | "compact";
   breadcrumb: string;
   title: string;
   tone: AppPillTone;
@@ -20,97 +24,101 @@ export type WorkflowShotProps = {
   messages: ChatMsg[];
   chatHeader?: string;
   recentRuns?: { tone: AppPillTone; label: string; when: string; dur: string }[];
-  railActive?: AppIconName;
+  railActive?: string;
 };
 
-export function WorkflowShot(props: WorkflowShotProps) {
-  if (props.variant === "full") {
-    return (
-      <div
-        className="flex h-full w-full"
-        style={{
-          background: "var(--color-bg)",
-          fontFamily: "var(--font-sans)",
-          color: "var(--color-ink-1)",
-        }}
-      >
-        <Rail active={props.railActive ?? "flows"} />
-        <div className="flex-1 min-w-0 flex flex-col">
-          <TopBar
-            breadcrumb={props.breadcrumb}
-            title={props.title}
-            tone={props.tone}
-            statusLabel={props.statusLabel}
-            trigger={props.trigger}
-            runsMeta={props.runsMeta}
-          />
-          <main
-            className="flex-1 min-h-0 grid gap-3 p-3"
-            style={{ gridTemplateColumns: "minmax(0,1fr) minmax(0,300px)" }}
-          >
-            {/* DAG pane */}
-            <div
-              className="rounded-[12px] p-4 overflow-hidden flex items-center"
-              style={{
-                background: "var(--color-surface-deep)",
-                border: "1px solid var(--color-border)",
-              }}
-            >
-              <DagMini steps={props.steps} />
-            </div>
-            {/* Chat pane */}
-            <ChatPane
-              header={props.chatHeader}
-              messages={props.messages}
-            />
-          </main>
-          {props.recentRuns && (
-            <RecentRuns runs={props.recentRuns} />
-          )}
-        </div>
-      </div>
-    );
-  }
-
-  // compact variant
+/**
+ * WorkflowShot — always renders the full workflow-detail workspace at 1360×850.
+ *
+ * Matches app workflows/[name]/page.tsx layout exactly:
+ * - outer: flex, 1360×850, bg, font-sans
+ * - Rail (72px)
+ * - flex-1 flex-col: TopBar | main grid | RecentRuns footer
+ * - main grid: gridTemplateColumns "minmax(0,1fr) minmax(400px,520px)", gap 20, p 20px 48px
+ * - left DAG pane: rounded-12 surface-1 border flex items-center justify-center
+ * - right: ChatPane
+ * - footer: RecentRuns (always shown)
+ *
+ * No variant/compact — ONE faithful full-size rendering, uniformly scaled by ScaledShot.
+ */
+export function WorkflowShot({
+  breadcrumb,
+  title,
+  tone,
+  statusLabel,
+  trigger,
+  runsMeta,
+  steps,
+  messages,
+  chatHeader,
+  recentRuns,
+  railActive,
+}: WorkflowShotProps) {
   return (
     <div
-      className="flex h-full w-full"
       style={{
+        display: "flex",
+        width: 1360,
+        height: 850,
         background: "var(--color-bg)",
         fontFamily: "var(--font-sans)",
         color: "var(--color-ink-1)",
+        overflow: "hidden",
       }}
     >
-      <div className="flex-1 min-w-0 flex flex-col">
+      <Rail active={railActive ?? "flows"} />
+
+      <div
+        style={{
+          flex: 1,
+          minWidth: 0,
+          display: "flex",
+          flexDirection: "column",
+          overflow: "hidden",
+        }}
+      >
         <TopBar
-          breadcrumb={props.breadcrumb}
-          title={props.title}
-          tone={props.tone}
-          statusLabel={props.statusLabel}
-          trigger={props.trigger}
-          runsMeta={props.runsMeta}
-          compact
+          breadcrumb={breadcrumb}
+          title={title}
+          tone={tone}
+          statusLabel={statusLabel}
+          trigger={trigger}
+          runsMeta={runsMeta}
         />
-        <div className="flex-1 min-h-0 flex flex-col gap-3 p-3">
-          {/* DAG pane */}
+
+        {/* Two-pane main — matches app exactly */}
+        <main
+          style={{
+            flex: 1,
+            minHeight: 0,
+            display: "grid",
+            gridTemplateColumns: "minmax(0, 1fr) minmax(400px, 520px)",
+            gap: 20,
+            padding: "20px 48px 20px",
+            overflow: "hidden",
+          }}
+        >
+          {/* Left: DAG pane */}
           <div
-            className="rounded-[12px] p-3 overflow-hidden shrink-0"
             style={{
-              background: "var(--color-surface-deep)",
+              borderRadius: 12,
+              overflow: "hidden",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              background: "var(--color-surface-1)",
               border: "1px solid var(--color-border)",
             }}
           >
-            <DagMini steps={props.steps} />
+            <DagMini steps={steps} />
           </div>
-          {/* Chat pane */}
-          <div className="flex-1 min-h-0">
-            <ChatPane
-              header={props.chatHeader}
-              messages={props.messages}
-            />
-          </div>
-        </div>
+
+          {/* Right: Chat pane */}
+          <ChatPane header={chatHeader} messages={messages} />
+        </main>
+
+        {/* Recent runs footer — always shown */}
+        <RecentRuns runs={recentRuns ?? DEFAULT_RUNS} />
       </div>
     </div>
   );

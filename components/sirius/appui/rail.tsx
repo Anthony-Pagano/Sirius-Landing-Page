@@ -1,81 +1,139 @@
 import { OrbGlyph } from "./orb-glyph";
-import { AppIcon, AppIconName } from "./app-icon";
+import { AppIcon } from "./app-icon";
+import type { AppIconName } from "./app-icon";
 
-const NAV_ITEMS: AppIconName[] = ["work", "flows", "feed", "voice"];
+/**
+ * Rail — matches app Rail.tsx exactly.
+ * 72px wide, surface-deep bg, borderRight, orb logo at top,
+ * nav buttons 52×52 rounded-r-[10px], active = cyan + left bar with glow.
+ */
 
-export function Rail({ active = "flows" }: { active?: AppIconName }) {
+type NavItem = { id: string; icon: AppIconName; label: string };
+
+const ITEMS: NavItem[] = [
+  { id: "work",      icon: "work",     label: "Work" },
+  { id: "workflows", icon: "flows",    label: "Workflows" },
+  { id: "feed",      icon: "feed",     label: "Feed" },
+];
+
+const FOOTER_ITEMS: NavItem[] = [
+  { id: "settings", icon: "settings", label: "Settings" },
+];
+
+export function Rail({ active = "flows" }: { active?: string }) {
+  const homeActive = active === "voice";
+
   return (
     <nav
-      className="relative flex h-full w-[60px] shrink-0 flex-col items-stretch py-4"
+      aria-label="Primary"
       style={{
+        width: 72,
+        flexShrink: 0,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "stretch",
+        paddingTop: 20,
+        paddingBottom: 20,
         background: "var(--color-surface-deep)",
         borderRight: "1px solid var(--color-border)",
+        height: "100%",
       }}
     >
-      {/* Logo orb */}
-      <div className="flex justify-center mb-5">
-        <OrbGlyph size={26} hue="cool" />
-      </div>
+      {/* Spacer top — logo+nav group is vertically centered */}
+      <div style={{ flex: 1 }} />
 
-      {/* Primary nav icons */}
-      <div className="flex flex-col gap-1.5">
-        {NAV_ITEMS.map((name) => {
-          const isActive = name === active;
-          return (
-            <div key={name} className="relative mx-auto">
-              {isActive && (
-                <span
-                  className="absolute left-0 top-[10px] bottom-[10px] w-[2px] rounded-[2px]"
-                  style={{
-                    background: "var(--color-state-listening-strong)",
-                    boxShadow: "0 0 10px rgba(108,216,255,0.55)",
-                  }}
-                  aria-hidden
-                />
-              )}
-              <button
-                type="button"
-                className={[
-                  "relative flex h-[44px] w-[44px] items-center justify-center rounded-r-[10px]",
-                  isActive
-                    ? "text-[var(--color-state-listening-strong)]"
-                    : "text-[var(--color-ink-3)]",
-                ].join(" ")}
-              >
-                <AppIcon name={name} size={18} />
-              </button>
-            </div>
-          );
-        })}
-      </div>
-
-      {/* Spacer */}
-      <div className="flex-1" />
-
-      {/* Settings at bottom */}
-      <div className="relative mx-auto">
-        {active === "settings" && (
-          <span
-            className="absolute left-0 top-[10px] bottom-[10px] w-[2px] rounded-[2px]"
+      {/* Logo orb (home) */}
+      <div style={{ display: "flex", flexDirection: "column", gap: 6, alignItems: "stretch" }}>
+        <div style={{ position: "relative", display: "flex", justifyContent: "center" }}>
+          <div
             style={{
-              background: "var(--color-state-listening-strong)",
-              boxShadow: "0 0 10px rgba(108,216,255,0.55)",
+              position: "relative",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              width: 52,
+              height: 52,
+              borderRadius: "0 10px 10px 0",
             }}
-            aria-hidden
-          />
-        )}
-        <button
-          type="button"
-          className={[
-            "relative flex h-[44px] w-[44px] items-center justify-center rounded-r-[10px]",
-            active === "settings"
-              ? "text-[var(--color-state-listening-strong)]"
-              : "text-[var(--color-ink-3)]",
-          ].join(" ")}
-        >
-          <AppIcon name="settings" size={18} />
-        </button>
+          >
+            <OrbGlyph size={32} hue="cool" />
+            {homeActive && (
+              <span
+                aria-hidden
+                style={{
+                  position: "absolute",
+                  left: 0,
+                  top: 10,
+                  bottom: 10,
+                  width: 2,
+                  borderRadius: 2,
+                  background: "var(--color-state-listening-strong)",
+                  boxShadow: "0 0 10px rgba(108,216,255,0.55)",
+                }}
+              />
+            )}
+          </div>
+        </div>
+
+        {/* Primary nav */}
+        <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 6, width: "100%" }}>
+          {ITEMS.map((item) => (
+            <li key={item.id}>
+              <RailButton item={item} active={active === item.id} />
+            </li>
+          ))}
+        </ul>
       </div>
+
+      {/* Spacer bottom */}
+      <div style={{ flex: 1 }} />
+
+      {/* Footer (settings) */}
+      <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 6, width: "100%" }}>
+        {FOOTER_ITEMS.map((item) => (
+          <li key={item.id}>
+            <RailButton item={item} active={active === item.id} />
+          </li>
+        ))}
+      </ul>
     </nav>
+  );
+}
+
+function RailButton({ item, active }: { item: NavItem; active: boolean }) {
+  return (
+    <div
+      style={{
+        position: "relative",
+        marginLeft: 6,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        width: 52,
+        height: 52,
+        borderRadius: "0 10px 10px 0",
+        color: active
+          ? "var(--color-state-listening-strong)"
+          : "var(--color-ink-3)",
+      }}
+      title={item.label}
+    >
+      <AppIcon name={item.icon} size={18} />
+      {active && (
+        <span
+          aria-hidden
+          style={{
+            position: "absolute",
+            left: 0,
+            top: 10,
+            bottom: 10,
+            width: 2,
+            borderRadius: 2,
+            background: "var(--color-state-listening-strong)",
+            boxShadow: "0 0 10px rgba(108,216,255,0.55)",
+          }}
+        />
+      )}
+    </div>
   );
 }

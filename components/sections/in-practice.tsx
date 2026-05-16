@@ -6,7 +6,7 @@ import { landingContent } from "@/content/landing";
 import { Container } from "@/components/ui/container";
 import { SectionLabel } from "@/components/ui/section-label";
 import { ScreenshotFrame } from "@/components/ui/screenshot-frame";
-import { WorkflowShot } from "@/components/sirius/appui";
+import { WorkflowShot, ScaledShot } from "@/components/sirius/appui";
 import type { WorkflowShotProps } from "@/components/sirius/appui";
 
 // ─── Per-vignette screenshot metadata ────────────────────────────────────────
@@ -22,7 +22,6 @@ const SCREENSHOT_META: Record<string, { alt: string; caption: string }> = {
 
 const SHOT_BY_ID: Record<string, WorkflowShotProps> = {
   design: {
-    variant: "compact",
     breadcrumb: "Client feedback",
     title: "Client feedback",
     tone: "running",
@@ -30,18 +29,22 @@ const SHOT_BY_ID: Record<string, WorkflowShotProps> = {
     trigger: "Per inbound",
     runsMeta: "23 runs",
     steps: [
-      { type: "READ", title: "Read the comments", state: "done" },
-      { type: "SORT", title: "Sort by section", state: "done" },
-      { type: "DRAFT", title: "Draft the routine replies", state: "done" },
-      { type: "FLAG", title: "Flag scope changes", state: "running" },
+      { id: "read",  type: "READ",  title: "Read the comments",        col: 0, next: ["sort"],  state: "done" },
+      { id: "sort",  type: "SORT",  title: "Sort by section",          col: 1, next: ["draft"], state: "done" },
+      { id: "draft", type: "DRAFT", title: "Draft the routine replies", col: 2, next: ["flag"],  state: "done" },
+      { id: "flag",  type: "FLAG",  title: "Flag scope changes",       col: 3, next: [],         state: "running" },
     ],
     messages: [
-      { role: "user", text: "Sirius, what came in from the client?" },
+      { role: "user",      text: "Sirius, what came in from the client?" },
       { role: "assistant", text: "Sorted 6 comments by section. Drafted replies to the 4 routine ones; 2 change scope — flagged for you." },
+    ],
+    recentRuns: [
+      { tone: "done",    label: "Done",    when: "1h ago",  dur: "42s" },
+      { tone: "done",    label: "Done",    when: "3h ago",  dur: "38s" },
+      { tone: "running", label: "Running", when: "5m ago",  dur: "—" },
     ],
   },
   engineering: {
-    variant: "compact",
     breadcrumb: "Standup digest",
     title: "Standup digest",
     tone: "running",
@@ -49,18 +52,21 @@ const SHOT_BY_ID: Record<string, WorkflowShotProps> = {
     trigger: "Mon 09:00",
     runsMeta: "48 runs",
     steps: [
-      { type: "PULL", title: "Pull PRs + threads", state: "done" },
-      { type: "MERGE", title: "Merge by area", state: "done" },
-      { type: "SUMMARISE", title: "Summarise blockers", state: "done" },
-      { type: "POST", title: "Post the digest", state: "running" },
+      { id: "pull",      type: "PULL",      title: "Pull PRs + threads",  col: 0, next: ["merge"],     state: "done" },
+      { id: "merge",     type: "MERGE",     title: "Merge by area",       col: 1, next: ["summarise"], state: "done" },
+      { id: "summarise", type: "SUMMARISE", title: "Summarise blockers",  col: 2, next: ["post"],      state: "done" },
+      { id: "post",      type: "POST",      title: "Post the digest",     col: 3, next: [],             state: "running" },
     ],
     messages: [
-      { role: "user", text: "Sirius, what's standup looking like?" },
+      { role: "user",      text: "Sirius, what's standup looking like?" },
       { role: "assistant", text: "Pulled 9 PRs and 3 threads. Digest is posted — two blockers are pinned at the top." },
+    ],
+    recentRuns: [
+      { tone: "done", label: "Done", when: "Mon 09:01", dur: "1m 12s" },
+      { tone: "done", label: "Done", when: "Fri 09:01", dur: "58s" },
     ],
   },
   meeting: {
-    variant: "compact",
     breadcrumb: "Meeting brief",
     title: "Meeting brief",
     tone: "done",
@@ -68,18 +74,22 @@ const SHOT_BY_ID: Record<string, WorkflowShotProps> = {
     trigger: "Per meeting",
     runsMeta: "96 runs",
     steps: [
-      { type: "WATCH", title: "Watch the calendar", state: "done" },
-      { type: "GATHER", title: "Gather the thread", state: "done" },
-      { type: "BRIEF", title: "Write the brief", state: "done" },
-      { type: "LAND", title: "Land it in inbox", state: "done" },
+      { id: "watch",  type: "WATCH",  title: "Watch the calendar", col: 0, next: ["gather"], state: "done" },
+      { id: "gather", type: "GATHER", title: "Gather the thread",  col: 1, next: ["brief"],  state: "done" },
+      { id: "brief",  type: "BRIEF",  title: "Write the brief",    col: 2, next: ["land"],   state: "done" },
+      { id: "land",   type: "LAND",   title: "Land it in inbox",   col: 3, next: [],          state: "done" },
     ],
     messages: [
-      { role: "user", text: "Sirius, what's the 14:00?" },
+      { role: "user",      text: "Sirius, what's the 14:00?" },
       { role: "assistant", text: "Brief's in your inbox: latest thread, open tasks, and the last three decisions with this account." },
+    ],
+    recentRuns: [
+      { tone: "done", label: "Done", when: "1h ago",  dur: "28s" },
+      { tone: "done", label: "Done", when: "3h ago",  dur: "31s" },
+      { tone: "done", label: "Done", when: "1d ago",  dur: "25s" },
     ],
   },
   research: {
-    variant: "compact",
     breadcrumb: "Research digest",
     title: "Research digest",
     tone: "running",
@@ -87,14 +97,18 @@ const SHOT_BY_ID: Record<string, WorkflowShotProps> = {
     trigger: "Daily 07:00",
     runsMeta: "140 runs",
     steps: [
-      { type: "SUBSCRIBE", title: "Watch the sources", state: "done" },
-      { type: "FILTER", title: "Filter to signal", state: "done" },
-      { type: "COMPARE", title: "Compare the conflicts", state: "running" },
-      { type: "DIGEST", title: "Write the digest", state: "idle" },
+      { id: "subscribe", type: "SUBSCRIBE", title: "Watch the sources",   col: 0, next: ["filter"],  state: "done" },
+      { id: "filter",    type: "FILTER",    title: "Filter to signal",    col: 1, next: ["compare"], state: "done" },
+      { id: "compare",   type: "COMPARE",   title: "Compare the conflicts", col: 2, next: ["digest"], state: "running" },
+      { id: "digest",    type: "DIGEST",    title: "Write the digest",    col: 3, next: [],           state: "idle" },
     ],
     messages: [
-      { role: "user", text: "Sirius, what's worth knowing this morning?" },
+      { role: "user",      text: "Sirius, what's worth knowing this morning?" },
       { role: "assistant", text: "Filtered 40 items to 6. Two contradict last week's read — comparing now, digest lands in ~2 min." },
+    ],
+    recentRuns: [
+      { tone: "done", label: "Done", when: "07:01 today", dur: "1m 48s" },
+      { tone: "done", label: "Done", when: "07:01 yday",  dur: "1m 52s" },
     ],
   },
 };
@@ -369,7 +383,9 @@ function PracticeCard({ card, total }: { card: CardData; total: number }) {
               className="mb-6"
             >
               {SHOT_BY_ID[card.id] && (
-                <WorkflowShot {...SHOT_BY_ID[card.id]} />
+                <ScaledShot width={1360} height={850}>
+                  <WorkflowShot {...SHOT_BY_ID[card.id]} />
+                </ScaledShot>
               )}
             </ScreenshotFrame>
           )}

@@ -1,3 +1,4 @@
+export { ScaledShot } from "./scaled-shot";
 export { OrbGlyph } from "./orb-glyph";
 export { AppPill } from "./app-pill";
 export type { AppPillTone } from "./app-pill";

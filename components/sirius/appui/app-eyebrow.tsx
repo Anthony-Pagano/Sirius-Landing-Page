@@ -1,11 +1,9 @@
 import React from "react";
 
-const EYEBROW_COLORS: Record<"warm" | "cyan" | "dim", string> = {
-  warm: "var(--color-accent)",
-  cyan: "var(--color-state-listening)",
-  dim: "var(--color-ink-3)",
-};
-
+/**
+ * AppEyebrow — matches app Eyebrow.tsx exactly.
+ * fontSize 10.5, letterSpacing 2, fontWeight 600, uppercase.
+ */
 export function AppEyebrow({
   children,
   accent = "warm",
@@ -13,12 +11,22 @@ export function AppEyebrow({
   children: React.ReactNode;
   accent?: "warm" | "cyan" | "dim";
 }) {
+  const color =
+    accent === "warm"
+      ? "var(--color-accent)"
+      : accent === "cyan"
+      ? "var(--color-state-listening)"
+      : "var(--color-ink-3)";
+
   return (
     <span
-      className="text-[10.5px] font-semibold uppercase"
       style={{
-        letterSpacing: "0.16em",
-        color: EYEBROW_COLORS[accent],
+        fontSize: 10.5,
+        fontFamily: "var(--font-sans)",
+        letterSpacing: 2,
+        fontWeight: 600,
+        color,
+        textTransform: "uppercase",
       }}
     >
       {children}
