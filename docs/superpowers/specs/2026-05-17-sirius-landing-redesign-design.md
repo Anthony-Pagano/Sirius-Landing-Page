@@ -100,10 +100,11 @@ Composition (top→bottom): eyebrow → **mic-reactive orb** + privacy microcopy
 
 ### Mic-reactive orb
 Reuse `components/sirius/orb.tsx` + `orb-audio-context.tsx`.
-- Default: ambient pulse on a synthetic signal (never dead).
+- **App-parity pulse & colour (required):** the hero orb must pulse and drift colour like the orb in the shipped Sirius app, not sit still. Port the app Orb's exact breathing formula — a continuous wrapper-scale `scale = (1 + smoothedAmplitude·scaleAmp) · (1 + sin(t·0.9)·0.012 + sin(t·1.7+1.2)·0.006)` where `t = performance.now()·0.001`, `smoothedAmplitude` lerps the mic amplitude at `0.18`/frame, and `scaleAmp = 0.16` while listening else `0.08`. Colour drift comes from the existing landing renderer (intensity ramp + audio-centroid warm/cool bias); listening amplifies the pulse and biases cooler/cyan. This is a `pulse` capability added to the landing `Orb` component.
+- Default (no mic): the breathing pulse still runs on ambient (amplitude 0) so the orb is never visually dead.
 - Inline "Talk to it" affordance → `getUserMedia({audio:true})` → Web Audio `AnalyserNode`. RMS amplitude → orb scale; spectral centroid → hue **within the cyan band only**. No recording; nothing leaves the browser; microcopy states this.
-- Denied / unsupported / `prefers-reduced-motion` → stay ambient, prompt hidden.
-- Cleanup on unmount: stop tracks, `AudioContext.close()`.
+- Denied / unsupported / `prefers-reduced-motion` → stay ambient (pulse frozen at `scale(1)`), prompt hidden.
+- Cleanup on unmount: stop tracks, `AudioContext.close()`, cancel the pulse rAF.
 
 ### `CapabilityDemo` (new, `components/sirius/capability-demo.tsx`)
 - Ordered scenes `[Voice, Chat, Feed, Schedule, Workflow]`. Each scene is a thin wrapper around an **existing** app mock (candidates: `appui/chat-pane`, `appui/recent-runs`, `appui/workflow-shot`, `sirius/research-briefing-mock`, `sirius/standup-channel-mock`, `sirius/outreach-inbox-mock`). Exact component-per-scene finalized in implementation against what each mock actually renders; constraint: existing mocks only.
