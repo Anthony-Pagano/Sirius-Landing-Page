@@ -1,4 +1,4 @@
-import { OrbGlyph } from "./orb-glyph";
+import { Orb } from "@/components/sirius/orb";
 import { AppEyebrow } from "./app-eyebrow";
 import { AppIcon } from "./app-icon";
 
@@ -15,8 +15,8 @@ export type ChatMsg = {
  * - header: padding 12px 18px, borderBottom, eyebrow left + dim subtitle right
  * - messages: flex-1, gap 14px, padding 8px 12px
  *   - user: row-reverse, 24px avatar "Y", bubble #4A331A rounded-14 p-[12px_16px] 14px 1.55
- *   - assistant: flex gap-3, OrbGlyph 22px, prose 65% 14.5px 1.6
- * - composer: gap 10, pt-12, borderTop; OrbGlyph 44px, faux textarea, Send button
+ *   - assistant: flex gap-3, Orb 22px, prose 65% 14.5px 1.6
+ * - composer: gap 10, pt-12, borderTop; Orb 44px, faux textarea, Send button
  */
 export function ChatPane({
   header = "Chat with this workflow",
@@ -136,7 +136,7 @@ export function ChatPane({
               </div>
             </div>
           ) : (
-            /* Assistant: flex gap-3, OrbGlyph 22, prose 65% */
+            /* Assistant: flex gap-3, Orb 22, prose 65% */
             <div
               key={i}
               style={{
@@ -146,7 +146,9 @@ export function ChatPane({
               }}
             >
               <div style={{ flexShrink: 0, paddingTop: 2 }}>
-                <OrbGlyph size={22} hue="cool" />
+                <div style={{ width: 22, height: 22, borderRadius: 9999, overflow: "hidden", flexShrink: 0 }}>
+                  <Orb className="!h-full !w-full" staticRender />
+                </div>
               </div>
               <p
                 style={{
@@ -192,7 +194,9 @@ export function ChatPane({
             justifyContent: "center",
           }}
         >
-          <OrbGlyph size={44} hue="cool" />
+          <div style={{ width: 44, height: 44, borderRadius: 9999, overflow: "hidden", flexShrink: 0 }}>
+            <Orb className="!h-full !w-full" staticRender />
+          </div>
         </div>
 
         {/* Faux textarea — h-[44px] rounded-[10px] px-[12px] py-[11px] text-[14px] */}

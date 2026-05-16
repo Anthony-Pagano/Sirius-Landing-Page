@@ -164,10 +164,10 @@ export function HeroSection() {
                   runsMeta="12 runs · last 2h ago"
                   railActive="flows"
                   steps={[
-                    { id: "read",   type: "READ",   title: "Pull this week’s thread", col: 0, next: ["draft"],  state: "done" },
-                    { id: "draft",  type: "DRAFT",  title: "Draft the update",        col: 1, next: ["review"], state: "done" },
-                    { id: "review", type: "REVIEW", title: "Confirm the figure",      col: 2, next: ["send"],   state: "gated" },
-                    { id: "send",   type: "SEND",   title: "Send to the client",      col: 3, next: [],         state: "idle" },
+                    { id: "read",   type: "GMAIL",      title: "Pull this week’s thread", col: 0, next: ["draft"],  state: "done" },
+                    { id: "draft",  type: "LLM",        title: "Draft the update",        col: 1, next: ["review"], state: "done" },
+                    { id: "review", type: "APPROVAL",   title: "Confirm the figure",      col: 2, next: ["send"],   state: "gated" },
+                    { id: "send",   type: "SEND EMAIL", title: "Send to the client",      col: 3, next: [],         state: "idle" },
                   ]}
                   chatHeader="Chat with this workflow"
                   messages={[

@@ -29,10 +29,10 @@ const SHOT_BY_ID: Record<string, WorkflowShotProps> = {
     trigger: "Per inbound",
     runsMeta: "23 runs",
     steps: [
-      { id: "read",  type: "READ",  title: "Read the comments",        col: 0, next: ["sort"],  state: "done" },
-      { id: "sort",  type: "SORT",  title: "Sort by section",          col: 1, next: ["draft"], state: "done" },
-      { id: "draft", type: "DRAFT", title: "Draft the routine replies", col: 2, next: ["flag"],  state: "done" },
-      { id: "flag",  type: "FLAG",  title: "Flag scope changes",       col: 3, next: [],         state: "running" },
+      { id: "read",  type: "GMAIL", title: "Read the comments",        col: 0, next: ["sort"],  state: "done" },
+      { id: "sort",  type: "LLM",   title: "Sort by section",          col: 1, next: ["draft"], state: "done" },
+      { id: "draft", type: "LLM",   title: "Draft the routine replies", col: 2, next: ["flag"],  state: "done" },
+      { id: "flag",  type: "SLACK", title: "Flag scope changes",       col: 3, next: [],         state: "running" },
     ],
     messages: [
       { role: "user",      text: "Sirius, what came in from the client?" },
@@ -52,10 +52,10 @@ const SHOT_BY_ID: Record<string, WorkflowShotProps> = {
     trigger: "Mon 09:00",
     runsMeta: "48 runs",
     steps: [
-      { id: "pull",      type: "PULL",      title: "Pull PRs + threads",  col: 0, next: ["merge"],     state: "done" },
-      { id: "merge",     type: "MERGE",     title: "Merge by area",       col: 1, next: ["summarise"], state: "done" },
-      { id: "summarise", type: "SUMMARISE", title: "Summarise blockers",  col: 2, next: ["post"],      state: "done" },
-      { id: "post",      type: "POST",      title: "Post the digest",     col: 3, next: [],             state: "running" },
+      { id: "pull",      type: "GITHUB",     title: "Pull PRs + threads",  col: 0, next: ["merge"],     state: "done" },
+      { id: "merge",     type: "RUN PYTHON", title: "Merge by area",       col: 1, next: ["summarise"], state: "done" },
+      { id: "summarise", type: "LLM",        title: "Summarise blockers",  col: 2, next: ["post"],      state: "done" },
+      { id: "post",      type: "SLACK",      title: "Post the digest",     col: 3, next: [],             state: "running" },
     ],
     messages: [
       { role: "user",      text: "Sirius, what's standup looking like?" },
@@ -74,10 +74,10 @@ const SHOT_BY_ID: Record<string, WorkflowShotProps> = {
     trigger: "Per meeting",
     runsMeta: "96 runs",
     steps: [
-      { id: "watch",  type: "WATCH",  title: "Watch the calendar", col: 0, next: ["gather"], state: "done" },
-      { id: "gather", type: "GATHER", title: "Gather the thread",  col: 1, next: ["brief"],  state: "done" },
-      { id: "brief",  type: "BRIEF",  title: "Write the brief",    col: 2, next: ["land"],   state: "done" },
-      { id: "land",   type: "LAND",   title: "Land it in inbox",   col: 3, next: [],          state: "done" },
+      { id: "watch",  type: "CALENDAR",     title: "Watch the calendar",   col: 0, next: ["gather"], state: "done" },
+      { id: "gather", type: "HTTP REQUEST", title: "Gather the thread",    col: 1, next: ["brief"],  state: "done" },
+      { id: "brief",  type: "LLM",          title: "Write the brief",      col: 2, next: ["land"],   state: "done" },
+      { id: "land",   type: "GMAIL",        title: "Land it in your inbox", col: 3, next: [],         state: "done" },
     ],
     messages: [
       { role: "user",      text: "Sirius, what's the 14:00?" },
@@ -97,10 +97,10 @@ const SHOT_BY_ID: Record<string, WorkflowShotProps> = {
     trigger: "Daily 07:00",
     runsMeta: "140 runs",
     steps: [
-      { id: "subscribe", type: "SUBSCRIBE", title: "Watch the sources",   col: 0, next: ["filter"],  state: "done" },
-      { id: "filter",    type: "FILTER",    title: "Filter to signal",    col: 1, next: ["compare"], state: "done" },
-      { id: "compare",   type: "COMPARE",   title: "Compare the conflicts", col: 2, next: ["digest"], state: "running" },
-      { id: "digest",    type: "DIGEST",    title: "Write the digest",    col: 3, next: [],           state: "idle" },
+      { id: "subscribe", type: "HTTP REQUEST", title: "Pull the sources",      col: 0, next: ["filter"],  state: "done" },
+      { id: "filter",    type: "RUN PYTHON",   title: "Filter to signal",      col: 1, next: ["compare"], state: "done" },
+      { id: "compare",   type: "LLM",          title: "Compare the conflicts", col: 2, next: ["digest"],  state: "running" },
+      { id: "digest",    type: "LLM",          title: "Write the digest",      col: 3, next: [],           state: "idle" },
     ],
     messages: [
       { role: "user",      text: "Sirius, what's worth knowing this morning?" },

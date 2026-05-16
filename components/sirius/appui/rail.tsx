@@ -1,4 +1,4 @@
-import { OrbGlyph } from "./orb-glyph";
+import { Orb } from "@/components/sirius/orb";
 import { AppIcon } from "./app-icon";
 import type { AppIconName } from "./app-icon";
 
@@ -56,7 +56,9 @@ export function Rail({ active = "flows" }: { active?: string }) {
               borderRadius: "0 10px 10px 0",
             }}
           >
-            <OrbGlyph size={32} hue="cool" />
+            <div style={{ width: 32, height: 32, borderRadius: 9999, overflow: "hidden", flexShrink: 0 }}>
+                <Orb className="!h-full !w-full" staticRender />
+              </div>
             {homeActive && (
               <span
                 aria-hidden

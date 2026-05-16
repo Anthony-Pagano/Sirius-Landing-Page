@@ -177,6 +177,9 @@ export function DagMini({ steps }: { steps: DagStep[] }) {
                   letterSpacing: "0.12em",
                   textTransform: "uppercase",
                   fontWeight: 500,
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
                 }}
               >
                 {s.type}
